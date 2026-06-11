@@ -25,16 +25,6 @@ function BulletTooltip({ children, tip }) {
 
 const services = [
   {
-    image: "/UserResearch.png",
-    title: "Research & Strategy",
-    bullets: [
-      { txt: "Stakeholder interviews",  tip: "In-depth discussions to align business goals with user needs." },
-      { txt: "Persona & journey mapping", tip: "Visualize user behavior to uncover pain-points & opportunities." },
-      { txt: "Usability studies", tip: "Observe real users to validate or refine product decisions." },
-      { txt: "Product strategy", tip: "Prioritise features and define KPIs for measurable impact." },
-    ],
-  },
-  {
     image: "/DesignSystem.png",
     title: "Design & Prototyping",
     bullets: [
@@ -44,24 +34,38 @@ const services = [
       { txt: "User testing", tip: "Task-based sessions to refine UX and boost conversion." },
     ],
   },
+
   {
     image: "/InterfaceDesign.png",
-    title: "Development",
+    title: "Shopify Development",
     bullets: [
-      { txt: "Frontend & backend dev", tip: "Pixel-perfect React / Next.js paired with robust Node or Python APIs." },
-      { txt: "API & cloud integration", tip: "Serverless, micro-services and third-party integrations." },
-      { txt: "3rd Party Integration solutions", tip: "Platform powered features that sync data in real time." },
-      { txt: "Performance optimization", tip: "Sub-second load times and perfect Lighthouse scores." },
+      { txt: "Custom Theme Development", tip: "Conversion-focused themes built for brand and speed." },
+      { txt: "Headless & Next.js / Hydrogen", tip: "Decoupled storefronts for performance and flexibility." },
+      { txt: "Shopify App Development", tip: "Embedded and private apps to extend store capability." },
+      { txt: "Integrations & Automation", tip: "Connect Shopify to CRM, email and business systems." },
     ],
   },
+
+  {
+    image: "/UserResearch.png",
+    title: "WordPress Development",
+    bullets: [
+      { txt: "Custom Theme Development", tip: "Pixel-perfect WordPress themes built from scratch." },
+      { txt: "Headless WordPress (Next.js)", tip: "Decoupled architectures for modern frontends and speed." },
+      { txt: "Plugin & WooCommerce Extensions", tip: "Custom plugins and commerce features built to spec." },
+      { txt: "Integrations & Automation", tip: "Connect WordPress to CRMs, email and business tools." },
+    ],
+  },
+
   {
     image: "/Prototyping.png",
-    title: "AI & Automation",
+    title: "Custom Web Development",
     bullets: [
-      { txt: "LLM integration & fine-tuning", tip: "Custom models that speak your brand voice." },
-      { txt: "Custom chatbots & voice agents", tip: "24/7 support across web, mobile and smart speakers." },
-      { txt: "Process automation & RPA", tip: "Save hours by automating repetitive workflows." },
-      { txt: "Predictive analytics dashboards", tip: "Turn data into foresight with real-time ML insights." },
+      { txt: "Custom website development", tip: "Bespoke sites tailored to your brand and goals." },
+      { txt: "Full-stack web applications", tip: "React, Next.js, Node and modern backend architectures." },
+      { txt: "Scalable web solutions", tip: "Architecture and ops that grow with your product." },
+      { txt: "API development & integrations", tip: "Robust APIs and third-party integrations for data flow." },
+      { txt: "Performance optimization", tip: "Speed, caching and CI practices to maximise performance." },
     ],
   },
 ];
