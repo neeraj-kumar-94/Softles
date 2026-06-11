@@ -210,7 +210,7 @@ export default function OurTeamSection() {
   return (
     <section
       id="about"
-      className="relative w-full pb-20 md:pt-10 md:pb-28"
+      className="relative w-full py-12 md:py-20 border-t border-[#2a2e40] bg-[#191C26]" 
     >
       {/* Background effects */}
       {/* <div className="absolute inset-0 pointer-events-none">
@@ -306,7 +306,7 @@ export default function OurTeamSection() {
               // Tablet & Desktop: Grouped slides (multiple items per slide)
               slideGroups.map((group, groupIndex) => (
                 <SwiperSlide key={groupIndex}>
-                  <div className="flex gap-1 md:gap-6 justify-center items-stretch p-0 md:p-3">
+                  <div className="flex gap-1 md:gap-6 justify-center items-stretch p-0">
                     {group.map((member, idx) =>
                       member.isSpecial
                         ? renderMoreMembersCard(member, `more-${groupIndex}-${idx}`)

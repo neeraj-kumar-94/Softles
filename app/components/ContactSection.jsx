@@ -54,7 +54,7 @@ export default function ContactSection() {
         )
     }
     return (
-        <section id="book-call" className="w-full py-12 md:py-20 px-0 bg-[#111319] flex flex-col justify-center place-content-between">
+        <section id="book-call" className="w-full py-12 md:py-20 px-0 flex flex-col justify-center place-content-between bg-[#12131c] border-t border-b border-[#2a2e40]">
             <div className="service-page-container mx-auto w-full flex flex-col gap-12">
                 <div className="flex flex-col">
                     <div className="flex items-center text-base font-normal text-[#FFFFFF]">

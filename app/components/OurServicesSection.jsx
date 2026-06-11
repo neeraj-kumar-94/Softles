@@ -65,7 +65,6 @@ const services = [
       { txt: "Full-stack web applications", tip: "React, Next.js, Node and modern backend architectures." },
       { txt: "Scalable web solutions", tip: "Architecture and ops that grow with your product." },
       { txt: "API development & integrations", tip: "Robust APIs and third-party integrations for data flow." },
-      { txt: "Performance optimization", tip: "Speed, caching and CI practices to maximise performance." },
     ],
   },
 ];
@@ -192,12 +191,12 @@ function MobileStackCarousel({ services }) {
                 className="rounded-full"
               />
             </div>
-            <h3 className="text-2xl font-bold mb-4 text-left text-white">{services[active].title}</h3>
+            <h3 className="text-xl font-bold mb-4 text-left text-white">{services[active].title}</h3>
             <ul className="w-full flex flex-col gap-5">
               {services[active].bullets.map((b, i) => (
                 <li
                   key={i}
-                  className="relative pl-10 py-2 bg-[#23263a]/60 rounded-lg text-base text-[#F3F4F6] font-medium shadow-sm border border-[#23263a] text-left hover:border-[#DC4242] transition-all duration-200"
+                  className="relative pl-10 py-2 bg-[#23263a]/60 rounded-lg text-sm text-[#F3F4F6] font-medium shadow-sm border border-[#23263a] text-left hover:border-[#DC4242] transition-all duration-200"
                 >
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-5 h-5 rounded-full bg-[#DC4242] text-white text-xs font-bold shadow-md">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
@@ -271,7 +270,7 @@ function MobileStackCarousel({ services }) {
 
 export default function OurServicesSection() {
   return (
-    <section id="services" className="w-full py-12 md:py-20 px-0 flex flex-col justify-center place-content-between overflow-hidden bg-[#191C26]">
+    <section id="services" className="w-full py-12 md:pt-20 md:pb-24 px-0 flex flex-col justify-center place-content-between overflow-hidden border-t border-[#2a2e40] bg-[#191C26]">
       <div className="service-page-container mx-auto w-full flex flex-col">
         <div className="relative z-10 flex flex-col">
           <div className="flex items-center text-base font-normal text-[#FFFFFF]">
@@ -336,7 +335,7 @@ export default function OurServicesSection() {
                 transition: { duration: 0.3 }
               }}
               viewport={{ once: true }}
-              className="group cursor-pointer bg-gradient-to-br from-[#23263a] to-[#181B23] rounded-2xl shadow-2xl p-8 flex flex-col items-start transition-all duration-500 relative min-h-[320px] border border-[#2a2e40] hover:border-[#DC4242]/40"
+              className="group cursor-pointer bg-gradient-to-br from-[#23263a] to-[#181B23] rounded-2xl shadow-2xl p-4 flex flex-col items-start transition-all duration-500 relative min-h-[320px] border border-[#2a2e40] hover:border-[#DC4242]/40"
               style={{
                 zIndex: stackOrder,
                 transformStyle: 'preserve-3d',
@@ -370,7 +369,7 @@ export default function OurServicesSection() {
                     transition={{ delay: idx * 0.1 + i * 0.05 }}
                     viewport={{ once: true }}
                     whileHover={{ x: 5 }}
-                    className="relative pl-10 py-2 bg-[#23263a]/60 rounded-lg text-base text-[#F3F4F6] font-medium shadow-sm border border-[#23263a] hover:border-[#DC4242] hover:bg-[#23263a]/80 transition-all duration-300 text-left group/bullet"
+                    className="relative pl-10 py-2 bg-[#23263a]/60 rounded-lg text-sm text-[#F3F4F6] font-medium shadow-sm border border-[#23263a] hover:border-[#DC4242] hover:bg-[#23263a]/80 transition-all duration-300 text-left group/bullet"
                   >
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-5 h-5 rounded-full bg-[#DC4242] text-white text-xs font-bold shadow-md group-hover/bullet:scale-110 transition-transform duration-300">
                       <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
