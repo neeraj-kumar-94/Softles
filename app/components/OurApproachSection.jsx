@@ -57,7 +57,7 @@ export default function OurApproachSection() {
             <div className="service-page-container mx-auto w-full flex flex-col">
                 <div className="flex flex-col">
                     <div className="flex items-center text-base font-normal text-[#FFFFFF]">
-                        <Image src={Separator} className="mr-[10px]" alt="separator"/>
+                        <Image src={Separator} alt="separator" width={0} height={0} sizes="(max-width: 768px) 20vw, (max-width: 1024px) 10vw, 6vw" className="object-cover overflow-hidden h-[2px] w-auto mr-[10px]"/>
                         <p className="text-sm uppercase tracking-[0.2em] text-[#BCC1CA]">
                             Our Approach
                         </p>
