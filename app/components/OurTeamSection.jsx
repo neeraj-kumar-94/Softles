@@ -224,8 +224,8 @@ export default function OurTeamSection() {
       <div className="service-page-container mx-auto flex flex-col">
         {/* Header */}
         <div className="flex flex-col">
-          <div className="flex items-center text-base font-normal text-[#FFFFFF]">
-            <Image src={"/Separator.png"} alt="separator"  width={0} height={0} sizes="(max-width: 768px) 40vw, (max-width: 1024px) 50vw, 33vw" className="object-cover overflow-hidden min-w-min h-[2px] mr-[10px]" />
+            <div className="flex items-center text-base font-normal text-[#FFFFFF]">
+            <Image src={"/Separator.png"} alt="separator"  width={0} height={0} sizes="(max-width: 768px) 40vw, (max-width: 1024px) 50vw, 33vw" className="object-cover overflow-hidden min-w-min h-[2px] w-auto mr-[10px]" />
             <p className="text-sm uppercase tracking-[0.2em] text-[#BCC1CA]">
               Meet the team
             </p>

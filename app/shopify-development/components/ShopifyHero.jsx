@@ -28,7 +28,7 @@ export default function ShopifyHero() {
   }, []);
 
   return (
-    <section className="snap-start relative w-full flex items-center justify-center pt-5 pb-20 md:pt-10 md:pb-28 overflow-hidden bg-gradient-to-br from-[#191C26] via-[#23263a] to-[#111319]">
+    <section className="relative pt-24 pb-12 w-full sm:h-[calc(100vh-60px)] flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#191C26] via-[#23263a] to-[#111319]">
       <div
         ref={blobRef}
         className="pointer-events-none fixed z-0"
@@ -47,8 +47,8 @@ export default function ShopifyHero() {
         aria-hidden="true"
       />
 
-      <div className="service-page-container flex flex-col items-center justify-center w-full lg:my-10 z-10">
-        <div className="relative flex flex-col-reverse lg:flex-row items-center justify-center w-full gap-8 lg:gap-20">
+      <div className="service-page-container flex flex-col items-center justify-center w-full h-full z-10">
+        <div className="relative flex flex-col-reverse lg:flex-row items-center justify-center w-full h-full gap-8 lg:gap-10">
           <div className="flex-1 flex flex-col items-center lg:items-start justify-center max-w-2xl text-center lg:text-left">
             <div className="flex flex-col sm:flex-row items-center mb-3 md:mb-6 gap-2 sm:gap-0">
               <span className="hidden sm:block w-12 h-0.5 bg-[#F5F6FA] sm:mr-4 shrink-0" />

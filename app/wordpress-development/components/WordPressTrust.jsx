@@ -50,17 +50,72 @@ export default function WordPressTrust() {
           {advantages.map((item, idx) => (
             <div
               key={idx}
-              className="bg-[#181B23] border border-[#2a2e40] rounded-2xl p-5 sm:p-8 hover:border-[#3a4052] hover:bg-[#1a1e2a] transition-all duration-300"
+              className="
+                group
+                bg-[#181B23]
+                border border-[#2a2e40]
+                rounded-2xl
+                p-5 sm:p-8
+
+                transition-all duration-300 ease-out
+
+                hover:-translate-y-2
+                hover:border-[#DC4242]/50
+                hover:bg-[#1a1e2a]
+                hover:shadow-[0_15px_40px_rgba(220,66,66,0.15)]
+              "
             >
-              <div className="w-12 h-12 bg-[rgba(220,66,66,0.1)] border border-[rgba(220,66,66,0.25)] rounded-lg flex items-center justify-center mb-4 text-xl">
+
+              <div
+                className="
+                  w-12 h-12
+                  bg-[rgba(220,66,66,0.1)]
+                  border border-[rgba(220,66,66,0.25)]
+                  rounded-lg
+                  flex items-center justify-center
+                  mb-4
+                  text-xl
+
+                  transition-all duration-300
+
+                  group-hover:scale-110
+                  group-hover:bg-[rgba(220,66,66,0.2)]
+                  group-hover:border-[#DC4242]/50
+                  group-hover:rotate-3
+                "
+              >
                 {item.icon}
               </div>
-              <h3 className="text-[#FFFFFF] font-semibold text-base mb-2">
+
+              <h3
+                className="
+                  text-[#FFFFFF]
+                  font-semibold
+                  text-base
+                  mb-2
+
+                  transition-colors duration-300
+
+                  group-hover:text-[#DC4242]
+                "
+              >
                 {item.title}
               </h3>
-              <p className="text-[#BCC1CA]/70 text-sm leading-relaxed">
+
+              <p
+                className="
+                  text-[#BCC1CA]/70
+                  text-sm
+                  leading-relaxed
+
+                  transition-colors duration-300
+
+                  group-hover:text-[#FFFFFF]/80
+                "
+              >
                 {item.desc}
               </p>
+
             </div>
           ))}
         </div>

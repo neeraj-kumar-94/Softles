@@ -64,8 +64,8 @@ export default function TestimonialsSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#191C26]/80 to-[#23263a]/90 pointer-events-none -z-10" />
       <div className="service-page-container mx-auto w-full">
         <div className="flex flex-col">
-          <div className="flex items-center text-base font-normal text-[#FFFFFF]">
-            <Image src={"/Separator.png"} alt="separator" width={0} height={0} sizes="(max-width: 768px) 40vw, (max-width: 1024px) 50vw, 33vw" className="object-cover overflow-hidden min-w-min h-[2px] mr-[10px]" />
+            <div className="flex items-center text-base font-normal text-[#FFFFFF]">
+            <Image src={"/Separator.png"} alt="separator" width={0} height={0} sizes="(max-width: 768px) 40vw, (max-width: 1024px) 50vw, 33vw" className="object-cover overflow-hidden min-w-min h-[2px] w-auto mr-[10px]" />
             <p className="text-sm uppercase tracking-[0.2em] text-[#BCC1CA]">Testimonials</p>
           </div>
 

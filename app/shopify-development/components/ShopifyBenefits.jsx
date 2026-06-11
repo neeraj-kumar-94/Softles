@@ -74,14 +74,76 @@ export default function ShopifyBenefits() {
 
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
             {benefits.map((benefit, idx) => (
-              <div key={idx} className="flex flex-col gap-3">
-                <div className="text-2xl">{benefit.icon}</div>
-                <h4 className="text-[#FFFFFF] font-semibold text-sm">
+              <div
+                key={idx}
+                className="
+                  group
+                  flex flex-col gap-3
+                  p-5
+                  rounded-xl
+                  border border-transparent
+
+                  bg-[#181B23]/40
+
+                  transition-all duration-300 ease-out
+
+                  hover:-translate-y-1
+                  hover:bg-[#181B23]
+                  hover:border-[#2a2e40]
+                  hover:shadow-[0_10px_30px_rgba(0,0,0,0.25)]
+                "
+              >
+
+                <div
+                  className="
+                    w-10 h-10
+                    rounded-lg
+                    flex items-center justify-center
+                    text-2xl
+
+                    bg-[rgba(220,66,66,0.08)]
+                    border border-[rgba(220,66,66,0.15)]
+
+                    transition-all duration-300
+
+                    group-hover:scale-110
+                    group-hover:bg-[rgba(220,66,66,0.15)]
+                    group-hover:border-[rgba(220,66,66,0.4)]
+                  "
+                >
+                  {benefit.icon}
+                </div>
+
+
+                <h4
+                  className="
+                    text-[#FFFFFF]
+                    font-semibold
+                    text-sm
+
+                    transition-colors duration-300
+
+                    group-hover:text-[#DC4242]
+                  "
+                >
                   {benefit.title}
                 </h4>
-                <p className="text-[#BCC1CA]/70 text-sm leading-relaxed">
+
+
+                <p
+                  className="
+                    text-[#BCC1CA]/70
+                    text-sm
+                    leading-relaxed
+
+                    transition-colors duration-300
+
+                    group-hover:text-[#FFFFFF]/80
+                  "
+                >
                   {benefit.desc}
                 </p>
+
               </div>
             ))}
           </div>

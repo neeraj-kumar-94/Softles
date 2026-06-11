@@ -38,13 +38,100 @@ export default function WordPressTechStack() {
           {techs.map((tech, idx) => (
             <div
               key={idx}
-              className="bg-[#181B23] border border-[#2a2e40] rounded-2xl p-7 text-center hover:border-[rgba(220,66,66,0.4)] hover:bg-[rgba(220,66,66,0.05)] transition-all duration-300"
+              className="
+                group
+                relative
+                bg-[#181B23]
+                border border-[#2a2e40]
+                rounded-2xl
+                p-7
+                text-center
+                overflow-hidden
+
+                transition-all duration-300 ease-out
+
+                hover:-translate-y-2
+                hover:border-[rgba(220,66,66,0.5)]
+                hover:bg-[#1a1e2a]
+                hover:shadow-[0_15px_40px_rgba(220,66,66,0.12)]
+              "
             >
-              <div className="text-3xl mb-3">{tech.icon}</div>
-              <h4 className="font-semibold text-[#FFFFFF] text-sm mb-1">
-                {tech.name}
-              </h4>
-              <p className="text-[#BCC1CA]/60 text-xs">{tech.desc}</p>
+
+              {/* Glow Effect */}
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-[radial-gradient(circle_at_top,rgba(220,66,66,0.15),transparent_60%)]
+                  opacity-0
+                  transition-opacity
+                  duration-300
+                  group-hover:opacity-100
+                "
+              />
+
+
+              {/* Content */}
+              <div className="relative z-10">
+
+                <div
+                  className="
+                    w-14 h-14
+                    mx-auto
+                    mb-4
+                    rounded-xl
+
+                    flex
+                    items-center
+                    justify-center
+
+                    bg-[rgba(220,66,66,0.08)]
+                    border border-[rgba(220,66,66,0.2)]
+
+                    text-3xl
+
+                    transition-all duration-300
+
+                    group-hover:scale-110
+                    group-hover:bg-[rgba(220,66,66,0.15)]
+                    group-hover:border-[rgba(220,66,66,0.5)]
+                  "
+                >
+                  {tech.icon}
+                </div>
+
+
+                <h4
+                  className="
+                    font-semibold
+                    text-[#FFFFFF]
+                    text-sm
+                    mb-1
+
+                    transition-colors duration-300
+
+                    group-hover:text-[#DC4242]
+                  "
+                >
+                  {tech.name}
+                </h4>
+
+
+                <p
+                  className="
+                    text-[#BCC1CA]/60
+                    text-xs
+
+                    transition-colors duration-300
+
+                    group-hover:text-[#FFFFFF]/80
+                  "
+                >
+                  {tech.desc}
+                </p>
+
+              </div>
+
             </div>
           ))}
         </div>
