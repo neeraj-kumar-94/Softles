@@ -1,6 +1,8 @@
 import { client } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanityImage";
 
+export const revalidate = 60;
+
 export default async function BlogPage() {
   const posts = await client.fetch(`
     *[_type == "post"] | order(publishedAt desc){

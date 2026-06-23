@@ -2,6 +2,8 @@ import { client } from "@/lib/sanity";
 import { urlFor } from "@/lib/sanityImage";
 import { PortableText } from "@portabletext/react";
 
+export const revalidate = 60;
+
 export default async function BlogDetail({ params }) {
   const post = await client.fetch(
     `
@@ -117,7 +119,7 @@ export default async function BlogDetail({ params }) {
               {post.excerpt}
             </p>
           )} 
-          
+
         <div className="text-[#BCC1CA] space-y-4 [ &>h2 ]:text-white [ &>h2 ]:text-2xl [ &>h2 ]:font-bold">
         <PortableText value={post.body} />
         </div>
