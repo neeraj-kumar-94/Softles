@@ -19,7 +19,7 @@ export default async function BlogPage() {
   const [featured, ...rest] = posts || [];
 
   return (
-    <section className="softles-section-primary" id="blog">
+    <section className="softles-section-primary" id="blogs">
       <div className="service-page-container">
         {/* Section Header */}
         <div className="text-center mb-12">
@@ -39,7 +39,7 @@ export default async function BlogPage() {
         {/* Featured Post */}
         {featured && (
           <a
-            href={`/blog/${featured.slug?.current}`}
+            href={`/blogs/${featured.slug?.current}`}
             className="softles-card group grid grid-cols-1 md:grid-cols-2 gap-0 overflow-hidden mb-10"
           >
             <div className="relative w-full h-64 md:h-full min-h-[280px] overflow-hidden">
@@ -106,7 +106,7 @@ export default async function BlogPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {rest.map((post) => (
             <a
-              href={`/blog/${post.slug?.current}`}
+              href={`/blogs/${post.slug?.current}`}
               key={post._id}
               className="softles-card group flex flex-col overflow-hidden"
             >
