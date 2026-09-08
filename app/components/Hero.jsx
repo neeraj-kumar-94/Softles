@@ -1,9 +1,22 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import CursorSpotlight from "./_components/CursorSpotlight";
 
 const clientLogos = ["/logo_1.png", "/logo_2.png", "/logo_3.png", "/logo_4.png", "/logo_5.png", "/logo_6.png", "/logo_7.png", "/logo_8.png", "/logo_9.png"];
+
+const EASE = [0.22, 1, 0.36, 1];
+
+// Above-the-fold cascade: eyebrow → heading → copy → CTAs → illustration.
+const fadeUp = {
+    hidden: { opacity: 0, y: 24 },
+    show: (i = 0) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.7, delay: 0.1 + i * 0.14, ease: EASE },
+    }),
+};
 
 export default function Hero() {
     const [showTooltip, setShowTooltip] = useState(false);
@@ -20,7 +33,7 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="snap-start relative min-h-screen lg:min-h-[92vh] w-full flex items-center justify-center pt-20 overflow-hidden bg-gradient-to-br from-[#0E1219] via-[#23263a] to-[#111319]"
+            className="relative min-h-screen lg:min-h-[92vh] w-full flex items-center justify-center pt-28 pb-14 lg:pt-32 lg:pb-16 overflow-hidden bg-gradient-to-br from-[#0E1219] via-[#23263a] to-[#111319]"
         >
             <CursorSpotlight />
             <div className="service-page-container flex flex-col items-center justify-center w-full lg:my-10">
@@ -28,55 +41,75 @@ export default function Hero() {
                     {/* Left Content */}
                     <div className="flex-1 flex flex-col items-center lg:items-start justify-center max-w-2xl text-center lg:text-left max-h-min min-h-10">
                         {/* Tagline eyebrow */}
-                        <div className="flex items-center mb-2 md:mb-6">
+                        <motion.div variants={fadeUp} initial="hidden" animate="show" custom={0} className="flex items-center mb-2 md:mb-6">
                             <span className="block w-12 h-0.5 bg-[#F5F6FA] mr-4" />
                             <span className="text-base text-[#C7CCD6] font-normal">Design-led. AI-accelerated.</span>
-                        </div>
+                        </motion.div>
                         {/* Main Heading */}
-                        <h1 className="relative font-extrabold text-[2rem] leading-[1.18] sm:text-5xl sm:leading-[1.14] lg:text-[52px] xl:text-[58px] lg:leading-[1.16] tracking-[-0.03em] text-[#F5F6FA]">
+                        <motion.h1 variants={fadeUp} initial="hidden" animate="show" custom={1} className="relative font-extrabold text-[2rem] leading-[1.18] sm:text-5xl sm:leading-[1.14] lg:text-[52px] xl:text-[58px] lg:leading-[1.16] tracking-[-0.03em] text-[#F5F6FA]">
                             We build businesses on{" "}
-                            <span className="softles-gradient-text">WordPress</span>
+                            <span className="hero-gradient-anim">WordPress</span>
                             <br className="hidden sm:block" /> &amp;{" "}
-                            <span className="softles-gradient-text">Shopify</span>
+                            <span className="hero-gradient-anim">Shopify</span>
                             <span className="text-[#FF4D57]">.</span>
-                        </h1>
+                        </motion.h1>
                         {/* Supporting Line */}
-                        <p className="text-[#C7CCD6] mt-5 mb-6 md:mb-10 text-base lg:text-lg leading-relaxed" style={{maxWidth: '46ch', lineHeight: 1.55}}>
+                        <motion.p variants={fadeUp} initial="hidden" animate="show" custom={2} className="text-[#C7CCD6] mt-5 mb-6 md:mb-10 text-base lg:text-lg leading-relaxed" style={{maxWidth: '46ch', lineHeight: 1.55}}>
                             We design and build custom WordPress and Shopify sites — fast storefronts, headless builds, apps, and the integrations that keep them running. AI helps us move quicker; it doesn&apos;t replace the craft.
-                        </p>
-                        {/* Primary CTA */}
-                        <div className="relative" onClick={e => handleClick(e, "book-call")}>
-                            <button
-                                className="group inline-flex items-center gap-2 rounded-full bg-[#FF4D57] px-7 md:px-8 py-3.5 md:py-4 text-sm md:text-base font-bold uppercase tracking-wide text-white shadow-lg shadow-[#FF4D57]/25 transition-all duration-300 hover:bg-[#E83A45] hover:shadow-[#FF4D57]/40 hover:-translate-y-0.5"
-                                onMouseEnter={() => setShowTooltip(true)}
-                                onMouseLeave={() => setShowTooltip(false)}
+                        </motion.p>
+                        {/* CTAs: primary + quiet secondary */}
+                        <motion.div variants={fadeUp} initial="hidden" animate="show" custom={3} className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7">
+                            <div className="relative" onClick={e => handleClick(e, "book-call")}>
+                                <button
+                                    className="softles-primary-button group whitespace-nowrap"
+                                    onMouseEnter={() => setShowTooltip(true)}
+                                    onMouseLeave={() => setShowTooltip(false)}
+                                >
+                                    <span>Book a Free Discovery Call</span>
+                                    <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1 shrink-0"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                                </button>
+                                {showTooltip && (
+                                    <span className="absolute left-1/2 -bottom-10 -translate-x-1/2 bg-[#23263a] text-white text-xs px-3 py-2 rounded shadow-lg z-20 whitespace-nowrap animate-fade-in">
+                                        30-minute free strategy session
+                                    </span>
+                                )}
+                            </div>
+                            <a
+                                href="#work"
+                                onClick={e => handleClick(e, "work")}
+                                className="text-[#C7CCD6] text-sm font-semibold border-b border-[#3a4052] pb-1 transition-colors duration-300 hover:text-white hover:border-[#FF4D57] whitespace-nowrap"
                             >
-                                <span>Book a Free Discovery Call</span>
-                                <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1 shrink-0"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                            </button>
-                            {showTooltip && (
-                                <span className="absolute left-1/2 -bottom-10 -translate-x-1/2 bg-[#23263a] text-white text-xs px-3 py-2 rounded shadow-lg z-20 whitespace-nowrap animate-fade-in">
-                                    30-minute free strategy session
-                                </span>
-                            )}
-                        </div>
+                                See our work →
+                            </a>
+                        </motion.div>
                     </div>
-                    {/* Right Illustration with diagonal divider */}
-                    <div className="flex-1 flex items-center justify-center w-full max-w-md lg:max-w-lg xl:max-w-xl lg:mt-0 relative">
-                        {/* Diagonal divider */}
-                        <svg className="hidden lg:block absolute -left-24 top-0 h-full w-48 z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-                            <polygon points="100,0 100,100 0,100" fill="#23263a" opacity="0.7" />
-                        </svg>
+                    {/* Right Illustration on a soft stage glow */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.9, delay: 0.5, ease: EASE }}
+                        className="flex-1 flex items-center justify-center w-full max-w-md lg:max-w-lg xl:max-w-xl lg:mt-0 relative"
+                    >
+                        {/* Warm radial glow behind the illustration */}
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute inset-0 -m-10 bg-[radial-gradient(50%_45%_at_50%_52%,rgba(255,77,87,0.14),transparent_70%)] blur-2xl"
+                        />
+                        {/* Ground shadow */}
+                        <div
+                            aria-hidden="true"
+                            className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 w-3/5 h-5 rounded-[50%] bg-black/40 blur-md"
+                        />
                         <Image
                             src={"/Container.png"}
                             alt="Creative design and development illustration"
                             width={0}
                             height={0}
                             sizes="(max-width: 768px) 40vw, (max-width: 1024px) 50vw, 33vw"
-                            className="w-72 h-[281px] md:w-[414px] md:h-[353px] drop-shadow-2xl animate-float relative z-20"
+                            className="w-72 md:w-[414px] h-auto drop-shadow-2xl animate-float relative z-20"
                             priority
                         />
-                    </div>
+                    </motion.div>
                 </div>
                 {/* Client Logo Rail - responsive */}
                 <div className="w-full mt-5 md:mt-14 z-20 flex flex-col gap-6 md:gap-8">
@@ -119,12 +152,27 @@ export default function Hero() {
 
                 </div>
             </div>
-            {/* Decorative Background Elements — warm accent + cool secondary glow */}
-            <div className="absolute -top-10 -left-10 w-[26rem] h-[26rem] bg-[#FF4D57]/25 rounded-full blur-3xl -z-10" />
-            <div className="absolute bottom-0 right-0 w-[30rem] h-[30rem] bg-[#6D5EF6]/25 rounded-full blur-3xl -z-10" />
-            <div className="absolute top-1/3 right-1/3 w-80 h-80 bg-[#FF4D57]/12 rounded-full blur-3xl -z-10" />
-            <div className="absolute inset-0 bg-gradient-to-br from-[#FF4D57]/[0.06] via-transparent to-[#6D5EF6]/[0.10] pointer-events-none -z-10" />
+            {/* Decorative background — restrained: one warm + one cool glow */}
+            <div className="absolute -top-16 -left-16 w-[26rem] h-[26rem] bg-[#FF4D57]/[0.12] rounded-full blur-3xl -z-10" />
+            <div className="absolute -bottom-20 -right-10 w-[30rem] h-[30rem] bg-[#6D5EF6]/[0.10] rounded-full blur-3xl -z-10" />
             <style jsx global>{`
+                .hero-gradient-anim {
+                    display: inline-block;
+                    background: linear-gradient(90deg, #FF4D57, #FF6A3D, #FF8A65, #FF4D57);
+                    background-size: 250% 100%;
+                    -webkit-background-clip: text;
+                    background-clip: text;
+                    color: transparent;
+                    padding-bottom: 0.14em;
+                    margin-bottom: -0.14em;
+                    animation: hero-gradient-sweep 6s linear infinite;
+                }
+                @keyframes hero-gradient-sweep {
+                    to { background-position: 250% 0; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .hero-gradient-anim { animation: none; }
+                }
                 @keyframes pulse-slow {
                     0%, 100% { opacity: 1; }
                     50% { opacity: 0.7; }

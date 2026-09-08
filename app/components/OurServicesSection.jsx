@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { enter, EASE } from "./_components/motion-presets";
 
 const MotionLink = motion(Link);
 
@@ -130,7 +131,7 @@ function SpotlightCard({ service, idx }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0, transition: { duration: 0.55, delay: idx * 0.08, ease: "easeOut" } }}
+      whileInView={{ opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.25 + idx * 0.09, ease: EASE } }}
       whileHover={{ y: -5 }}
       whileTap={{ scale: 0.98 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -215,16 +216,16 @@ export default function OurServicesSection() {
     <section id="services" className="w-full py-12 md:pt-20 md:pb-24 overflow-hidden border-t border-[#2E3446] bg-[#0E1219]">
       <div className="service-page-container mx-auto w-full flex flex-col">
         <div className="flex flex-col">
-          <div className="softles-eyebrow mb-2">
+          <motion.div {...enter(0)} className="softles-eyebrow mb-2">
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Our services</span>
-          </div>
-          <span className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">
+          </motion.div>
+          <motion.span {...enter(1)} className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">
             What we do
-          </span>
-          <span className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
+          </motion.span>
+          <motion.span {...enter(2)} className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
             Design, development, and the automation that connects it all. Here&apos;s where we spend our time.
-          </span>
+          </motion.span>
         </div>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">

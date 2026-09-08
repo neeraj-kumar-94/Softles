@@ -30,9 +30,9 @@ export const projects = [
     services: ["Shopify theme development", "Subscriptions", "CRO", "Mobile UX"],
     tags: ["Shopify", "Subscriptions", "CRO"],
     pages: [
-      { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 1100, dH: 6587, mW: 440, mH: 10123 },
-      { label: "Subscription", d: "/work/brunswick-p1-d.jpg", m: "/work/brunswick-p1-m.jpg", dW: 1100, dH: 5722, mW: 440, mH: 12062 },
-      { label: "About", d: "/work/brunswick-p2-d.jpg", m: "/work/brunswick-p2-m.jpg", dW: 1100, dH: 3235, mW: 440, mH: 5748 },
+      { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 3760, dH: 16384, mW: 750, mH: 16384 },
+      { label: "Subscription", d: "/work/brunswick-p1-d.webp", m: "/work/brunswick-p1-m.jpg", dW: 3760, dH: 14788, mW: 732, mH: 16384 },
+      { label: "About", d: "/work/brunswick-p2-d.webp", m: "/work/brunswick-p2-m.webp", dW: 3760, dH: 8644, mW: 750, mH: 10938 },
     ],
   },
   {

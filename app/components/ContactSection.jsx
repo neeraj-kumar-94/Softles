@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { enter, fadeIn, viewportOnce } from "./_components/motion-presets";
 import Separator from "@/public/Separator.png";
 import React, { useState } from "react";
 import { trackEvent } from "@/lib/gtag";
@@ -45,21 +47,21 @@ export default function ContactSection() {
             <div className="service-page-container">
                 {/* Header */}
                 <div className="flex flex-col">
-                    <div className="flex items-center text-base font-normal text-[#FFFFFF]">
+                    <motion.div {...enter(0)} className="flex items-center text-base font-normal text-[#FFFFFF]">
                         <Image src={Separator} alt="separator" width={0} height={0} sizes="(max-width: 768px) 20vw, (max-width: 1024px) 10vw, 6vw" className="object-cover overflow-hidden h-[2px] w-auto mr-[10px]" />
                         <p className="text-sm uppercase tracking-[0.2em] text-[#C7CCD6]">
                             Get in touch
                         </p>
-                    </div>
-                    <span className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">Let&apos;s talk about your project</span>
-                    <span className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
+                    </motion.div>
+                    <motion.span {...enter(1)} className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">Let&apos;s talk about your project</motion.span>
+                    <motion.span {...enter(2)} className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
                         Tell us what you&apos;re building and we&apos;ll get back to you — usually within a day.
-                    </span>
+                    </motion.span>
                 </div>
 
                 <div className="mt-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-stretch">
                     {/* Photo panel */}
-                    <div className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[#2E3446] bg-gradient-to-br from-[#222A3B] to-[#12161F] min-h-[320px] sm:min-h-[400px] lg:min-h-0">
+                    <motion.div variants={fadeIn("left")} initial="hidden" whileInView="show" viewport={viewportOnce} className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[#2E3446] bg-gradient-to-br from-[#222A3B] to-[#12161F] min-h-[320px] sm:min-h-[400px] lg:min-h-0">
                         <Image
                             src="/shakti-hover.jpg"
                             alt="Shakti Singh, Strategy Lead at SoftLes"
@@ -83,10 +85,10 @@ export default function ContactSection() {
                                 Your message lands directly with me — no sales reps, no hand-offs.
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
 
                     {/* Form + direct contact */}
-                    <div className="lg:col-span-3 softles-card p-6 sm:p-8 flex flex-col gap-6">
+                    <motion.div variants={fadeIn("right")} initial="hidden" whileInView="show" viewport={viewportOnce} custom={1} className="lg:col-span-3 softles-card p-6 sm:p-8 flex flex-col gap-6">
                     <form onSubmit={handleSubmit} className="flex flex-col gap-4" autoComplete="off">
                         {status === "sent" ? (
                             <div className="flex flex-col items-center justify-center text-center py-10 gap-3">
@@ -141,7 +143,7 @@ export default function ContactSection() {
                             Or tap the WhatsApp button in the corner — it&apos;s the fastest way to reach us.
                         </p>
                     </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

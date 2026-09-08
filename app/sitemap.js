@@ -9,6 +9,8 @@ export default function sitemap() {
     { path: "/", priority: 1.0, changeFrequency: "weekly" },
     { path: "/shopify-development", priority: 0.9, changeFrequency: "monthly" },
     { path: "/wordpress-development", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/design-prototyping", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/integrations-automation", priority: 0.9, changeFrequency: "monthly" },
     ...projects.map((p) => ({
       path: `/work/${p.slug}`,
       priority: 0.7,

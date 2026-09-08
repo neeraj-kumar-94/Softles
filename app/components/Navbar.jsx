@@ -7,8 +7,10 @@ import { MobileSidebar } from "./_components/mobile-sidebar";
 import { useEffect, useState, useRef } from "react";
 
 const navLinks = [
+    { label: "Design", href: "/design-prototyping" },
     { label: "WordPress", href: "/wordpress-development" },
     { label: "Shopify", href: "/shopify-development" },
+    { label: "Integrations", href: "/integrations-automation" },
     { label: "Blog", href: "/blog" },
 ];
 
@@ -103,8 +105,16 @@ export default function Navbar() {
                             >
                                 <span
                                     aria-hidden="true"
-                                    className="absolute inset-y-0 rounded-full bg-white/[0.08] transition-all duration-300 ease-out pointer-events-none"
-                                    style={{ left: pill.x, width: pill.w, opacity: pill.visible ? 1 : 0 }}
+                                    className="absolute inset-y-0 rounded-full pointer-events-none [transition:left_0.35s_cubic-bezier(0.34,1.4,0.4,1),width_0.35s_cubic-bezier(0.34,1.4,0.4,1),opacity_0.25s_ease]"
+                                    style={{
+                                        left: pill.x,
+                                        width: pill.w,
+                                        opacity: pill.visible ? 1 : 0,
+                                        background:
+                                            "radial-gradient(60% 55% at 50% 100%, rgba(255,77,87,0.22), transparent 70%), linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04))",
+                                        boxShadow:
+                                            "inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.06), 0 4px 14px rgba(0,0,0,0.25)",
+                                    }}
                                 />
                                 {navLinks.map((link) => {
                                     const active = isActive(link.href);

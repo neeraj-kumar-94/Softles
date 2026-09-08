@@ -1,100 +1,108 @@
 "use client";
 
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Empathize from "@/public/Empathize.png";
+import Define from "@/public/Define.png";
+import Ideate from "@/public/Ideate.png";
+import Prototype from "@/public/Prototype.png";
+import Test from "@/public/Test.png";
+import ServiceCard from "./ServiceCard";
+import StepConnector from "./StepConnector";
+import useStepSequence from "./useStepSequence";
+
+const EASE = [0.22, 1, 0.36, 1];
+
+// Generic process icons, mapped to steps by position (same set as the
+// homepage "Our Approach" section).
+const stepIcons = [Empathize, Define, Ideate, Prototype, Test];
+
+// Homepage "Our Approach" UI, reused across service pages:
+// desktop — overlapping circle cards; mobile/tablet — icon card stack.
 export default function ProcessSteps({ steps }) {
+  const flow = useStepSequence(steps.length);
+
   return (
     <>
-      {/* Mobile & tablet: vertical timeline */}
-      <div className="flex flex-col gap-0 lg:hidden">
-        {steps.map((step, idx) => (
-          <div key={step.num ?? idx} className="flex gap-4 sm:gap-5 group">
-            <div className="flex flex-col items-center">
-              <div className="w-10 h-10 shrink-0 rounded-xl bg-[#0E1219] border border-[#2E3446] flex items-center justify-center group-hover:bg-[#FF4D57]/10 group-hover:border-[#FF4D57]/30 transition-all duration-300">
-                <span className="font-bold text-[#C7CCD6]/80 text-xs sm:text-sm group-hover:text-[#FF4D57] transition-colors">
-                  {step.num}
-                </span>
-              </div>
-              {idx < steps.length - 1 && (
-                <div className="w-px flex-1 min-h-[32px] bg-[#2E3446]/60 my-2" />
-              )}
-            </div>
-
-            <div className="flex-1 pb-8">
-              <div className="softles-card p-5">
-                <h3 className="font-bold text-white text-base mb-2 transition-colors duration-300">
-                  {step.title}
-                </h3>
-                <p className="text-[#C7CCD6]/70 text-xs sm:text-sm leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Desktop: horizontal timeline */}
-      <div className="relative hidden lg:flex gap-0">
-        {/* Continuous Solid Structural Guide Line */}
-        <div className="absolute top-5 left-[10%] right-[10%] h-px bg-[#2E3446]/50 z-0" />
-
-        <div className="flex w-full gap-4 relative z-10">
+      {/* Mobile & tablet: card stack */}
+      <div className="block xl:hidden w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {steps.map((step, idx) => (
-            <div key={step.num ?? idx} className="flex-1 flex flex-col items-center text-center group">
-              
-              {/* Number Container aligned with the grid language */}
-              <div
-                className="
-                  w-10 h-10 rounded-xl 
-                  bg-[#0E1219] 
-                  border border-[#2E3446]
-                  flex items-center justify-center
-                  mb-6 relative z-10
-                  transition-all duration-300
-                  group-hover:border-[#FF4D57]/30
-                  group-hover:bg-[#FF4D57]/10
-                "
-              >
-                <span
-                  className="
-                    font-bold text-[#C7CCD6]/80 text-sm
-                    transition-colors duration-300
-                    group-hover:text-[#FF4D57]
-                  "
-                >
-                  {step.num}
-                </span>
-              </div>
+            <motion.div
+              key={step.num ?? idx}
+              initial={{ opacity: 0, y: 32, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.55, delay: idx * 0.1, ease: EASE }}
+              className="group relative overflow-hidden flex flex-col gap-3 p-5 rounded-2xl bg-[#181B23] border border-[#2E3446] transition-all duration-300 hover:-translate-y-1 hover:border-[#FF4D57]/40 hover:bg-[#1a1e2a]"
+            >
+              {/* Glow */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,77,87,0.12),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              {/* Card - Symmetrical hover response with prior sections */}
-              <div
-                className="
-                  softles-card
-                  p-5
-                  w-full
-                  flex-1
-                "
-              >
-                <h3
-                  className="
-                    font-bold 
-                    text-white
-                    text-base
-                    mb-2.5
-                    transition-colors duration-300
-                    group-hover:text-[#FF4D57]
-                  "
-                >
+              <div className="relative z-10">
+                <div className="w-12 h-12 mb-3 rounded-xl flex items-center justify-center bg-[rgba(255,77,87,0.08)] border border-[rgba(255,77,87,0.25)] transition-all duration-300 group-hover:scale-110 group-hover:border-[#FF4D57]/50">
+                  <Image
+                    src={stepIcons[idx % stepIcons.length]}
+                    alt={`Process step icon for ${step.title}`}
+                    width={32}
+                    height={32}
+                  />
+                </div>
+
+                <span className="text-xs text-[#FF4D57] font-semibold uppercase tracking-wider">
+                  Step {step.num}
+                </span>
+
+                <h3 className="mt-1 text-lg font-semibold text-white leading-snug group-hover:text-[#FF4D57] transition-colors duration-300">
                   {step.title}
                 </h3>
 
-                <p className="text-[#C7CCD6]/70 text-xs sm:text-sm leading-relaxed">
+                <p className="mt-2 text-sm text-[#C7CCD6] leading-relaxed">
                   {step.desc}
                 </p>
               </div>
-
-            </div>
+            </motion.div>
           ))}
         </div>
+      </div>
+
+      {/* Desktop: overlapping circle cards */}
+      <div
+        ref={flow.ref}
+        onMouseLeave={() => flow.setHovered(null)}
+        className="relative w-full hidden xl:flex flex-wrap xl:flex-row justify-around xl:justify-between items-center gap-5 lg:gap-0 px-[10px] lg:px-0"
+      >
+        {steps.map((step, idx) => (
+          <motion.div
+            key={step.num ?? idx}
+            initial={{ opacity: 0, y: 48, scale: 0.85 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.65, delay: idx * 0.14, ease: EASE }}
+            onMouseEnter={() => flow.setHovered(idx)}
+            className="relative"
+            style={{ zIndex: steps.length - idx }}
+          >
+            <ServiceCard
+              link="#"
+              bg={idx % 2 === 0 ? "lg:bg-[#0E1219]" : "lg:bg-[#111319]"}
+              hover="hover:ring-2 hover:ring-[#FF4D57]/40 hover:scale-105"
+              zIndex={steps.length - idx}
+              source={stepIcons[idx % stepIcons.length]}
+              name={step.title}
+              alt={`${step.title} process step icon`}
+              step={step.num}
+              index={idx}
+              active={flow.activeIdx === idx}
+              reached={flow.played > idx}
+              dimmed={flow.hovered !== null && flow.hovered !== idx}
+              description={step.desc}
+            />
+            {idx < steps.length - 1 && (
+              <StepConnector lit={flow.played > idx + 1} />
+            )}
+          </motion.div>
+        ))}
       </div>
     </>
   );

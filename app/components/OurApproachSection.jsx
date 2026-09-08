@@ -7,8 +7,9 @@ import Define from "@/public/Define.png";
 import Ideate from "@/public/Ideate.png";
 import Prototype from "@/public/Prototype.png";
 import Test from "@/public/Test.png";
-import Separator from "@/public/Separator.png";
 import ServiceCard from "./_components/ServiceCard";
+import StepConnector from "./_components/StepConnector";
+import useStepSequence from "./_components/useStepSequence";
 
 export default function OurApproachSection() {
 
@@ -54,6 +55,8 @@ export default function OurApproachSection() {
             description: "We stick around after launch to fix things, make improvements, and help you grow."
         }
     ]
+
+    const flow = useStepSequence(processSteps.length);
 
     return (
         <section id="approach" className="relative overflow-hidden w-full py-12 md:py-32 px-0 flex flex-col justify-center place-content-between bg-[#161C27] border-t border-b border-[#2E3446]">
@@ -128,7 +131,11 @@ export default function OurApproachSection() {
             </div>
 
             {/* Desktop View - Original Layout */}
-            <div className="w-full hidden xl:flex flex-wrap xl:flex-row justify-around xl:justify-between items-center gap-5 lg:gap-0 mt-9 px-[10px] lg:px-0">
+            <div
+                ref={flow.ref}
+                onMouseLeave={() => flow.setHovered(null)}
+                className="relative w-full hidden xl:flex flex-wrap xl:flex-row justify-around xl:justify-between items-center gap-5 lg:gap-0 mt-9 px-[10px] lg:px-0"
+            >
                {
                  processSteps.map((step, index) => (
                     <motion.div
@@ -137,20 +144,28 @@ export default function OurApproachSection() {
                         whileInView={{ opacity: 1, y: 0, scale: 1 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ duration: 0.65, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
+                        onMouseEnter={() => flow.setHovered(index)}
                         className="relative"
                         style={{ zIndex: step.zIndex }}
                     >
                         <ServiceCard
                             link={step.link}
                             bg={index % 2 === 0 ? "lg:bg-[#0E1219]" : "lg:bg-[#111319]"}
-                            hover="hover:ring-2 hover:ring-[#FF4D57]/40 hover:scale-105 transition-all duration-200"
+                            hover="hover:ring-2 hover:ring-[#FF4D57]/40 hover:scale-105"
                             zIndex={step.zIndex}
                             source={step.image}
                             name={step.name}
                             alt={step.alt}
                             step={String(index + 1).padStart(2, "0")}
+                            index={index}
+                            active={flow.activeIdx === index}
+                            reached={flow.played > index}
+                            dimmed={flow.hovered !== null && flow.hovered !== index}
                             description={step.description}
                         />
+                        {index < processSteps.length - 1 && (
+                            <StepConnector lit={flow.played > index + 1} />
+                        )}
                     </motion.div>
                  ))
                }

@@ -30,6 +30,20 @@ h1, h2, h3,
         @apply w-full py-12 md:py-20 px-0 border-t border-[#2E3446] bg-[#0E1219];
     }
 
+    @keyframes pillFill {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+    }
+
+    @keyframes stepFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .step-float { animation: none !important; }
+    }
+
     .softles-section-secondary {
         @apply w-full py-12 md:py-20 px-0 border-t border-b border-[#2E3446] bg-[#161C27];
     }
@@ -79,6 +93,14 @@ h1, h2, h3,
     html {
         scroll-behavior: smooth;
     }
+}
+
+/* Inside a drag rail nothing should be natively draggable — otherwise
+   press-and-hold on a photo lifts the image instead of moving the rail. */
+.drag-rail,
+.drag-rail * {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

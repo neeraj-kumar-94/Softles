@@ -1,14 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import DeviceFrame from "./_components/DeviceFrame";
 import { projects } from "../work/projects";
 
-const CATEGORIES = ["All", "E-commerce", "SaaS", "Web app", "Website"];
+const AUTOPLAY_MS = 5000;
 
 const EASE = [0.22, 1, 0.36, 1];
+
+// Each slide's content plays its own cascade — on first view, and again every
+// time that slide becomes the active one.
+const cardStagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+};
+
+// The device never fully disappears — it just settles as its slide arrives.
+const cardDevice = {
+  hidden: { opacity: 0.5, scale: 0.985 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: EASE } },
+};
 
 // Header pieces cascade in one after another.
 const fadeUp = {
@@ -21,10 +39,16 @@ const fadeUp = {
 };
 
 export default function WorkShowcase() {
-  const [active, setActive] = useState("All");
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  // Bumped on every manual interaction/resume so the autoplay timer (and the
+  // pill's fill animation) restart from zero.
+  const [cycle, setCycle] = useState(0);
   const trackRef = useRef(null);
-  const shown = projects.filter((p) => active === "All" || p.category === active);
+  const navRef = useRef(null);
+  const indexRef = useRef(0);
+  const inView = useInView(trackRef, { once: true, margin: "-80px" });
+  const shown = projects;
 
   const slideTo = (i) => {
     const track = trackRef.current;
@@ -54,17 +78,39 @@ export default function WorkShowcase() {
         best = i;
       }
     });
+    indexRef.current = best;
     setIndex(best);
   };
 
-  const changeFilter = (c) => {
-    setActive(c);
-    setIndex(0);
-    requestAnimationFrame(() => trackRef.current?.scrollTo({ left: 0 }));
-  };
+  // Auto-advance. Restarts whenever the slide changes or the user interacts
+  // (index/cycle deps); paused while the pointer is over the slider.
+  useEffect(() => {
+    if (paused) return;
+    const id = setTimeout(() => {
+      if (document.hidden) return;
+      const track = trackRef.current;
+      if (!track) return;
+      const next = (indexRef.current + 1) % projects.length;
+      const slide = track.children[next];
+      if (slide) track.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
+    }, AUTOPLAY_MS);
+    return () => clearTimeout(id);
+  }, [index, cycle, paused]);
+
+  // Keep the active name pill in view on small screens.
+  useEffect(() => {
+    const nav = navRef.current;
+    const btn = nav?.children[index];
+    if (!nav || !btn) return;
+    if (nav.scrollWidth <= nav.clientWidth) return;
+    nav.scrollTo({
+      left: btn.offsetLeft - (nav.clientWidth - btn.offsetWidth) / 2,
+      behavior: "smooth",
+    });
+  }, [index]);
 
   return (
-    <section id="work" className="w-full py-14 md:py-24 bg-[#0E1219] overflow-hidden">
+    <section id="work" className="w-full py-12 md:py-20 bg-[#0E1219] overflow-hidden">
       <div className="service-page-container">
         {/* Header */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} custom={0} className="softles-eyebrow mb-3">
@@ -76,44 +122,55 @@ export default function WorkShowcase() {
           Real, live builds — e-commerce, SaaS products and business sites. Switch between desktop and mobile, flip through the pages, and hover to pause.
         </motion.p>
 
-        {/* Category filter */}
-        <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} custom={3} className="mt-7 flex flex-wrap gap-2">
-          {CATEGORIES.map((c) => (
+        {/* Project name navigation — full width, click to jump */}
+        <motion.div ref={navRef} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} custom={3} className="mt-5 flex w-full gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {projects.map((p, i) => (
             <button
-              key={c}
-              onClick={() => changeFilter(c)}
-              className={`rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wide border transition-colors ${
-                active === c
-                  ? "bg-[#FF4D57] border-[#FF4D57] text-white"
+              key={p.slug}
+              onClick={() => {
+                setCycle((c) => c + 1);
+                slideTo(i);
+              }}
+              className={`relative overflow-hidden shrink-0 lg:flex-1 whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-bold border transition-colors ${
+                index === i
+                  ? "border-[#FF4D57] text-white bg-[#FF4D57]/25"
                   : "bg-transparent border-[#2E3446] text-[#C7CCD6] hover:border-[#FF4D57]/50 hover:text-white"
               }`}
             >
-              {c}
+              {/* Autoplay progress fill on the active pill */}
+              {index === i && !paused && (
+                <span
+                  key={`${index}-${cycle}`}
+                  aria-hidden="true"
+                  className="absolute inset-0 origin-left bg-[#FF4D57] animate-[pillFill_5s_linear_forwards]"
+                />
+              )}
+              <span className="relative">{p.name}</span>
             </button>
           ))}
         </motion.div>
       </div>
 
-      {/* Slider */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-60px" }}
-        custom={4}
-        className="mt-12 service-page-container"
-      >
+      {/* Slider — the card frame is the stage; its contents do the arriving */}
+      <div className="mt-4 service-page-container">
         <div
           ref={trackRef}
           onScroll={handleScroll}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => {
+            setPaused(false);
+            setCycle((c) => c + 1);
+          }}
           className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {shown.map((p) => (
+          {shown.map((p, slideIdx) => {
+            const live = inView && index === slideIdx ? "show" : "hidden";
+            return (
             <div key={p.slug} className="snap-start shrink-0 w-full">
-              <div className="h-full rounded-3xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-5 sm:p-8 lg:p-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_50px_rgba(0,0,0,0.35)]">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+              <div className="h-full rounded-3xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-4 sm:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_50px_rgba(0,0,0,0.35)]">
+                <div className="grid lg:grid-cols-[1.3fr_0.9fr] gap-6 lg:gap-8 items-center">
                   {/* Devices on a soft stage glow */}
-                  <div className="group relative">
+                  <motion.div variants={cardDevice} initial="hidden" animate={live} className="group relative">
                     <div
                       aria-hidden="true"
                       className="pointer-events-none absolute -inset-8 bg-[radial-gradient(55%_45%_at_50%_55%,rgba(255,77,87,0.08),transparent_70%)] blur-2xl"
@@ -121,80 +178,95 @@ export default function WorkShowcase() {
                     <div className="relative">
                       <DeviceFrame project={p} />
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Content */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-4">
+                  <motion.div
+                    variants={cardStagger}
+                    initial="hidden"
+                    animate={live}
+                    className="relative h-full flex flex-col justify-center"
+                  >
+                    {/* Ghost slide numeral */}
+                    <motion.span
+                      variants={cardItem}
+                      aria-hidden="true"
+                      className="pointer-events-none select-none absolute bottom-0 right-0 text-[88px] lg:text-[104px] font-black leading-none text-white/[0.04]"
+                    >
+                      {String(slideIdx + 1).padStart(2, "0")}
+                    </motion.span>
+
+                    <motion.div variants={cardItem} className="flex items-center gap-2 mb-4">
                       <span className="inline-flex items-center rounded-full bg-[#FF4D57]/10 border border-[#FF4D57]/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FF4D57]">
                         {p.category}
                       </span>
-                      <span className="text-[11px] uppercase tracking-wider text-[#C7CCD6]/50 font-semibold">
-                        {p.stack}
-                      </span>
-                    </div>
+                      {p.stack && p.stack.toLowerCase() !== p.category.toLowerCase() && (
+                        <span className="text-[11px] uppercase tracking-wider text-[#C7CCD6]/50 font-semibold">
+                          {p.stack}
+                        </span>
+                      )}
+                    </motion.div>
 
-                    <h3 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                    <motion.h3 variants={cardItem} className="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">
                       {p.name}
-                    </h3>
-                    <p className="text-[#C7CCD6]/85 text-sm md:text-base leading-relaxed mt-3 max-w-xl">
+                    </motion.h3>
+                    <motion.p variants={cardItem} className="text-[#C7CCD6]/85 text-sm leading-relaxed mt-2.5 max-w-xl">
                       {p.summary}
-                    </p>
+                    </motion.p>
 
                     {/* Highlights */}
-                    <ul className="mt-5 flex flex-col gap-2.5">
+                    <ul className="mt-4 flex flex-col gap-2">
                       {p.highlights.map((h) => (
-                        <li key={h} className="flex items-start gap-2.5 text-[#C7CCD6] text-sm">
+                        <motion.li variants={cardItem} key={h} className="flex items-start gap-2.5 text-[#C7CCD6] text-sm">
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF4D57" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
                             <path d="M20 6L9 17l-5-5" />
                           </svg>
                           {h}
-                        </li>
+                        </motion.li>
                       ))}
                     </ul>
 
                     {/* Metrics */}
                     {p.metrics && (
-                      <div className="mt-6 grid grid-cols-3 gap-3 max-w-md">
+                      <motion.div variants={cardItem} className="mt-5 hidden lg:grid grid-cols-3 gap-2.5 max-w-sm">
                         {p.metrics.map((m) => (
-                          <div key={m.label} className="rounded-xl border border-[#2E3446] bg-[#161C27] px-3 py-3 text-center">
-                            <div className="text-lg md:text-xl font-black text-white">{m.value}</div>
-                            <div className="text-[10px] uppercase tracking-wider text-[#C7CCD6]/60 mt-1">{m.label}</div>
+                          <div key={m.label} className="rounded-xl border border-[#2E3446] bg-[#161C27] px-2.5 py-2.5 text-center">
+                            <div className="text-base md:text-lg font-black text-white">{m.value}</div>
+                            <div className="text-[10px] uppercase tracking-wider text-[#C7CCD6]/60 mt-0.5">{m.label}</div>
                           </div>
                         ))}
-                      </div>
+                      </motion.div>
                     )}
 
-                    {/* Tags */}
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {p.tags.map((t) => (
-                        <span key={t} className="inline-block px-2.5 py-1 bg-[#FF4D57]/5 border border-[#FF4D57]/20 rounded text-[11px] text-[#FF4D57] font-semibold tracking-wide">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
                     {/* CTAs — keep visitors on-site */}
-                    <div className="mt-7 flex flex-col sm:flex-row gap-3">
-                      <Link href={`/work/${p.slug}`} className="softles-primary-button justify-center sm:justify-start">
+                    <motion.div variants={cardItem} className="mt-6 flex flex-col sm:flex-row gap-3">
+                      <Link href={`/work/${p.slug}`} className="softles-primary-button justify-center sm:justify-start whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
                         <span>View project</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                           <path d="M5 12h14M13 6l6 6-6 6" />
                         </svg>
                       </Link>
-                      <Link href="/#book-call" className="softles-secondary-button justify-center sm:justify-start">
+                      <Link href="/#book-call" className="softles-secondary-button justify-center sm:justify-start whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
                         Start a similar project
                       </Link>
-                    </div>
-                  </div>
+                    </motion.div>
+                  </motion.div>
                 </div>
               </div>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Controls: counter + progress + arrows */}
-        <div className="mt-8 flex items-center justify-between gap-6">
+        <motion.div
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-40px" }}
+          custom={4}
+          className="mt-5 flex items-center justify-between gap-6"
+        >
           <div className="flex items-center gap-4 min-w-0">
             <span className="text-sm font-bold text-white tabular-nums">
               {String(index + 1).padStart(2, "0")}
@@ -212,28 +284,26 @@ export default function WorkShowcase() {
 
           <div className="flex gap-3">
             <button
-              onClick={() => slideTo(index - 1)}
-              disabled={index === 0}
+              onClick={() => { setCycle((c) => c + 1); slideTo((index - 1 + shown.length) % shown.length); }}
               aria-label="Previous project"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2E3446] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/10 disabled:opacity-35 disabled:cursor-not-allowed disabled:hover:border-[#2E3446] disabled:hover:bg-transparent"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2E3446] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/10"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M19 12H5M11 18l-6-6 6-6" />
               </svg>
             </button>
             <button
-              onClick={() => slideTo(index + 1)}
-              disabled={index >= shown.length - 1}
+              onClick={() => { setCycle((c) => c + 1); slideTo((index + 1) % shown.length); }}
               aria-label="Next project"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2E3446] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/10 disabled:opacity-35 disabled:cursor-not-allowed disabled:hover:border-[#2E3446] disabled:hover:bg-transparent"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2E3446] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/10"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </button>
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

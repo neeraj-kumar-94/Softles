@@ -1,4 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { enter } from "./_components/motion-presets";
+import DragRail from "./_components/DragRail";
 
 // Order: full-time trio spread out between the wider team, not bunched together.
 const team = [
@@ -26,6 +31,7 @@ function MemberCard({ member }) {
               alt={member.name}
               fill
               sizes="240px"
+              draggable={false}
               className="object-cover object-top"
             />
             {member.hoverImage && (
@@ -35,6 +41,7 @@ function MemberCard({ member }) {
                 fill
                 sizes="240px"
                 loading="eager"
+                draggable={false}
                 className="object-cover object-top [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
               />
             )}
@@ -53,6 +60,7 @@ function MemberCard({ member }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${member.name} on LinkedIn`}
+            draggable={false}
             className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg bg-[#0E1219]/80 border border-[#2E3446] text-[#C7CCD6] backdrop-blur-md transition-all hover:bg-[#FF4D57] hover:border-[#FF4D57] hover:text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
@@ -73,19 +81,20 @@ export default function OurTeamSection() {
   return (
     <section id="about" className="softles-section-primary overflow-hidden">
       <div className="service-page-container">
-        <div className="softles-eyebrow mb-2">
+        <motion.div {...enter(0)} className="softles-eyebrow mb-2">
           <span className="softles-eyebrow-line" />
           <span className="softles-eyebrow-text">Our team</span>
-        </div>
-        <h2 className="service-section-heading text-[#FFFFFF]">The people behind SoftLes</h2>
-        <p className="softles-section-copy">
+        </motion.div>
+        <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">The people behind SoftLes</motion.h2>
+        <motion.p {...enter(2)} className="softles-section-copy">
           A small senior team you work with directly — no account managers, no hand-offs.
-        </p>
+        </motion.p>
       </div>
 
-      {/* Auto-scrolling team rail (pauses on hover) */}
-      <div className="mt-10 relative overflow-hidden before:absolute before:left-0 before:top-0 before:bottom-0 before:w-16 sm:before:w-28 before:bg-gradient-to-r before:from-[#0E1219] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-16 sm:after:w-28 after:bg-gradient-to-l after:from-[#0E1219] after:to-transparent after:z-10">
-        <div className="flex w-max py-1 animate-[team-marquee_45s_linear_infinite] hover:[animation-play-state:paused]">
+      {/* Auto-scrolling team rail (pauses on hover) — constrained to the page container */}
+      <div className="service-page-container">
+      <motion.div {...enter(3)} className="mt-10 relative overflow-hidden before:absolute before:left-0 before:top-0 before:bottom-0 before:w-16 sm:before:w-28 before:bg-gradient-to-r before:from-[#0E1219] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-16 sm:after:w-28 after:bg-gradient-to-l after:from-[#0E1219] after:to-transparent after:z-10">
+        <DragRail className="py-1">
           {[0, 1].map((dup) => (
             <div key={dup} className="flex gap-5 pr-5 shrink-0" aria-hidden={dup === 1}>
               {team.map((member) => (
@@ -93,7 +102,8 @@ export default function OurTeamSection() {
               ))}
             </div>
           ))}
-        </div>
+        </DragRail>
+      </motion.div>
       </div>
     </section>
   );

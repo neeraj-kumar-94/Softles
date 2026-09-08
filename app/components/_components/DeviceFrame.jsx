@@ -10,6 +10,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
   const [device, setDevice] = useState(defaultDevice);
   const [page, setPage] = useState(0);
   const [inView, setInView] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const ref = useRef(null);
 
   useEffect(() => {
@@ -35,9 +36,15 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
 
   return (
     <div ref={ref} className="w-full">
-      {/* Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
-        <div className="inline-flex rounded-full border border-[#2E3446] bg-[#161C27] p-1">
+      {/* Device — hovering pauses the screenshot auto-scroll */}
+      <div
+        className="group/df relative"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+      {/* Desktop/Mobile toggle — revealed on hover (always visible on touch) */}
+      <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-20 lg:opacity-0 lg:group-hover/df:opacity-100 transition-opacity duration-300">
+        <div className="inline-flex rounded-full border border-white/10 bg-[#0b0d12]/85 backdrop-blur-md p-1">
           {[
             { k: "desktop", label: "Desktop" },
             { k: "mobile", label: "Mobile" },
@@ -45,7 +52,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
             <button
               key={d.k}
               onClick={() => setDevice(d.k)}
-              className={`px-3.5 py-1 rounded-full text-xs font-bold transition-colors ${
+              className={`px-3 py-1 rounded-full text-[11px] font-bold transition-colors ${
                 device === d.k ? "bg-[#FF4D57] text-white" : "text-[#C7CCD6] hover:text-white"
               }`}
             >
@@ -53,29 +60,32 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
             </button>
           ))}
         </div>
-
-        {pages.length > 1 && (
-          <div className="flex flex-wrap gap-1.5">
-            {pages.map((pg, i) => (
-              <button
-                key={pg.label}
-                onClick={() => setPage(i)}
-                className={`px-3 py-1 rounded-full text-[11px] font-semibold border transition-colors ${
-                  i === page
-                    ? "bg-[#FF4D57]/15 border-[#FF4D57]/50 text-[#FF4D57]"
-                    : "border-[#2E3446] text-[#C7CCD6]/70 hover:text-white hover:border-[#FF4D57]/40"
-                }`}
-              >
-                {pg.label}
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
-      {/* Device */}
+      {/* Page navigation — floating on the mockup's bottom-right */}
+      {pages.length > 1 && (
+        <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20 flex items-center gap-2">
+          <span className="rounded-full border border-white/10 bg-[#0b0d12]/85 backdrop-blur-md px-3 py-1.5 text-[11px] font-semibold text-[#C7CCD6]">
+            {p.label} · {page + 1}/{pages.length}
+          </span>
+          <button
+            onClick={() => setPage((page - 1 + pages.length) % pages.length)}
+            aria-label="Previous page"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-[#0b0d12]/85 backdrop-blur-md text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/25"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+          </button>
+          <button
+            onClick={() => setPage((page + 1) % pages.length)}
+            aria-label="Next page"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-[#0b0d12]/85 backdrop-blur-md text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/25"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
+          </button>
+        </div>
+      )}
       {isDesktop ? (
-        <div className="mx-auto w-full max-w-[640px]">
+        <div className="mx-auto w-full max-w-[780px]">
           <div className="rounded-t-xl border border-[#2E3446] border-b-0 bg-[#0b0d12] p-2 sm:p-2.5 shadow-2xl">
             {/* Browser chrome: traffic lights + address pill */}
             <div className="flex items-center gap-2 px-1 pb-2 pt-0.5">
@@ -99,7 +109,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
                 alt={`${project.name} — ${p.label} (desktop)`}
                 loading="lazy"
                 className="df-scroll w-full"
-                style={{ animationDuration: `${dur}s`, animationPlayState: inView ? "running" : "paused" }}
+                style={{ animationDuration: `${dur}s`, animationPlayState: inView && !hovered ? "running" : "paused" }}
               />
             </div>
           </div>
@@ -122,7 +132,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
                 alt={`${project.name} — ${p.label} (mobile)`}
                 loading="lazy"
                 className="df-scroll w-full"
-                style={{ animationDuration: `${dur}s`, animationPlayState: inView ? "running" : "paused" }}
+                style={{ animationDuration: `${dur}s`, animationPlayState: inView && !hovered ? "running" : "paused" }}
               />
               {/* Glass reflection */}
               <div
@@ -133,6 +143,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
           </div>
         </div>
       )}
+      </div>
 
       <style jsx>{`
         .df-screen {
@@ -144,8 +155,8 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
           height: var(--sh);
         }
         @media (min-width: 1024px) {
-          .df-screen { --sh: 372px; }
-          .df-screen-m { --sh: 470px; }
+          .df-screen { --sh: 350px; }
+          .df-screen-m { --sh: 420px; }
         }
         .df-scroll {
           position: absolute;

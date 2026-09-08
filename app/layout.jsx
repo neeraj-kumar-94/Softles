@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import WhatsAppFab from "./components/_components/WhatsAppFab";
 import RouteLoader from "./components/_components/RouteLoader";
+import MotionProvider from "./components/_components/MotionProvider";
 
 // GA4 measurement ID — overridable via env, with the live property as default.
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-X446Z72C6Z";
@@ -73,7 +74,7 @@ export default function RootLayout({ children }) {
       >
         <RouteLoader />
         <Navbar/>
-        {children}
+        <MotionProvider>{children}</MotionProvider>
         <WhatsAppFab />
       </body>
       {GA_ID ? <GoogleAnalytics gaId={GA_ID} /> : null}
