@@ -103,6 +103,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
               </span>
             </div>
             <div className="df-screen relative overflow-hidden rounded-md bg-[#0E1219]">
+              {/* eslint-disable-next-line @next/next/no-img-element -- tall scrolling capture; kept as a plain img on purpose */}
               <img
                 key={imgKey}
                 src={img}
@@ -126,6 +127,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop" }) {
             <span aria-hidden="true" className="absolute -right-[9px] top-20 h-10 w-[3px] rounded-r-sm bg-[#2a2f3a]" />
             <span className="absolute left-1/2 top-2 z-10 h-1.5 w-14 -translate-x-1/2 rounded-full bg-[#0b0d12] ring-1 ring-[#2E3446]" />
             <div className="df-screen-m relative overflow-hidden rounded-[1.5rem] bg-[#0E1219]">
+              {/* eslint-disable-next-line @next/next/no-img-element -- tall scrolling capture; kept as a plain img on purpose */}
               <img
                 key={imgKey}
                 src={img}
