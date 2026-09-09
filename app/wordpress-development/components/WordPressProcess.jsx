@@ -34,7 +34,7 @@ export default function WordPressProcess() {
   ];
 
   return (
-    <section className="softles-section-primary">
+    <section className="softles-section-primary" id="process">
       <div className="service-page-container">
         <div className="text-center mb-12">
           <motion.div {...enter(0)} className="softles-eyebrow justify-center mb-2">

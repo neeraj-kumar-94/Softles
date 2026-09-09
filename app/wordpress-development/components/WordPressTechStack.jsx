@@ -17,8 +17,8 @@ import { enter } from "@/app/components/_components/motion-presets";
 export default function WordPressTechStack() {
   // Each logo keeps its real brand colour so it reads as a recognizable mark.
   const techs = [
-    { icon: <SiWordpress className="w-6 h-6" />, color: "#21759B", name: "WordPress", desc: "Core CMS Platform" },
-    { icon: <SiWoocommerce className="w-6 h-6" />, color: "#96588A", name: "WooCommerce", desc: "E-commerce Engine" },
+    { icon: <SiWordpress className="w-6 h-6" />, color: "#3858E9", name: "WordPress", desc: "Core CMS Platform" },
+    { icon: <SiWoocommerce className="w-6 h-6" />, color: "#873EFF", name: "WooCommerce", desc: "E-commerce Engine" },
     { icon: <SiPhp className="w-6 h-6" />, color: "#777BB4", name: "PHP", desc: "Server-side Logic" },
     { icon: <SiMysql className="w-6 h-6" />, color: "#4479A1", name: "MySQL", desc: "Database Layer" },
     { icon: <SiElementor className="w-6 h-6" />, color: "#FF4D57", name: "Elementor", desc: "Visual Page Builder" },

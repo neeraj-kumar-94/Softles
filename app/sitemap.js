@@ -11,6 +11,7 @@ export default function sitemap() {
     { path: "/wordpress-development", priority: 0.9, changeFrequency: "monthly" },
     { path: "/design-prototyping", priority: 0.9, changeFrequency: "monthly" },
     { path: "/integrations-automation", priority: 0.9, changeFrequency: "monthly" },
+    { path: "/work", priority: 0.8, changeFrequency: "monthly" },
     ...projects.map((p) => ({
       path: `/work/${p.slug}`,
       priority: 0.7,

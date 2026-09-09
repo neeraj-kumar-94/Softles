@@ -31,7 +31,7 @@ export const projects = [
     tags: ["Shopify", "Subscriptions", "CRO"],
     pages: [
       { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 3760, dH: 16384, mW: 750, mH: 16384 },
-      { label: "Subscription", d: "/work/brunswick-p1-d.webp", m: "/work/brunswick-p1-m.jpg", dW: 3760, dH: 14788, mW: 732, mH: 16384 },
+      { label: "Subscription", d: "/work/brunswick-p1-d.jpg", m: "/work/brunswick-p1-m.jpg", dW: 3760, dH: 14788, mW: 732, mH: 16384 },
       { label: "About", d: "/work/brunswick-p2-d.webp", m: "/work/brunswick-p2-m.webp", dW: 3760, dH: 8644, mW: 750, mH: 10938 },
     ],
   },

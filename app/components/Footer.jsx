@@ -7,31 +7,32 @@ import { enter, viewportOnce, fadeUp } from "./_components/motion-presets";
 
 const linkColumns = [
     {
+        title: "Services",
+        links: [
+            { label: "Design & Prototyping", href: "/design-prototyping" },
+            { label: "WordPress Development", href: "/wordpress-development" },
+            { label: "Shopify Development", href: "/shopify-development" },
+            { label: "Integrations & Automation", href: "/integrations-automation" },
+        ],
+    },
+    {
         title: "WordPress",
         titleHref: "/wordpress-development",
         links: [
-            { label: "Custom Theme Development", href: "/wordpress-development" },
-            { label: "Headless WordPress", href: "/wordpress-development" },
-            { label: "Plugins & WooCommerce", href: "/wordpress-development" },
-            { label: "Integrations & Automation", href: "/wordpress-development" },
+            { label: "Custom themes & headless", href: "/wordpress-development#services" },
+            { label: "How we work", href: "/wordpress-development#process" },
+            { label: "Projects", href: "/wordpress-development#projects" },
+            { label: "FAQ", href: "/wordpress-development#faq" },
         ],
     },
     {
         title: "Shopify",
         titleHref: "/shopify-development",
         links: [
-            { label: "Custom Theme Development", href: "/shopify-development" },
-            { label: "Headless & Hydrogen", href: "/shopify-development" },
-            { label: "Shopify Apps", href: "/shopify-development" },
-            { label: "Integrations & Automation", href: "/shopify-development" },
-        ],
-    },
-    {
-        title: "Resources",
-        links: [
-            { label: "Blog", href: "/blog" },
-            { label: "Shopify & WordPress guides", href: "/blog" },
-            { label: "Talk to us", href: "/#book-call" },
+            { label: "Themes, apps & Hydrogen", href: "/shopify-development#services" },
+            { label: "How we work", href: "/shopify-development#process" },
+            { label: "Brunswick case study", href: "/shopify-development#projects" },
+            { label: "FAQ", href: "/shopify-development#faq" },
         ],
     },
 ];
@@ -179,6 +180,7 @@ export default function Footer() {
                     <p>&copy; {new Date().getFullYear()} SoftLes — Web Design Company. All rights reserved.</p>
                     <p className="italic hidden lg:block">&quot;Do something today that your future self will thank you for.&quot;</p>
                     <div className="flex gap-5">
+                        <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
                         <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
                     </div>

@@ -93,7 +93,7 @@ export default function WordPressServices() {
   ];
 
   return (
-    <section className="softles-section-primary">
+    <section className="softles-section-primary" id="services">
       <div className="service-page-container">
         
         {/* Header - Keeping the original exact line elements and text styling */}
