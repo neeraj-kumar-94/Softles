@@ -81,7 +81,7 @@ export default function ProcessSteps({ steps }) {
             transition={{ duration: 0.65, delay: idx * 0.14, ease: EASE }}
             onMouseEnter={() => flow.setHovered(idx)}
             className="relative"
-            style={{ zIndex: steps.length - idx }}
+            style={{ zIndex: flow.activeIdx === idx ? 50 : steps.length - idx }}
           >
             <ServiceCard
               link="#"
@@ -94,12 +94,16 @@ export default function ProcessSteps({ steps }) {
               step={step.num}
               index={idx}
               active={flow.activeIdx === idx}
+              playing={flow.playingIdx === idx}
               reached={flow.played > idx}
+              paused={flow.paused}
+              stepMs={flow.stepMs}
+              onRingDone={flow.advance}
               dimmed={flow.hovered !== null && flow.hovered !== idx}
               description={step.desc}
             />
             {idx < steps.length - 1 && (
-              <StepConnector lit={flow.played > idx + 1} />
+              <StepConnector lit={flow.played > idx} />
             )}
           </motion.div>
         ))}

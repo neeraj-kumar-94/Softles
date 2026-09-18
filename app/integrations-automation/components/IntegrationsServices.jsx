@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import SpotlightServiceCard from "../../components/_components/SpotlightServiceCard";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -91,9 +92,9 @@ export default function IntegrationsServices() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">What we build</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Four kinds of plumbing
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">
             Most projects are one of these, or two of them together. All of them start with an audit rather than a platform recommendation.
           </motion.p>

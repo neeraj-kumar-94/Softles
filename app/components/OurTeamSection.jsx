@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "./_components/WordReveal";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { enter } from "./_components/motion-presets";
@@ -85,7 +86,7 @@ export default function OurTeamSection() {
           <span className="softles-eyebrow-line" />
           <span className="softles-eyebrow-text">Our team</span>
         </motion.div>
-        <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">The people behind SoftLes</motion.h2>
+        <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">The people behind SoftLes</WordReveal>
         <motion.p {...enter(2)} className="softles-section-copy">
           A small senior team you work with directly — no account managers, no hand-offs.
         </motion.p>

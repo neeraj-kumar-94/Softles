@@ -1,3 +1,4 @@
+import WordReveal from "../components/_components/WordReveal";
 import Link from "next/link";
 import Footer from "../components/Footer";
 import { projects } from "./projects";
@@ -25,7 +26,7 @@ export default function WorkIndex() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Selected work</span>
           </div>
-          <h1 className="service-section-heading text-[#FFFFFF]">Work worth showing off</h1>
+          <WordReveal as="h1" className="service-section-heading text-[#FFFFFF]">Work worth showing off</WordReveal>
           <p className="softles-section-copy max-w-2xl">
             Real, live builds — e-commerce, SaaS products and business sites. Open any one for the full page-by-page walkthrough.
           </p>
@@ -39,7 +40,7 @@ export default function WorkIndex() {
                     src={p.pages[0].d}
                     alt={p.name}
                     loading="lazy"
-                    className="w-full absolute top-0 left-0 transition-transform duration-[1200ms] ease-out group-hover:-translate-y-[40%]"
+                    className="w-full absolute top-0 left-0 transition-transform [transition-duration:1200ms] ease-out group-hover:-translate-y-[40%]"
                   />
                   <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#12161F] to-transparent" />
                 </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
 
@@ -92,9 +93,9 @@ export default function DesignTrust() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Why this way</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Design that survives the build
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-xl">
             Plenty of designs look great in a portfolio and fall apart in development. These are the habits that stop that happening.
           </motion.p>

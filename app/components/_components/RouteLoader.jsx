@@ -2,28 +2,27 @@
 
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { EASE } from "./motion-presets";
+import BrandPreloader from "./BrandPreloader";
 
-// Full-screen branded loader that appears:
-//  - on first site load (brief splash), and
-//  - instantly when an internal route link is clicked (before the route resolves).
+// Two pieces of loading feedback:
+//  - a slim progress bar that starts the moment an internal link is clicked and
+//    completes when the route commits, so navigation never feels frozen;
+//  - the wordmark preloader on the very first load.
+// The bar is deliberately not a blocking overlay — the page stays readable.
 export default function RouteLoader() {
   const pathname = usePathname();
-  const [visible, setVisible] = useState(true);
+  const [pending, setPending] = useState(false);
   const safety = useRef(null);
 
-  // Hide once the initial load settles.
+  // Route committed → finish the bar.
   useEffect(() => {
-    const t = setTimeout(() => setVisible(false), 650);
-    return () => clearTimeout(t);
-  }, []);
-
-  // Route committed → hide.
-  useEffect(() => {
-    setVisible(false);
+    setPending(false);
     if (safety.current) clearTimeout(safety.current);
   }, [pathname]);
 
-  // Show immediately on internal navigation clicks.
+  // Start the bar as soon as an internal link is clicked.
   useEffect(() => {
     const onClick = (e) => {
       if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -38,26 +37,30 @@ export default function RouteLoader() {
         return;
       }
       if (dest.pathname === window.location.pathname) return;
-      setVisible(true);
+      setPending(true);
       if (safety.current) clearTimeout(safety.current);
-      safety.current = setTimeout(() => setVisible(false), 5000);
+      safety.current = setTimeout(() => setPending(false), 8000);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
   }, []);
 
   return (
-    <div
-      aria-hidden={!visible}
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center gap-5 bg-[#0E1219] transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
-    >
-      <div className="relative h-14 w-14">
-        <div className="absolute inset-0 rounded-full border-[3px] border-[#2E3446]" />
-        <div className="absolute inset-0 animate-spin rounded-full border-[3px] border-transparent border-t-[#FF4D57]" />
-      </div>
-      <span className="text-sm tracking-[0.25em] uppercase text-[#C7CCD6]/70">SoftLes</span>
-    </div>
+    <>
+      <AnimatePresence>
+        {pending && (
+          <motion.div
+            key="route-bar"
+            aria-hidden="true"
+            className="fixed inset-x-0 top-0 z-[110] h-[3px] origin-left bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D] shadow-[0_0_14px_rgba(255,77,87,0.55)]"
+            initial={{ scaleX: 0, opacity: 1 }}
+            animate={{ scaleX: 0.92, transition: { duration: 2.6, ease: EASE } }}
+            exit={{ scaleX: 1, opacity: 0, transition: { duration: 0.4, ease: "easeOut" } }}
+          />
+        )}
+      </AnimatePresence>
+
+      <BrandPreloader />
+    </>
   );
 }

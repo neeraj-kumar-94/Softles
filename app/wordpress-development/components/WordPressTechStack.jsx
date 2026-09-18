@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import {
   SiWordpress,
   SiWoocommerce,
@@ -35,7 +36,7 @@ export default function WordPressTechStack() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Technology Stack</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading mb-3">Tools & Technologies</motion.h2>
+          <WordReveal as="h2" className="service-section-heading mb-3">Tools & Technologies</WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy mx-auto">
             We use battle-tested, best-in-class technologies to build WordPress solutions that are fast, secure, and future-proof.
           </motion.p>

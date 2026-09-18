@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import {
   SiFigma,
   SiFramer,
@@ -36,7 +37,7 @@ export default function DesignTechStack() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Tools we design in</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading mb-3">Our design stack</motion.h2>
+          <WordReveal as="h2" className="service-section-heading mb-3">Our design stack</WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy mx-auto">
             Figma is home. The rest earn their place when a project needs motion, testing or a documented component library.
           </motion.p>

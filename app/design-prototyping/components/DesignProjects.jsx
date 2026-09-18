@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import ProjectDeviceSlider from "../../components/_components/ProjectDeviceSlider";
 import { projects } from "../../work/projects";
 import { motion } from "framer-motion";
@@ -19,9 +20,9 @@ export default function DesignProjects() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Design Work</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Designs that made it to production
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-3xl">
             Not concept art — every screen here is live. Switch between desktop and mobile, and flip through the pages.
           </motion.p>

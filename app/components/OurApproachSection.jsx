@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "./_components/WordReveal";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Empathize from "@/public/Empathize.png";
@@ -71,7 +72,7 @@ export default function OurApproachSection() {
                             Our Approach
                         </p>
                     </div>
-                    <span className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">From discovery to delivery</span>
+                    <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">From discovery to delivery</WordReveal>
                     <span className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
                         A clear process, so you know the scope, price, and timeline before we write any code.
                     </span>
@@ -146,7 +147,7 @@ export default function OurApproachSection() {
                         transition={{ duration: 0.65, delay: index * 0.14, ease: [0.22, 1, 0.36, 1] }}
                         onMouseEnter={() => flow.setHovered(index)}
                         className="relative"
-                        style={{ zIndex: step.zIndex }}
+                        style={{ zIndex: flow.activeIdx === index ? 50 : step.zIndex }}
                     >
                         <ServiceCard
                             link={step.link}
@@ -159,12 +160,16 @@ export default function OurApproachSection() {
                             step={String(index + 1).padStart(2, "0")}
                             index={index}
                             active={flow.activeIdx === index}
+                            playing={flow.playingIdx === index}
                             reached={flow.played > index}
+                            paused={flow.paused}
+                            stepMs={flow.stepMs}
+                            onRingDone={flow.advance}
                             dimmed={flow.hovered !== null && flow.hovered !== index}
                             description={step.description}
                         />
                         {index < processSteps.length - 1 && (
-                            <StepConnector lit={flow.played > index + 1} />
+                            <StepConnector lit={flow.played > index} />
                         )}
                     </motion.div>
                  ))

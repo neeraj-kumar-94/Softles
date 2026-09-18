@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "./_components/WordReveal";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { enter, fadeIn, viewportOnce } from "./_components/motion-presets";
@@ -53,7 +54,7 @@ export default function ContactSection() {
                             Get in touch
                         </p>
                     </motion.div>
-                    <motion.span {...enter(1)} className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">Let&apos;s talk about your project</motion.span>
+                    <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">Let&apos;s talk about your project</WordReveal>
                     <motion.span {...enter(2)} className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
                         Tell us what you&apos;re building and we&apos;ll get back to you — usually within a day.
                     </motion.span>

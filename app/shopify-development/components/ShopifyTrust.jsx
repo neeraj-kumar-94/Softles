@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import { motion } from "framer-motion";
 import { FaShopify } from "react-icons/fa";
 
@@ -67,9 +68,9 @@ export default function ShopifyTrust() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Platform Advantages</span>
           </div>
-          <h2 className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Why Leading Brands Choose Shopify
-          </h2>
+          </WordReveal>
           <p className="softles-section-copy max-w-xl">
             Shopify powers over 4.6 million stores worldwide. It&apos;s the platform built to convert browsers into buyers — and to scale without friction.
           </p>

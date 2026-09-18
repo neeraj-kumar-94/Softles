@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -23,9 +24,9 @@ export default function IntegrationsCTA() {
               <span className="softles-eyebrow-text">Start with the audit</span>
             </div>
 
-            <h2 className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               Tell us what your team<br className="hidden sm:block" /> still does by hand
-            </h2>
+            </WordReveal>
 
             <p className="softles-section-copy mx-auto text-center max-w-2xl">
               Bring us the manual process, the half-finished automation, or the two systems that refuse to talk. We&apos;ll map what&apos;s connectable, what it would cost to run each month, and whether it&apos;s even worth automating — before you commit to anything.

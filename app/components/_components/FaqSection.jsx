@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "./WordReveal";
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -43,7 +44,7 @@ export default function FaqSection({ eyebrow = "Common Questions", title, copy, 
               <span className="softles-eyebrow-line" />
               <span className="softles-eyebrow-text">{eyebrow}</span>
             </div>
-            <h2 className="service-section-heading text-[#FFFFFF]">{title}</h2>
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">{title}</WordReveal>
             <p className="softles-section-copy mt-3 max-w-md">{copy}</p>
 
             <div className="mt-9 rounded-2xl border border-[#2E3446] bg-gradient-to-b from-white/[0.03] to-white/[0.008] p-6">

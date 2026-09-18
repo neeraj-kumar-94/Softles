@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import ProjectDeviceSlider from "../../components/_components/ProjectDeviceSlider";
 import { projects } from "../../work/projects";
 import { motion } from "framer-motion";
@@ -19,9 +20,9 @@ export default function IntegrationsProjects() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Connected Builds</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Systems that talk to each other
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-3xl">
             Products where the integration work is the product — messaging platforms, operations software, and subscription commerce.
           </motion.p>

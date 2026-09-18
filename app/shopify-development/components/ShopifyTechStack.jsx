@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import {
   SiShopify,
   SiReact,
@@ -33,7 +34,7 @@ export default function ShopifyTechStack() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Technology Stack</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">Tools & Technologies</motion.h2>
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">Tools & Technologies</WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy mx-auto">
             Best-in-class Shopify technologies to build stores that are fast, flexible, and ready for whatever the market demands.
           </motion.p>

@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import SpotlightServiceCard from "../../components/_components/SpotlightServiceCard";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -104,9 +105,9 @@ export default function WordPressServices() {
               What We Build
             </span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading mb-3">
+          <WordReveal as="h2" className="service-section-heading mb-3">
             WordPress Services
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">
             End-to-end WordPress development tailored to your business — from
             brand-new builds to complex WooCommerce ecosystems.

@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -32,10 +33,10 @@ export default function ShopifyCTA() {
             </div>
 
             {/* Heading with explicit tracking & font weights */}
-            <h2 className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               Ready to Grow Your<br className="hidden sm:block" />{" "}
               Shopify Business?
-            </h2>
+            </WordReveal>
 
             {/* Paragraph Content */}
             <p className="text-[#C7CCD6]/80 max-w-xl mx-auto mb-8 lg:mb-10 text-sm sm:text-base leading-relaxed">

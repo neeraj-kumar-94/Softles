@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import ProcessSteps from "../../components/_components/ProcessSteps";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -41,7 +42,7 @@ export default function WordPressProcess() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">How We Work</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading mb-3">Our WordPress Development Process</motion.h2>
+          <WordReveal as="h2" className="service-section-heading mb-3">Our WordPress Development Process</WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy mx-auto">
             A structured, transparent process that keeps WordPress projects moving from strategy to launch with clarity.
           </motion.p>

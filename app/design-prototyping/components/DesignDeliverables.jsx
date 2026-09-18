@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -93,9 +94,9 @@ export default function DesignDeliverables() {
               <span className="softles-eyebrow-line" />
               <span className="softles-eyebrow-text">What you get</span>
             </motion.div>
-            <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               Exactly what lands in your hands
-            </motion.h2>
+            </WordReveal>
             <motion.p {...enter(2)} className="softles-section-copy max-w-lg">
               No vague &ldquo;design deliverables.&rdquo; Here is the actual list, so you can compare it against anyone else you&apos;re speaking to.
             </motion.p>

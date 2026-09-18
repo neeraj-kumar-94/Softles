@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -23,9 +24,9 @@ export default function DesignCTA() {
               <span className="softles-eyebrow-text">Let&apos;s design it first</span>
             </div>
 
-            <h2 className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               See your site before<br className="hidden sm:block" /> you commit to building it
-            </h2>
+            </WordReveal>
 
             <p className="softles-section-copy mx-auto text-center max-w-2xl">
               Bring us a rough idea or an existing site that isn&apos;t working. We&apos;ll walk you through how we&apos;d structure it, what the design stage would cover, and what it would cost — on a call, not in a proposal PDF.

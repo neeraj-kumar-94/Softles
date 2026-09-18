@@ -2,8 +2,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+// Progress ring geometry, in the ring SVG's 100×100 viewBox.
+const RING_R = 49.4;
+const RING_C = 2 * Math.PI * RING_R;
+// The ring draws a full circle, starting and finishing where this circle crosses
+// its neighbour: the first card meets the next one at its lower right, every
+// other card meets the one before it at its upper left.
+const RING_START_FIRST = 30;
+const RING_START_REST = -150;
+
 export default function ServiceCard(props) {
     const altText = props.alt || `Service icon for ${props.name}`;
+    const ringStart = props.index === 0 ? RING_START_FIRST : RING_START_REST;
 
     return (
         <Link
@@ -18,22 +28,46 @@ export default function ServiceCard(props) {
             {/* Hover Glow */}
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,77,87,0.18),transparent_65%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Step already walked through — quiet completed outline */}
-            <span
-                aria-hidden="true"
-                className={`pointer-events-none absolute inset-0 rounded-full transition-opacity duration-500 ${props.reached && !props.active ? "opacity-100" : "opacity-0"}`}
-                style={{ boxShadow: "inset 0 0 0 1px rgba(255,77,87,0.25)" }}
-            />
-
-            {/* Current step — lit ring, walked once on entry and on hover */}
+            {/* Current step — soft glow behind the content */}
             <span
                 aria-hidden="true"
                 className={`pointer-events-none absolute inset-0 rounded-full transition-opacity duration-500 ${props.active ? "opacity-100" : "opacity-0"}`}
-                style={{
-                    boxShadow: "inset 0 0 0 2px rgba(255,77,87,0.6), 0 0 40px rgba(255,77,87,0.24)",
-                    background: "radial-gradient(circle at center, rgba(255,77,87,0.08), transparent 70%)",
-                }}
+                style={{ background: "radial-gradient(circle at center, rgba(255,77,87,0.08), transparent 70%)" }}
             />
+
+            {/* Progress ring on the border: draws from the top while playing, stays full once done */}
+            <svg
+                aria-hidden="true"
+                viewBox="0 0 100 100"
+                className="pointer-events-none absolute inset-0 h-full w-full"
+                style={{
+                    // Rotate so the draw starts and finishes at the seam with the
+                    // neighbouring circle instead of at the top of the card.
+                    transform: `rotate(${ringStart}deg)`,
+                    filter: props.playing ? "drop-shadow(0 0 4px rgba(255,77,87,0.7))" : "none",
+                }}
+            >
+                <circle cx="50" cy="50" r={RING_R} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="0.8" />
+                <circle
+                    cx="50"
+                    cy="50"
+                    r={RING_R}
+                    fill="none"
+                    stroke="#FF4D57"
+                    strokeWidth="0.8"
+                    strokeLinecap="round"
+                    strokeDasharray={RING_C}
+                    className={props.playing ? "step-ring-draw" : ""}
+                    onAnimationEnd={props.playing ? props.onRingDone : undefined}
+                    style={{
+                        "--ring-c": RING_C,
+                        opacity: props.playing ? 1 : props.reached ? 0.55 : 0,
+                        animationDuration: `${props.stepMs || 4000}ms`,
+                        animationPlayState: props.paused ? "paused" : "running",
+                        transition: "opacity 0.5s ease",
+                    }}
+                />
+            </svg>
 
             {/* Content */}
             <div className="relative z-10 flex flex-col items-center gap-y-3">

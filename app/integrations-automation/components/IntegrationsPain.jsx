@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
 
@@ -69,9 +70,9 @@ export default function IntegrationsPain() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Sound familiar?</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             The work nobody budgeted for
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-xl">
             Most teams don&apos;t go looking for &ldquo;integration services.&rdquo; They go looking because one of these started costing real hours.
           </motion.p>

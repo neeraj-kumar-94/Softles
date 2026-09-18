@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import ProjectDeviceSlider from "../../components/_components/ProjectDeviceSlider";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -71,9 +72,9 @@ export default function WordPressProjects() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Featured Work</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading mb-3">
+          <WordReveal as="h2" className="service-section-heading mb-3">
             WordPress Projects We&apos;re Proud Of
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">
             Real WordPress builds for consulting and education. Switch between desktop and mobile, and watch the pages scroll.
           </motion.p>

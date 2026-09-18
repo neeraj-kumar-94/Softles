@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import SpotlightServiceCard from "../../components/_components/SpotlightServiceCard";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -95,9 +96,9 @@ export default function DesignServices() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">What&apos;s included</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             From first sketch to build-ready
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">
             Four stages that take you from a vague idea to files a developer can build from without guessing.
           </motion.p>

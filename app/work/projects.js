@@ -24,7 +24,6 @@ export const projects = [
     ],
     metrics: [
       { value: "2.5k+", label: "Orders" },
-      { value: "5/5", label: "Rating" },
       { value: "30%", label: "Repeat rate" },
     ],
     services: ["Shopify theme development", "Subscriptions", "CRO", "Mobile UX"],
@@ -139,7 +138,7 @@ export const projects = [
     services: ["Personal brand site", "UI/UX design", "Responsive build"],
     tags: ["Website", "Legal", "Personal brand"],
     pages: [
-      { label: "Home", d: "/work/umang-p0-d.jpg", m: "/work/umang-p0-m.jpg", dW: 1100, dH: 7519, mW: 440, mH: 9012 },
+      { label: "Home", d: "/work/umang-p0-d.jpg", m: "/work/umang-p0-m.jpg", dW: 1100, dH: 4793, mW: 440, mH: 9502 },
     ],
   },
   {

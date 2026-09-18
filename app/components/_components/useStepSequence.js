@@ -2,57 +2,65 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// Drives the "Our Approach" / process rows: when the row scrolls into view the
-// steps light up once, in order, then settle into a completed state. Hovering a
-// step takes over from there, so a visitor can walk the flow themselves instead
-// of waiting for a loop to come back around.
-export default function useStepSequence(count, { interval = 420 } = {}) {
+// Timed stepper: each step's ring draws in turn, the ring's animationend hands off
+// to the next (so pausing the ring on hover pauses everything), then it loops.
+export default function useStepSequence(count, { stepMs = 4000, holdMs = 1400 } = {}) {
   const ref = useRef(null);
-  const [played, setPlayed] = useState(0);
-  const [done, setDone] = useState(false);
+  const [active, setActive] = useState(-1);
+  const [holding, setHolding] = useState(false);
   const [hovered, setHovered] = useState(null);
+  const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const reduced =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduced) {
-      setPlayed(count);
-      setDone(true);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setReduced(true);
+      setHolding(true);
       return;
     }
 
-    let timer;
     const io = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         io.disconnect();
-        let i = 0;
-        timer = setInterval(() => {
-          i += 1;
-          setPlayed(i);
-          if (i >= count) {
-            clearInterval(timer);
-            setDone(true);
-          }
-        }, interval);
+        setActive(0);
       },
       { threshold: 0.35 }
     );
-
     io.observe(el);
-    return () => {
-      io.disconnect();
-      clearInterval(timer);
-    };
-  }, [count, interval]);
+    return () => io.disconnect();
+  }, []);
 
-  // Hover wins; otherwise the leading edge of the intro sequence is "current".
-  const activeIdx = hovered !== null ? hovered : done ? null : played - 1;
+  // Rest fully lit for a beat after the last step, then start over.
+  useEffect(() => {
+    if (!holding || reduced) return;
+    const t = setTimeout(() => {
+      setHolding(false);
+      setActive(0);
+    }, holdMs);
+    return () => clearTimeout(t);
+  }, [holding, reduced, holdMs]);
 
-  return { ref, activeIdx, played, done, hovered, setHovered };
+  const advance = () => {
+    if (active >= count - 1) setHolding(true);
+    else setActive(active + 1);
+  };
+
+  const playingIdx = holding ? -1 : active;
+  const played = holding ? count : Math.max(active, 0);
+  const activeIdx = hovered !== null ? hovered : playingIdx >= 0 ? playingIdx : null;
+
+  return {
+    ref,
+    activeIdx,
+    playingIdx,
+    played,
+    hovered,
+    setHovered,
+    paused: hovered !== null,
+    advance,
+    stepMs,
+  };
 }

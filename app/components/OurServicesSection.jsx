@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "./_components/WordReveal";
 import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -29,8 +30,8 @@ const services = [
         <circle cx="11" cy="11" r="2" />
       </svg>
     ),
-    href: "/#book-call",
-    linkLabel: "Start a project",
+    href: "/design-prototyping",
+    linkLabel: "Learn more",
     title: "Design & Prototyping",
     description: "From idea to clickable, user-tested screens — in days, not weeks.",
     items: [
@@ -86,8 +87,8 @@ const services = [
         <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
       </svg>
     ),
-    href: "/#book-call",
-    linkLabel: "Start a project",
+    href: "/integrations-automation",
+    linkLabel: "Learn more",
     title: "Integrations & Automation",
     description: "Your store, CRM, and back office — finally talking to each other.",
     items: [
@@ -220,9 +221,9 @@ export default function OurServicesSection() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Our services</span>
           </motion.div>
-          <motion.span {...enter(1)} className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">
+          <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">
             What we do
-          </motion.span>
+          </WordReveal>
           <motion.span {...enter(2)} className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
             Design, development, and the automation that connects it all. Here&apos;s where we spend our time.
           </motion.span>

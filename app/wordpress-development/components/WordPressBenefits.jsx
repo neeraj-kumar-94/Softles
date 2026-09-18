@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -94,9 +95,9 @@ export default function WordPressBenefits() {
               <span className="softles-eyebrow-line" />
               <span className="softles-eyebrow-text">Why SoftLes</span>
             </div>
-            <h2 className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               Why Partner With SoftLes
-            </h2>
+            </WordReveal>
             <p className="softles-section-copy max-w-lg">
               We combine commercial thinking, platform expertise, and hands-on delivery to help brands grow faster with a more reliable digital experience.
             </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import { motion } from "framer-motion";
 
 const EASE = [0.22, 1, 0.36, 1];
@@ -69,9 +70,9 @@ export default function WordPressTrust() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Platform Advantages</span>
           </div>
-          <h2 className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Why Businesses Choose WordPress
-          </h2>
+          </WordReveal>
           <p className="softles-section-copy max-w-xl">
             WordPress powers over 43% of the web for good reason — it&apos;s flexible, scalable, and built for long-term growth.
           </p>

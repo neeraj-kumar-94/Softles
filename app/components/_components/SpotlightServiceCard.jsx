@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 // Homepage "What we do" card language: cursor-tracking spotlight border,
 // inner light wash, diamond bullet list. Reused across service pages.
-export default function SpotlightServiceCard({ icon, title, desc, bullets, badge, idx = 0 }) {
+export default function SpotlightServiceCard({ icon, title, desc, bullets = [], badge, idx = 0 }) {
   const ref = useRef(null);
 
   const handleMouseMove = (e) => {
@@ -69,6 +69,7 @@ export default function SpotlightServiceCard({ icon, title, desc, bullets, badge
           <h3 className="text-lg xl:text-xl font-bold text-white leading-tight">{title}</h3>
           <p className="text-sm text-[#C7CCD6]/75 leading-relaxed mt-2.5 mb-6">{desc}</p>
 
+          {bullets.length > 0 && (
           <ul className="mt-auto flex flex-col">
             {bullets.map((item) => (
               <li
@@ -80,6 +81,7 @@ export default function SpotlightServiceCard({ icon, title, desc, bullets, badge
               </li>
             ))}
           </ul>
+          )}
         </div>
       </div>
     </motion.div>

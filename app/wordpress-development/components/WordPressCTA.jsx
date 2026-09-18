@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -32,10 +33,10 @@ export default function WordPressCTA() {
             </div>
 
             {/* Heading with explicit tracking, font weights & WordPress theme variables */}
-            <h2 className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               Let&apos;s Build a Better<br className="hidden sm:block" />{" "}
               WordPress Experience
-            </h2>
+            </WordReveal>
 
             {/* Paragraph Content tailored for WordPress services */}
             <p className="text-[#C7CCD6]/80 max-w-xl mx-auto mb-8 lg:mb-10 text-sm sm:text-base leading-relaxed">

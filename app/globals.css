@@ -40,6 +40,17 @@ h1, h2, h3,
         50% { transform: translateY(-5px); }
     }
 
+    /* Progress ring drawing around the playing process step; its length arrives as --ring-c. */
+    .step-ring-draw {
+        animation-name: stepRingDraw;
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+    }
+    @keyframes stepRingDraw {
+        from { stroke-dashoffset: var(--ring-c); }
+        to { stroke-dashoffset: 0; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
         .step-float { animation: none !important; }
     }
@@ -214,4 +225,26 @@ h1, h2, h3,
 @keyframes team-marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
+}
+
+/* Loading placeholder blocks — a slow sheen travelling across a panel colour. */
+.sk {
+    background: linear-gradient(90deg, #161C27 0%, #212938 50%, #161C27 100%);
+    background-size: 200% 100%;
+    animation: skeleton 1.6s linear infinite;
+}
+@keyframes skeleton {
+    from { background-position: 200% 0; }
+    to { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sk { animation: none; background: #1a2130; }
+}
+
+/* Word reveal, rolling numbers and scroll-fill words set inline styles from JS;
+   these rules let reduced-motion visitors skip straight to the settled state. */
+@media (prefers-reduced-motion: reduce) {
+    .word-reveal { transform: none !important; opacity: 1 !important; }
+    .rolling-reel { transition: none !important; }
+    .fill-word { opacity: 1 !important; }
 }

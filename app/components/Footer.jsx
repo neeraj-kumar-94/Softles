@@ -107,16 +107,15 @@ export default function Footer() {
             </div>
 
             {/* Link grid */}
-            <motion.div initial="hidden" whileInView="show" viewport={viewportOnce} transition={{ staggerChildren: 0.08 }} className="relative z-[1] service-page-container py-12 md:py-16 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-x-8 gap-y-10">
+            <motion.div initial="hidden" whileInView="show" viewport={viewportOnce} transition={{ staggerChildren: 0.08 }} className="relative z-[1] service-page-container py-12 md:py-14 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-x-8 gap-y-10 items-start">
                 {/* Brand */}
-                <motion.div variants={fadeUp} className="col-span-2 md:col-span-4 lg:col-span-4 flex flex-col gap-5 lg:pr-10">
+                <motion.div variants={fadeUp} className="col-span-2 md:col-span-4 lg:col-span-4 flex flex-col gap-4 lg:pr-10">
+                    {/* Logo and socials share one row so this column stays as short as the link columns */}
+                    <div className="flex items-center justify-between gap-4 flex-wrap">
                     <Link href="/" className="w-fit">
                         <Image src={"/SoftLes.png"} alt="SoftLes" width={0} height={0} sizes="200px" className="object-contain h-[42px] w-auto" />
                     </Link>
-                    <p className="text-sm text-[#C7CCD6]/80 leading-relaxed max-w-sm">
-                        SoftLes is a small team that builds WordPress and Shopify sites for growing brands. We handle the design, the development, and the automation that ties it together.
-                    </p>
-                    <div className="flex gap-3 mt-1">
+                    <div className="flex gap-3">
                         {socials.map((s) => (
                             <a
                                 key={s.label}
@@ -130,6 +129,10 @@ export default function Footer() {
                             </a>
                         ))}
                     </div>
+                    </div>
+                    <p className="text-sm text-[#C7CCD6]/80 leading-relaxed max-w-md">
+                        SoftLes is a small team that builds WordPress and Shopify sites for growing brands. We handle the design, the development, and the automation that ties it together.
+                    </p>
                 </motion.div>
 
                 {/* Link columns */}

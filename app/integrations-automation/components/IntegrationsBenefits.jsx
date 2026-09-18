@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -94,9 +95,9 @@ export default function IntegrationsBenefits() {
               <span className="softles-eyebrow-line" />
               <span className="softles-eyebrow-text">Why SoftLes</span>
             </motion.div>
-            <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
               Built to survive the API changing
-            </motion.h2>
+            </WordReveal>
             <motion.p {...enter(2)} className="softles-section-copy max-w-lg">
               Anyone can wire two apps together on a good day. These are the habits that decide what happens on a bad one.
             </motion.p>

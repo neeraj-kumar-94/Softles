@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import ProcessSteps from "../../components/_components/ProcessSteps";
 import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
@@ -21,9 +22,9 @@ export default function DesignProcess() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">How it runs</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
             Five stages, no surprises
-          </motion.h2>
+          </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">
             You see something at the end of every stage, and nothing moves forward until you&apos;ve signed off on the one before it.
           </motion.p>

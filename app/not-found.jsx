@@ -1,3 +1,4 @@
+import WordReveal from "./components/_components/WordReveal";
 import Link from "next/link";
 import Footer from "./components/Footer";
 
@@ -21,9 +22,9 @@ export default function NotFound() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Page not found</span>
           </div>
-          <h1 className="service-section-heading text-white max-w-2xl">
+          <WordReveal as="h1" className="service-section-heading text-white max-w-2xl">
             That page has moved, or never shipped.
-          </h1>
+          </WordReveal>
           <p className="softles-section-copy mx-auto text-center max-w-md">
             The link may be out of date. Everything we do is one click from here.
           </p>

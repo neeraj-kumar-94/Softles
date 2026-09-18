@@ -1,5 +1,6 @@
 "use client";
 
+import WordReveal from "../../components/_components/WordReveal";
 import {
   SiZapier,
   SiMake,
@@ -36,7 +37,7 @@ export default function IntegrationsTechStack() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Platforms we connect</span>
           </motion.div>
-          <motion.h2 {...enter(1)} className="service-section-heading mb-3">Look for your tools</motion.h2>
+          <WordReveal as="h2" className="service-section-heading mb-3">Look for your tools</WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy mx-auto">
             These are the ones we work with most. If yours isn&apos;t here and it has an API, it&apos;s almost certainly still connectable — ask us.
           </motion.p>

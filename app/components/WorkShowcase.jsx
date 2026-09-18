@@ -1,12 +1,14 @@
 "use client";
 
+import RollingNumber from "./_components/RollingNumber";
+import WordReveal from "./_components/WordReveal";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import DeviceFrame from "./_components/DeviceFrame";
 import { projects } from "../work/projects";
 
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 7500;
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -117,7 +119,7 @@ export default function WorkShowcase() {
           <span className="softles-eyebrow-line" />
           <span className="softles-eyebrow-text">Selected work</span>
         </motion.div>
-        <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} custom={1} className="service-section-heading text-[#FFFFFF]">Work worth showing off</motion.h2>
+        <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">Work worth showing off</WordReveal>
         <motion.p variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-40px" }} custom={2} className="softles-section-copy max-w-2xl">
           Real, live builds — e-commerce, SaaS products and business sites. Switch between desktop and mobile, flip through the pages, and hover to pause.
         </motion.p>
@@ -142,7 +144,7 @@ export default function WorkShowcase() {
                 <span
                   key={`${index}-${cycle}`}
                   aria-hidden="true"
-                  className="absolute inset-0 origin-left bg-[#FF4D57] animate-[pillFill_5s_linear_forwards]"
+                  className="absolute inset-0 origin-left bg-[#FF4D57] animate-[pillFill_7.5s_linear_forwards]"
                 />
               )}
               <span className="relative">{p.name}</span>
@@ -161,21 +163,30 @@ export default function WorkShowcase() {
             setPaused(false);
             setCycle((c) => c + 1);
           }}
-          className="flex gap-8 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-8 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {shown.map((p, slideIdx) => {
             const live = inView && index === slideIdx ? "show" : "hidden";
             return (
             <div key={p.slug} className="snap-start shrink-0 w-full">
-              <div className="h-full rounded-3xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-4 sm:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_50px_rgba(0,0,0,0.35)]">
-                <div className="grid lg:grid-cols-[1.3fr_0.9fr] gap-6 lg:gap-8 items-center">
-                  {/* Devices on a soft stage glow */}
-                  <motion.div variants={cardDevice} initial="hidden" animate={live} className="group relative">
+              <div className="group/card h-full rounded-3xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-4 sm:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:border-[#FF4D57]/30 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_56px_rgba(0,0,0,0.4)]">
+                <div className="grid lg:grid-cols-[1.4fr_0.85fr] gap-6 lg:gap-8 items-center">
+                  {/* Devices on a two-tone stage glow — brightens further on card hover */}
+                  <motion.div variants={cardDevice} initial="hidden" animate={live} className="relative">
                     <div
                       aria-hidden="true"
-                      className="pointer-events-none absolute -inset-8 bg-[radial-gradient(55%_45%_at_50%_55%,rgba(255,77,87,0.08),transparent_70%)] blur-2xl"
+                      className="pointer-events-none absolute -inset-10 sm:-inset-16 bg-[radial-gradient(55%_50%_at_50%_45%,rgba(255,77,87,0.22),transparent_70%)] blur-2xl opacity-80 transition-opacity duration-500 group-hover/card:opacity-100"
                     />
-                    <div className="relative">
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-10 sm:-inset-16 bg-[radial-gradient(40%_35%_at_78%_78%,rgba(109,94,246,0.16),transparent_70%)] blur-3xl opacity-80 transition-opacity duration-500 group-hover/card:opacity-100"
+                    />
+                    {/* Key light from the top left, so the metal edge catches it and the device reads as raised */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-10 sm:-inset-16 bg-[radial-gradient(45%_40%_at_22%_10%,rgba(255,255,255,0.10),transparent_70%)] blur-2xl"
+                    />
+                    <div className="relative px-2 sm:px-5">
                       <DeviceFrame project={p} />
                     </div>
                   </motion.div>
@@ -185,18 +196,24 @@ export default function WorkShowcase() {
                     variants={cardStagger}
                     initial="hidden"
                     animate={live}
-                    className="relative h-full flex flex-col justify-center"
+                    className="relative h-full flex flex-col justify-center pl-5"
                   >
-                    {/* Ghost slide numeral */}
+                    {/* Accent rail — anchors the column and ties it to the brand */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute left-0 top-1 bottom-1 w-[2px] rounded-full bg-gradient-to-b from-[#FF4D57] via-[#FF4D57]/40 to-[#FF4D57]/5"
+                    />
+
+                    {/* Ghost slide numeral — brightens on card hover */}
                     <motion.span
                       variants={cardItem}
                       aria-hidden="true"
-                      className="pointer-events-none select-none absolute bottom-0 right-0 text-[88px] lg:text-[104px] font-black leading-none text-white/[0.04]"
+                      className="pointer-events-none select-none absolute bottom-0 right-0 text-[88px] lg:text-[104px] font-black leading-none text-white/[0.04] transition-colors duration-500 group-hover/card:text-white/[0.07]"
                     >
                       {String(slideIdx + 1).padStart(2, "0")}
                     </motion.span>
 
-                    <motion.div variants={cardItem} className="flex items-center gap-2 mb-4">
+                    <motion.div variants={cardItem} className="flex items-center gap-2 mb-3">
                       <span className="inline-flex items-center rounded-full bg-[#FF4D57]/10 border border-[#FF4D57]/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FF4D57]">
                         {p.category}
                       </span>
@@ -210,28 +227,29 @@ export default function WorkShowcase() {
                     <motion.h3 variants={cardItem} className="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">
                       {p.name}
                     </motion.h3>
-                    <motion.p variants={cardItem} className="text-[#C7CCD6]/85 text-sm leading-relaxed mt-2.5 max-w-xl">
+                    <motion.p variants={cardItem} className="text-[#C7CCD6]/85 text-sm leading-relaxed mt-2 max-w-xl">
                       {p.summary}
                     </motion.p>
 
-                    {/* Highlights */}
-                    <ul className="mt-4 flex flex-col gap-2">
+                    {/* Highlights — plain checkmarked list, no boxed pills, so it reads light */}
+                    <motion.ul variants={cardItem} className="mt-4 flex flex-col gap-2">
                       {p.highlights.map((h) => (
-                        <motion.li variants={cardItem} key={h} className="flex items-start gap-2.5 text-[#C7CCD6] text-sm">
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF4D57" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                        <li key={h} className="flex items-center gap-2 text-[13px] text-[#C7CCD6] transition-colors duration-300 group-hover/card:text-white/90">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF4D57" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                             <path d="M20 6L9 17l-5-5" />
                           </svg>
                           {h}
-                        </motion.li>
+                        </li>
                       ))}
-                    </ul>
+                    </motion.ul>
 
                     {/* Metrics */}
                     {p.metrics && (
-                      <motion.div variants={cardItem} className="mt-5 hidden lg:grid grid-cols-3 gap-2.5 max-w-sm">
+                      <motion.div variants={cardItem} className="mt-4 hidden lg:grid grid-flow-col auto-cols-fr gap-2.5 max-w-sm">
                         {p.metrics.map((m) => (
-                          <div key={m.label} className="rounded-xl border border-[#2E3446] bg-[#161C27] px-2.5 py-2.5 text-center">
-                            <div className="text-base md:text-lg font-black text-white">{m.value}</div>
+                          <div key={m.label} className="relative overflow-hidden rounded-xl border border-[#2E3446] bg-[#161C27] px-2.5 py-2.5 text-center">
+                            <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D]" />
+                            <div className="text-base md:text-lg font-black text-white"><RollingNumber value={m.value} play={live === "show"} /></div>
                             <div className="text-[10px] uppercase tracking-wider text-[#C7CCD6]/60 mt-0.5">{m.label}</div>
                           </div>
                         ))}
@@ -239,7 +257,7 @@ export default function WorkShowcase() {
                     )}
 
                     {/* CTAs — keep visitors on-site */}
-                    <motion.div variants={cardItem} className="mt-6 flex flex-col sm:flex-row gap-3">
+                    <motion.div variants={cardItem} className="mt-4 flex flex-col sm:flex-row gap-3">
                       <Link href={`/work/${p.slug}`} className="softles-primary-button justify-center sm:justify-start whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
                         <span>View project</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
