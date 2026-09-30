@@ -41,6 +41,18 @@ h1, h2, h3,
     }
 
     /* Progress ring drawing around the playing process step; its length arrives as --ring-c. */
+    /* Option C process cards: the active card's top-edge timer */
+    .step-timer {
+        width: 0;
+        animation-name: stepTimer;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+    }
+    @keyframes stepTimer {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+
     .step-ring-draw {
         animation-name: stepRingDraw;
         animation-timing-function: linear;
@@ -53,6 +65,7 @@ h1, h2, h3,
 
     @media (prefers-reduced-motion: reduce) {
         .step-float { animation: none !important; }
+        .step-timer { animation: none !important; width: 100%; }
     }
 
     .softles-section-secondary {

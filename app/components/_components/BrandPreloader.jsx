@@ -43,7 +43,7 @@ function wavePath(p, phase, widthPx, amp) {
   return `${d} L ${VW} ${bottom.toFixed(1)} L 0 ${bottom.toFixed(1)} Z`;
 }
 
-export default function BrandPreloader() {
+export default function BrandPreloader({ ready = true, onDone }) {
   const [gone, setGone] = useState(false);
   const rootRef = useRef(null);
   const boxRef = useRef(null);
@@ -51,6 +51,12 @@ export default function BrandPreloader() {
   const solidRef = useRef(null);
   const counterRef = useRef(null);
   const progressRef = useRef(null);
+  // On a client-side navigation the overlay holds at 100% until the new page
+  // has committed, then plays its exit.
+  const readyRef = useRef(ready);
+  const onDoneRef = useRef(onDone);
+  readyRef.current = ready;
+  onDoneRef.current = onDone;
 
   useEffect(() => {
     // The page must not scroll underneath the overlay.
@@ -64,6 +70,8 @@ export default function BrandPreloader() {
     let raf;
     let shown = -1;
     let done = false;
+    let waitFrom = null; // when we started holding at 100% for the route
+    let waited = 0;
 
     const finish = () => {
       if (done) return;
@@ -71,12 +79,18 @@ export default function BrandPreloader() {
       document.body.style.overflow = prev;
       window.scrollTo(0, 0);
       setGone(true);
+      onDoneRef.current?.();
     };
 
     if (reduced) {
-      const t = setTimeout(finish, 600);
+      const t = setInterval(() => {
+        if (readyRef.current) {
+          clearInterval(t);
+          finish();
+        }
+      }, 120);
       return () => {
-        clearTimeout(t);
+        clearInterval(t);
         document.body.style.overflow = prev;
       };
     }
@@ -99,7 +113,15 @@ export default function BrandPreloader() {
       }
 
       if (t > HOLD_MS + FILL_MS) {
-        const e = t - (HOLD_MS + FILL_MS);
+        if (!readyRef.current) {
+          if (waitFrom === null) waitFrom = now;
+          return;
+        }
+        if (waitFrom !== null) {
+          waited += now - waitFrom;
+          waitFrom = null;
+        }
+        const e = t - (HOLD_MS + FILL_MS) - waited;
         if (progressRef.current) {
           progressRef.current.style.opacity = String(1 - clamp01(e / OUT_COUNTER_MS));
         }
@@ -129,8 +151,10 @@ export default function BrandPreloader() {
       // loop would keep running (and keep yanking the page back to the top).
       if (!done) raf = requestAnimationFrame(frame);
     };
+    // Ticks regardless of visibility: rAF also stalls when a tab is throttled
+    // or not compositing without document.hidden ever flipping.
     const keepAlive = setInterval(() => {
-      if (!done && document.hidden) tick(performance.now());
+      if (!done) tick(performance.now());
     }, 150);
     function stop() {
       cancelAnimationFrame(raf);

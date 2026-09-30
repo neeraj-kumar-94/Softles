@@ -15,7 +15,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <main className="bg-[#0E1219] overflow-x-hidden sm:pt-[60px]">
+    <main className="bg-[#0E1219] overflow-x-hidden">
       <Hero />
       <WorkShowcase />
       <OurServicesSection />

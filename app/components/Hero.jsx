@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { projects } from "../work/projects";
 
 // The device runs through every live build, showing each one's hero.
@@ -15,6 +15,7 @@ const HERO_SHOTS = projects.map((p) => ({
     platform: p.stack && p.stack.toLowerCase() !== p.category.toLowerCase() ? p.stack : null,
 }));
 const SHOT_MS = 5500;
+const DECK_MS = 850; // one shared move for every card when the deck turns
 
 const clientLogos = ["/logo_1.png", "/logo_2.png", "/logo_3.png", "/logo_4.png", "/logo_5.png", "/logo_6.png", "/logo_7.png", "/logo_8.png", "/logo_9.png"];
 
@@ -78,6 +79,8 @@ export default function Hero() {
     const current = HERO_SHOTS[shot];
 
     // The timer line traces the capture, so it needs the screen's live size.
+    // Every card in the stack is the same size, so the sizer's screen is measured
+    // once and the numbers hold for whichever card is in front.
     const screenRef = useRef(null);
     const [screen, setScreen] = useState({ w: 0, h: 0 });
 
@@ -94,6 +97,18 @@ export default function Hero() {
         ro.observe(el);
         return () => ro.disconnect();
     }, []);
+
+    // Which way the last card left, so the fling matches the drag that caused it.
+    const [flyDir, setFlyDir] = useState(-1);
+    const advance = (dir = -1) => {
+        setFlyDir(dir);
+        setShot((i) => (i + 1) % HERO_SHOTS.length);
+    };
+    const onDragEnd = (_e, info) => {
+        const far = Math.abs(info.offset.x) > 90;
+        const fast = Math.abs(info.velocity.x) > 500;
+        if (far || fast) advance(info.offset.x < 0 ? -1 : 1);
+    };
 
     // Matches the screen's rounded-xl corners, pulled in by half the stroke.
     const R = 10.5;
@@ -128,9 +143,11 @@ export default function Hero() {
             id="hero"
             onMouseMove={track}
             onMouseLeave={rest}
-            className="relative w-full overflow-hidden bg-[#0E1219] min-h-screen lg:min-h-[92vh] flex flex-col justify-center pt-28 pb-10 lg:pt-24 lg:pb-8"
+            className="relative w-full overflow-hidden bg-[#0E1219] min-h-screen lg:min-h-[92vh] flex flex-col justify-center pt-28 pb-10 sm:pt-[calc(7rem+60px)] lg:pt-[calc(6rem+60px)] lg:pb-8"
         >
-            {/* Colour canvas cutting in from the right, with a slow sheen drifting across it */}
+            {/* Colour canvas cutting in from the right, with a slow sheen drifting across it.
+                The section starts at the top of the page (the navbar is transparent
+                until you scroll), so the canvas runs right up behind the nav. */}
             <motion.div
                 aria-hidden="true"
                 initial={{ opacity: 0, scale: 1.08 }}
@@ -151,21 +168,11 @@ export default function Hero() {
                 <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
                     {/* Copy */}
                     <div className="max-w-2xl">
-                        <motion.span
-                            variants={rise}
-                            initial="hidden"
-                            animate="show"
-                            custom={0}
-                            className="hero-reveal inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.06] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#C7CCD6] backdrop-blur-sm"
-                        >
-                            <span className="h-1.5 w-1.5 rounded-full bg-[#FF4D57] shadow-[0_0_10px_rgba(255,77,87,0.9)]" />
-                            Design-led. AI-accelerated.
-                        </motion.span>
 
                         <motion.h1
                             initial="hidden"
                             animate="show"
-                            className="mt-6 font-extrabold text-[2.1rem] leading-[1.1] sm:text-5xl sm:leading-[1.08] lg:text-[54px] xl:text-[60px] lg:leading-[1.07] tracking-[-0.03em] text-[#F5F6FA]"
+                            className="font-extrabold text-[2.1rem] leading-[1.1] sm:text-5xl sm:leading-[1.08] lg:text-[54px] xl:text-[60px] lg:leading-[1.07] tracking-[-0.03em] text-[#F5F6FA]"
                         >
                             {LINE_ONE.map((w, i) => (
                                 <span key={w}>
@@ -230,115 +237,162 @@ export default function Hero() {
                                 transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
                                 onMouseEnter={() => setHeld(true)}
                                 onMouseLeave={() => setHeld(false)}
-                                className="hero-float rounded-2xl border border-white/20 bg-[#0b0d12] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,0.55)]"
+                                className="group/stack relative"
                             >
-                                {/* Browser chrome doubles as the caption: which build this is, and what it's built on */}
-                                <div className="flex items-center gap-2 px-1 pb-2">
-                                    <span className="flex shrink-0 gap-1.5" aria-hidden="true">
-                                        <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
-                                        <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
-                                        <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
-                                    </span>
-                                    <span className="ml-1 flex min-w-0 flex-1 items-center gap-1.5 rounded-md border border-[#2E3446]/70 bg-[#161C27] px-2.5 py-1 text-[10px] font-medium text-[#8f97a8]">
-                                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                                            <rect x="3" y="11" width="18" height="11" rx="2" />
-                                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                                        </svg>
-                                        <motion.span
-                                            key={`name-${shot}`}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{ duration: 0.45, ease: EASE }}
-                                            className="truncate text-white/90"
-                                        >
-                                            {current.name}
-                                        </motion.span>
-                                    </span>
-                                    <motion.span
-                                        key={`meta-${shot}`}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.45, ease: EASE }}
-                                        className="shrink-0 rounded-full border border-[#FF4D57]/30 bg-[#FF4D57]/10 px-2 py-[3px] text-[9px] font-bold uppercase tracking-[0.1em] text-[#FF4D57]"
-                                    >
-                                        {current.category}
-                                        {current.platform && <span className="hidden sm:inline"> · {current.platform}</span>}
-                                    </motion.span>
+                                {/* Sizer: an invisible card that gives the stack its height, so the
+                                    real cards can all sit absolute and swap places freely. */}
+                                <div aria-hidden="true" className="invisible rounded-2xl border border-white/20 p-2.5">
+                                    <div className="h-[26px] pb-2" />
+                                    <div ref={screenRef} className="aspect-[27/16] rounded-xl" />
                                 </div>
 
-                                {/* Matches the hero crops' 27:16 ratio, so each one fits exactly at any width */}
-                                <div ref={screenRef} className="relative aspect-[27/16] overflow-hidden rounded-xl bg-white">
-                                    {/* Slide timer: it traces the capture itself, and finishing is what
-                                        brings the next project in. Hovering holds it where it is. */}
-                                    {perimeter > 0 && (
-                                        <svg
-                                            width={screen.w}
-                                            height={screen.h}
-                                            viewBox={`0 0 ${screen.w} ${screen.h}`}
-                                            fill="none"
-                                            aria-hidden="true"
-                                            shapeRendering="geometricPrecision"
-                                            style={{ width: screen.w, height: screen.h }}
-                                            className="pointer-events-none absolute left-0 top-0 z-10"
-                                        >
-                                            <defs>
-                                                <linearGradient id="hero-timer" x1="0" y1="0" x2="1" y2="1">
-                                                    <stop offset="0%" stopColor="#FF4D57" />
-                                                    <stop offset="100%" stopColor="#FF6A3D" />
-                                                </linearGradient>
-                                            </defs>
-                                            {/* Glow is a second, wider stroke rather than a drop-shadow filter:
-                                                filters rasterise coarsely on this rotated card and made the line ripple. */}
-                                            <rect
-                                                key={`glow-${shot}`}
-                                                x="1.5"
-                                                y="1.5"
-                                                width={Math.max(screen.w - 3, 0)}
-                                                height={Math.max(screen.h - 3, 0)}
-                                                rx={R}
-                                                stroke="rgba(255,77,87,0.3)"
-                                                strokeWidth="7"
-                                                strokeDasharray={perimeter}
-                                                className="hero-progress"
-                                                style={{
-                                                    "--p": perimeter,
-                                                    animationDuration: `${SHOT_MS}ms`,
-                                                    animationPlayState: held ? "paused" : "running",
-                                                }}
-                                            />
-                                            <rect
-                                                key={shot}
-                                                x="1.5"
-                                                y="1.5"
-                                                width={Math.max(screen.w - 3, 0)}
-                                                height={Math.max(screen.h - 3, 0)}
-                                                rx={R}
-                                                stroke="url(#hero-timer)"
-                                                strokeWidth="3"
-                                                strokeDasharray={perimeter}
-                                                className="hero-progress"
-                                                style={{
-                                                    "--p": perimeter,
-                                                    animationDuration: `${SHOT_MS}ms`,
-                                                    animationPlayState: held ? "paused" : "running",
-                                                }}
-                                                onAnimationEnd={() => setShot((i) => (i + 1) % HERO_SHOTS.length)}
-                                            />
-                                        </svg>
-                                    )}
-                                    <AnimatePresence initial={false}>
-                                        <motion.img
-                                            key={current.src}
-                                            src={current.src}
-                                            alt={`${current.name}, a site we designed and built`}
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            transition={{ duration: 0.7, ease: EASE }}
-                                            className="absolute inset-0 h-full w-full object-cover object-top"
-                                        />
-                                    </AnimatePresence>
-                                </div>
+                                {/* The deck: the current build in front, the next two fanned behind it
+                                    (like a hand of cards). Every card glides to its next slot in one
+                                    shared, eased move — the front one arcs out and tucks under the deck
+                                    instead of vanishing — so a change reads as one motion, not a swap. */}
+                                {HERO_SHOTS.map((item, idx) => {
+                                    const n = HERO_SHOTS.length;
+                                    const k = (idx - shot + n) % n;
+                                    const leaving = k === n - 1; // the card that was in front a moment ago
+                                    if (k > 2 && !leaving) return null;
+                                    const front = k === 0;
+                                    const slot = {
+                                        rotate: -4 * k,
+                                        scale: 1 - 0.035 * k,
+                                        opacity: 1,
+                                        x: 0,
+                                        filter: `brightness(${1 - 0.22 * k})`,
+                                        zIndex: 30 - k * 10,
+                                    };
+                                    // Arc out to the side, drop under the deck at the midpoint, settle
+                                    // into the back slot and fade — all on the same clock as the others.
+                                    const tuck = {
+                                        x: [null, 150 * flyDir, -22],
+                                        rotate: [null, 12 * flyDir, -10],
+                                        scale: [null, 0.97, 0.9],
+                                        opacity: [1, 1, 0],
+                                        filter: ["brightness(1)", "brightness(0.9)", "brightness(0.5)"],
+                                        zIndex: [30, 30, 0, 0],
+                                    };
+                                    return (
+                                        <motion.div
+                                            key={item.src}
+                                            initial={{ rotate: -12, scale: 0.9, opacity: 0, zIndex: 0 }}
+                                            animate={leaving ? tuck : slot}
+                                            transition={
+                                                leaving
+                                                    ? { duration: DECK_MS / 1000, ease: [0.65, 0, 0.35, 1], times: [0, 0.5, 1], zIndex: { times: [0, 0.48, 0.5, 1], duration: DECK_MS / 1000 } }
+                                                    : { duration: DECK_MS / 1000, ease: [0.65, 0, 0.35, 1] }
+                                            }
+                                                style={{ transformOrigin: "92% 100%" }}
+                                                drag={front ? "x" : false}
+                                                dragConstraints={{ left: 0, right: 0 }}
+                                                dragElastic={0.7}
+                                                onDragEnd={front ? onDragEnd : undefined}
+                                                whileDrag={{ scale: 1.02, cursor: "grabbing" }}
+                                                className={`absolute inset-0 rounded-2xl border border-white/20 bg-[#0b0d12] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,0.55)] ${front ? "cursor-grab" : "pointer-events-none"}`}
+                                            >
+                                                {/* Browser chrome doubles as the caption: which build this is, and what it's built on */}
+                                                <div className="flex items-center gap-2 px-1 pb-2">
+                                                    <span className="flex shrink-0 gap-1.5" aria-hidden="true">
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]" />
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
+                                                        <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
+                                                    </span>
+                                                    <span className="ml-1 flex min-w-0 flex-1 items-center gap-1.5 rounded-md border border-[#2E3446]/70 bg-[#161C27] px-2.5 py-1 text-[10px] font-medium text-[#8f97a8]">
+                                                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                                                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                                                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                                        </svg>
+                                                        <span className="truncate text-white/90">{item.name}</span>
+                                                    </span>
+                                                    <span className="shrink-0 rounded-full border border-[#FF4D57]/30 bg-[#FF4D57]/10 px-2 py-[3px] text-[9px] font-bold uppercase tracking-[0.1em] text-[#FF4D57]">
+                                                        {item.category}
+                                                        {item.platform && <span className="hidden sm:inline"> · {item.platform}</span>}
+                                                    </span>
+                                                </div>
+
+                                                {/* Matches the hero crops' 27:16 ratio, so each one fits exactly at any width */}
+                                                <div className="relative aspect-[27/16] overflow-hidden rounded-xl bg-white">
+                                                    {/* Slide timer, only on the front card: it traces the capture, and
+                                                        finishing is what flicks the card away. Hovering holds it. */}
+                                                    {front && perimeter > 0 && (
+                                                        <svg
+                                                            width={screen.w}
+                                                            height={screen.h}
+                                                            viewBox={`0 0 ${screen.w} ${screen.h}`}
+                                                            fill="none"
+                                                            aria-hidden="true"
+                                                            shapeRendering="geometricPrecision"
+                                                            style={{ width: screen.w, height: screen.h }}
+                                                            className="pointer-events-none absolute left-0 top-0 z-10"
+                                                        >
+                                                            <defs>
+                                                                <linearGradient id="hero-timer" x1="0" y1="0" x2="1" y2="1">
+                                                                    <stop offset="0%" stopColor="#FF4D57" />
+                                                                    <stop offset="100%" stopColor="#FF6A3D" />
+                                                                </linearGradient>
+                                                            </defs>
+                                                            {/* Glow is a second, wider stroke rather than a drop-shadow filter:
+                                                                filters rasterise coarsely on this rotated card and made the line ripple. */}
+                                                            <rect
+                                                                key={`glow-${shot}`}
+                                                                x="1.5"
+                                                                y="1.5"
+                                                                width={Math.max(screen.w - 3, 0)}
+                                                                height={Math.max(screen.h - 3, 0)}
+                                                                rx={R}
+                                                                stroke="rgba(255,77,87,0.3)"
+                                                                strokeWidth="7"
+                                                                strokeDasharray={perimeter}
+                                                                className="hero-progress"
+                                                                style={{
+                                                                    "--p": perimeter,
+                                                                    animationDuration: `${SHOT_MS}ms`,
+                                                                    animationPlayState: held ? "paused" : "running",
+                                                                }}
+                                                            />
+                                                            <rect
+                                                                key={shot}
+                                                                x="1.5"
+                                                                y="1.5"
+                                                                width={Math.max(screen.w - 3, 0)}
+                                                                height={Math.max(screen.h - 3, 0)}
+                                                                rx={R}
+                                                                stroke="url(#hero-timer)"
+                                                                strokeWidth="3"
+                                                                strokeDasharray={perimeter}
+                                                                className="hero-progress"
+                                                                style={{
+                                                                    "--p": perimeter,
+                                                                    animationDuration: `${SHOT_MS}ms`,
+                                                                    animationPlayState: held ? "paused" : "running",
+                                                                }}
+                                                                onAnimationEnd={() => advance(-1)}
+                                                            />
+                                                        </svg>
+                                                    )}
+                                                    {/* eslint-disable-next-line @next/next/no-img-element -- hero crop, sized by its box */}
+                                                    <img
+                                                        src={item.src}
+                                                        alt={`${item.name}, a site we designed and built`}
+                                                        draggable={false}
+                                                        className="absolute inset-0 h-full w-full select-none object-cover object-top"
+                                                    />
+                                                    {/* Swipe cue, only on the front card and only on hover — the same
+                                                        nudge the reference deck gives. */}
+                                                    {front && (
+                                                        <span
+                                                            aria-hidden="true"
+                                                            className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3.5 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity duration-300 group-hover/stack:opacity-100"
+                                                        >
+                                                            Swipe →
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </motion.div>
+                                    );
+                                })}
                             </motion.div>
                         </motion.div>
                     </motion.div>

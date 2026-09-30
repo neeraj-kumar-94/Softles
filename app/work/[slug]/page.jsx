@@ -45,15 +45,16 @@ export default function WorkDetail({ params }) {
             className="pointer-events-none absolute left-1/2 -top-40 h-[520px] w-[900px] -translate-x-1/2 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(255,77,87,0.14),transparent_70%)] blur-3xl"
           />
           <div className="service-page-container relative">
-            <div className="flex flex-col items-center text-center">
-              <Reveal index={0}>
-                <Link href="/work" className="inline-flex items-center gap-2 text-sm text-[#C7CCD6] hover:text-[#FF4D57] transition-colors">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
-                  All work
-                </Link>
-              </Reveal>
+            {/* Breadcrumb sits where a breadcrumb belongs: top-left, right under the header */}
+            <Reveal index={0} className="mt-5 mb-8 sm:-mt-6 sm:mb-10 md:-mt-12 md:mb-12">
+              <Link href="/work" className="inline-flex items-center gap-2 text-sm text-[#C7CCD6] hover:text-[#FF4D57] transition-colors">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+                All work
+              </Link>
+            </Reveal>
 
-              <Reveal index={1} className="mt-5 flex flex-wrap items-center justify-center gap-2">
+            <div className="flex flex-col items-center text-center">
+              <Reveal index={1} className="flex flex-wrap items-center justify-center gap-2">
                 <span className="inline-flex items-center rounded-full bg-[#FF4D57]/10 border border-[#FF4D57]/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FF4D57]">
                   {project.category}
                 </span>
@@ -84,14 +85,6 @@ export default function WorkDetail({ params }) {
                 </Reveal>
               )}
 
-              <Reveal index={5} className="mt-7 flex flex-col sm:flex-row justify-center gap-3">
-                <Link href="/#book-call" className="softles-primary-button justify-center whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
-                  Start a similar project
-                </Link>
-                <a href="#designs" className="softles-secondary-button justify-center whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
-                  See every page
-                </a>
-              </Reveal>
             </div>
 
             {/* Device on its stage: straightens and grows as you scroll in.
@@ -99,6 +92,16 @@ export default function WorkDetail({ params }) {
             <CaseHeroStage>
               <DeviceFrame project={project} tall eager />
             </CaseHeroStage>
+
+            {/* Actions come after the build — title, device, then what to do about it */}
+            <Reveal index={2} className="mt-10 flex flex-col sm:flex-row justify-center gap-3 lg:mt-12">
+              <Link href="/#book-call" className="softles-primary-button justify-center whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
+                Start a similar project
+              </Link>
+              <a href="#designs" className="softles-secondary-button justify-center whitespace-nowrap !px-5 !py-3 !text-xs md:!text-sm">
+                See every page
+              </a>
+            </Reveal>
           </div>
         </section>
 

@@ -72,7 +72,7 @@ export default function Navbar() {
             ${isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}
             ${scrolled
                 ? "bg-[#0E1219]/75 backdrop-blur-xl shadow-[0_16px_44px_rgba(0,0,0,0.45)]"
-                : "bg-[#0E1219]"}`}
+                : "bg-transparent"}`}
         >
             {/* Gradient hairline along the bottom edge — appears on scroll */}
             <div

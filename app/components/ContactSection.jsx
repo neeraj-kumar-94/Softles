@@ -64,21 +64,30 @@ export default function ContactSection() {
                     {/* Photo panel */}
                     <motion.div variants={fadeIn("left")} initial="hidden" whileInView="show" viewport={viewportOnce} className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[#2E3446] bg-gradient-to-br from-[#222A3B] to-[#12161F] min-h-[320px] sm:min-h-[400px] lg:min-h-0">
                         <Image
-                            src="/shakti-hover.jpg"
+                            src="/shakti-hover.webp"
                             alt="Shakti Singh, Strategy Lead at SoftLes"
                             fill
                             sizes="(max-width: 1024px) 100vw, 40vw"
                             className="object-cover object-top"
                         />
+                        {/* Sits between the two portraits: opaque, so as it wipes up it covers the
+                            resting pose while the second one arrives on top of it. */}
+                        <div
+                            aria-hidden="true"
+                            className="absolute inset-0 bg-[radial-gradient(125%_85%_at_50%_72%,#FF6A3D_0%,#FF4D57_34%,#7A2530_70%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+                        />
+                        {/* The second portrait is a cut-out too, so it arrives on the red
+                            rather than bringing its own studio backdrop with it. */}
                         <Image
-                            src="/shakti_singh.jpg"
-                            alt="Shakti Singh, Strategy Lead at SoftLes"
+                            src="/shakti-plain.webp"
+                            alt=""
+                            aria-hidden="true"
                             fill
                             sizes="(max-width: 1024px) 100vw, 40vw"
                             loading="eager"
                             className="object-cover object-top [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
                         />
-                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#0B0F16] via-[#0B0F16]/60 to-transparent" />
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#0B0F16] via-[#0B0F16]/60 to-transparent transition-colors duration-500 group-hover:from-[#2A1014] group-hover:via-[#2A1014]/55" />
                         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
                             <p className="text-white font-bold text-lg leading-tight">Shakti Singh</p>
                             <p className="text-[#C7CCD6] text-sm mt-0.5">Strategy Lead</p>
