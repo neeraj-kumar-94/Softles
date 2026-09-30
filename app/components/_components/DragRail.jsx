@@ -44,6 +44,7 @@ export default function DragRail({ children, speed = 0.6, className = "" }) {
     let startX = 0;
     let startScroll = 0;
     let releaseTimer;
+    let armed = false; // pointer is down, but it is not a drag yet
 
     const onPointerDown = (e) => {
       clearTimeout(releaseTimer);
@@ -51,23 +52,34 @@ export default function DragRail({ children, speed = 0.6, className = "" }) {
       moved.current = false;
       // Touch keeps the browser's own scrolling and inertia.
       if (e.pointerType === "touch") return;
-      dragging.current = true;
+      armed = true;
       startX = e.clientX;
       startScroll = el.scrollLeft;
-      el.setPointerCapture(e.pointerId);
+      // Capture is deliberately NOT taken here: capturing on pointerdown sends
+      // the click to the rail instead of whatever was under the cursor, which
+      // stopped the cards' LinkedIn links from opening.
     };
 
     const onPointerMove = (e) => {
-      if (!dragging.current) return;
-      e.preventDefault();
+      if (!armed && !dragging.current) return;
       const dx = e.clientX - startX;
-      if (Math.abs(dx) > 4) moved.current = true;
+      if (!dragging.current) {
+        // Only once the pointer has actually travelled does this become a drag.
+        if (Math.abs(dx) <= 4) return;
+        dragging.current = true;
+        moved.current = true;
+        try {
+          el.setPointerCapture(e.pointerId);
+        } catch {}
+      }
+      e.preventDefault();
       // Wrapping the target lets a backwards drag run past zero instead of
       // hitting the start of the track.
       el.scrollLeft = norm(startScroll - dx);
     };
 
     const endDrag = (e) => {
+      armed = false;
       if (dragging.current) {
         dragging.current = false;
         try {
