@@ -27,6 +27,9 @@ export default function EditorialHero({
   sub,
   projectsLabel,
   variant = "wordpress",
+  // Longer headlines need their own break after the light opening phrase,
+  // otherwise the first line reflows and leaves an orphan word behind.
+  breakAfterThin = false,
 }) {
   const Art = HERO_ART[variant] || WordPressArt;
 
@@ -54,7 +57,9 @@ export default function EditorialHero({
             </div>
 
             <h1 className="eh-r eh-r2 mt-6 font-bold text-4xl sm:text-6xl lg:text-[44px] xl:text-[52px] leading-[1.08] tracking-[-0.035em] text-white">
-              <span className="font-light text-[#aab0be]">{thin}</span> {name}
+              <span className="font-light text-[#aab0be]">{thin}</span>
+              {breakAfterThin ? <br /> : " "}
+              <span className="whitespace-nowrap">{name}</span>
               <br />
               {mid}{" "}
               <span className="eh-fillw">
