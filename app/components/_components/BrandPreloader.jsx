@@ -19,6 +19,10 @@ const OUT_BLOW_MS = 1000; // .to(logo, { duration: 1, opacity: 0, scale })
 const OUT_FADE_AT = 1700;
 const OUT_FADE_MS = 500;
 const OUT_TOTAL = 2200;
+// Longest we will wait at 100% for the route to commit. If a click is
+// intercepted somewhere downstream the navigation never lands, and without this
+// cap the overlay would sit on a scroll-locked page forever.
+const MAX_WAIT_MS = 5000;
 
 const clamp01 = (n) => (n < 0 ? 0 : n > 1 ? 1 : n);
 
@@ -72,6 +76,7 @@ export default function BrandPreloader({ ready = true, onDone }) {
     let done = false;
     let waitFrom = null; // when we started holding at 100% for the route
     let waited = 0;
+    let gaveUp = false; // waited out MAX_WAIT_MS — leave without the route
 
     const finish = () => {
       if (done) return;
@@ -83,8 +88,9 @@ export default function BrandPreloader({ ready = true, onDone }) {
     };
 
     if (reduced) {
+      const from = performance.now();
       const t = setInterval(() => {
-        if (readyRef.current) {
+        if (readyRef.current || performance.now() - from > MAX_WAIT_MS) {
           clearInterval(t);
           finish();
         }
@@ -113,9 +119,12 @@ export default function BrandPreloader({ ready = true, onDone }) {
       }
 
       if (t > HOLD_MS + FILL_MS) {
-        if (!readyRef.current) {
+        // Once we have given up, stay given up — re-entering the wait on every
+        // later frame would freeze the exit half-played.
+        if (!readyRef.current && !gaveUp) {
           if (waitFrom === null) waitFrom = now;
-          return;
+          if (now - waitFrom < MAX_WAIT_MS) return;
+          gaveUp = true; // the route is not coming; leave rather than hold the page
         }
         if (waitFrom !== null) {
           waited += now - waitFrom;

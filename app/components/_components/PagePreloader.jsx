@@ -12,6 +12,10 @@ const FILL_AT = 500;
 const FILL_MS = 1500;
 const HOLD_MS = 120; // beat at 100% before leaving
 const OUT_MS = 700;
+// Longest we will wait at 100% for the route to commit. If a click is
+// intercepted somewhere downstream the navigation never lands, and without
+// this cap the overlay would sit on a scroll-locked page forever.
+const MAX_WAIT_MS = 5000;
 
 const clamp01 = (n) => (n < 0 ? 0 : n > 1 ? 1 : n);
 const easeOut = (n) => 1 - Math.pow(1 - n, 3);
@@ -47,8 +51,9 @@ export default function PagePreloader({ eyebrow, title, ready = true, onDone }) 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setTyped(eyebrow);
       setRisen(true);
+      const from = performance.now();
       const t = setInterval(() => {
-        if (readyRef.current) {
+        if (readyRef.current || performance.now() - from > MAX_WAIT_MS) {
           clearInterval(t);
           finish();
         }
@@ -71,6 +76,7 @@ export default function PagePreloader({ eyebrow, title, ready = true, onDone }) 
     let raf;
     let waitFrom = null; // when we started holding at 100% for the route
     let waited = 0;
+    let gaveUp = false; // waited out MAX_WAIT_MS — leave without the route
     const tick = (now) => {
       const t = now - start;
       const p = easeOut(clamp01((t - FILL_AT) / FILL_MS));
@@ -84,9 +90,12 @@ export default function PagePreloader({ eyebrow, title, ready = true, onDone }) 
       }
       const leaveAt = FILL_AT + FILL_MS + HOLD_MS;
       if (t > leaveAt) {
-        if (!readyRef.current) {
+        // Once we have given up, stay given up — re-entering the wait on every
+        // later frame would freeze the exit half-played.
+        if (!readyRef.current && !gaveUp) {
           if (waitFrom === null) waitFrom = now;
-          return;
+          if (now - waitFrom < MAX_WAIT_MS) return;
+          gaveUp = true; // the route is not coming; leave rather than hold the page
         }
         if (waitFrom !== null) {
           waited += now - waitFrom;

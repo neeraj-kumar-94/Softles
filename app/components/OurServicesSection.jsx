@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { enter, EASE } from "./_components/motion-presets";
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 const iconProps = {
   width: 26,

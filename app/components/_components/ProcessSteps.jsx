@@ -77,11 +77,13 @@ export default function ProcessSteps({ steps }) {
                     : "border-[#FF4D57]/25 bg-[#FF4D57]/[0.08]"
                 }`}
               >
+                {/* The icons are portrait, not square, so the static import's
+                    own dimensions are kept and CSS sets the width — declaring a
+                    square box would reserve the wrong space for them. */}
                 <Image
                   src={stepIcons[idx % stepIcons.length]}
                   alt={`Process step icon for ${step.title}`}
-                  width={26}
-                  height={26}
+                  className="h-auto w-[26px]"
                 />
               </div>
 
