@@ -58,7 +58,7 @@ const projects = [
     ],
     tags: ["WordPress", "Education", "School", "Admissions"],
     pages: [
-      { label: "Home", d: "/work/vvnassandh-p0-d.jpg", m: "/work/vvnassandh-p0-m.jpg", dW: 1100, dH: 8805, mW: 440, mH: 10647 },
+      { label: "Home", d: "/work/vvnassandh-p0-d.jpg", m: "/work/vvnassandh-p0-m.jpg", dW: 1100, dH: 8394, mW: 440, mH: 10647 },
     ],
   },
 ];
