@@ -21,7 +21,7 @@ const SOURCES = [
 ];
 const ENTRY = /\{ label: "([^"]+)", d: "([^"]+)", m: "([^"]+)", dW: (\d+), dH: (\d+), mW: (\d+), mH: (\d+) \}/g;
 const ROOT = process.cwd();
-const W = 24; // each row is compared as a 24-wide greyscale signature
+const W = 64; // each row is sampled as a 64-wide greyscale signature
 
 function rowDiff(rows, a, b) {
   let s = 0;
@@ -54,20 +54,22 @@ async function repeatScore(file) {
   for (let y = 0; y + 7 < H; y += 3) { base += rowDiff(data, y, y + 7); bn++; }
   base /= bn;
 
-  // Longest run of rows that are a single flat colour across the full width.
-  // Section padding gives short runs; a section that never painted gives a long
-  // one, so the check wants both an absolute and a proportional threshold.
+  // Longest stretch of rows that are mostly one flat colour. Measured as a run
+  // across the row rather than the whole width, so an inset block counts too —
+  // an empty carousel or an image that never loaded sits inside the section,
+  // not edge to edge. Section padding gives a few hundred px; a section that
+  // never painted gives far more, hence both an absolute and a relative bound.
   let longest = 0;
   let run = 0;
   for (let y = 0; y < H; y++) {
-    let min = 255;
-    let max = 0;
-    for (let i = 0; i < W; i++) {
-      const v = data[y * W + i];
-      if (v < min) min = v;
-      if (v > max) max = v;
+    let widest = 0;
+    let flat = 1;
+    for (let x = 1; x < W; x++) {
+      if (Math.abs(data[y * W + x] - data[y * W + x - 1]) <= 3) flat++;
+      else { if (flat > widest) widest = flat; flat = 1; }
     }
-    if (max - min <= 5) run++;
+    if (flat > widest) widest = flat;
+    if (widest >= W * 0.7) run++;
     else { if (run > longest) longest = run; run = 0; }
   }
   if (run > longest) longest = run;
@@ -108,7 +110,7 @@ for (const source of SOURCES) {
         problems++;
         console.log(`TILED    ${rel}  repeats every ~${r.tilePx}px — re-capture by scroll-and-stitch`);
       }
-      if (r.blankPx > 600 && r.blankPx > r.meta.height * 0.1) {
+      if (r.blankPx > 600 && r.blankPx > r.meta.height * 0.06) {
         problems++;
         console.log(`BLANK    ${rel}  ${r.blankPx}px of flat background — a section did not paint, re-capture`);
       }
