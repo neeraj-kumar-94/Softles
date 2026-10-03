@@ -4,6 +4,40 @@
 
 export const projects = [
   {
+    slug: "ssf-global",
+    name: "SSF Global",
+    category: "Website",
+    stack: "Next.js",
+    year: "2026",
+    summary:
+      "Cross-border medical care, coordinated — a bilingual EN/FR site that makes an intimidating journey feel followable.",
+    overview:
+      "SSF — Santé Sans Frontière coordinates medical journeys from Africa, the Middle East and beyond to accredited hospitals in India, Morocco, Türkiye and China, from dual headquarters in New Delhi and Kinshasa. We built the site that carries the whole operation: the 21-step patient journey, 26 centers of excellence, the DRC virtual health portal and the global office network — in English and French throughout.",
+    challenge:
+      "Choosing treatment abroad is a high-stakes decision, usually made in a second language. SSF is a facilitator, not a hospital — a distinction that is both a legal requirement and the heart of their credibility — and most of the patients they serve read French.",
+    solution:
+      "A calm, institutional design that signals clinical seriousness without ever posing as a provider. The journey is laid out step by step, specialties and document checklists become browsable reference, accreditations and the office network carry the trust-building, and every page exists in full in both languages with the facilitator disclaimer always in view.",
+    highlights: [
+      "Full EN/FR parity across every page",
+      "21-step patient journey, made legible",
+      "26 centers of excellence directory",
+      "Compliance-first: facilitator, never provider",
+    ],
+    metrics: [
+      { value: "780+", label: "Patients served" },
+      { value: "30+", label: "Source countries" },
+      { value: "12+", label: "Country offices" },
+    ],
+    services: ["Multi-page website", "Bilingual EN/FR build", "UI/UX design", "Content architecture"],
+    tags: ["Healthcare", "Bilingual", "Corporate"],
+    pages: [
+      { label: "Home", d: "/work/ssf-p0-d.jpg", m: "/work/ssf-p0-m.jpg", dW: 1100, dH: 10953, mW: 440, mH: 24113 },
+      { label: "Patient journey", d: "/work/ssf-p1-d.jpg", m: "/work/ssf-p1-m.jpg", dW: 1100, dH: 6071, mW: 440, mH: 8276 },
+      { label: "Specialties", d: "/work/ssf-p2-d.jpg", m: "/work/ssf-p2-m.jpg", dW: 1100, dH: 3952, mW: 440, mH: 11065 },
+      { label: "Global presence", d: "/work/ssf-p3-d.jpg", m: "/work/ssf-p3-m.jpg", dW: 1100, dH: 3226, mW: 440, mH: 6395 },
+    ],
+  },
+  {
     slug: "brunswick-fur-food",
     name: "Brunswick Fur Food",
     category: "E-commerce",
@@ -29,8 +63,8 @@ export const projects = [
     services: ["Shopify theme development", "Subscriptions", "CRO", "Mobile UX"],
     tags: ["Shopify", "Subscriptions", "CRO"],
     pages: [
-      { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 3760, dH: 16384, mW: 750, mH: 16384 },
-      { label: "Subscription", d: "/work/brunswick-p1-d.jpg", m: "/work/brunswick-p1-m.jpg", dW: 3760, dH: 14788, mW: 732, mH: 16384 },
+      { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 1100, dH: 4793, mW: 440, mH: 9612 },
+      { label: "Subscription", d: "/work/brunswick-p1-d.jpg", m: "/work/brunswick-p1-m.jpg", dW: 1100, dH: 4326, mW: 440, mH: 9848 },
       { label: "About", d: "/work/brunswick-p2-d.webp", m: "/work/brunswick-p2-m.webp", dW: 3760, dH: 8644, mW: 750, mH: 10938 },
     ],
   },
