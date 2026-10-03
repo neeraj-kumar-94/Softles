@@ -13,6 +13,12 @@ export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
 }
 
+// The project list is a static array, so anything outside it is a dead URL —
+// a retired slug, a typo, a stale link. Without this the router still renders
+// the segment and notFound() comes back as a soft 404: the right page, but a
+// 200, which search engines index as a real page.
+export const dynamicParams = false;
+
 export function generateMetadata({ params }) {
   const p = getProject(params.slug);
   if (!p) return {};

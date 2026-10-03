@@ -69,15 +69,15 @@ export const projects = [
     ],
   },
   {
-    slug: "wavelo",
-    name: "Wavelo",
+    slug: "sandeshsetu",
+    name: "SandeshSetu",
     category: "SaaS",
     stack: "Web app",
     year: "2025",
     summary:
       "A WhatsApp Business platform — campaigns, automations and a shared inbox in one workspace, wrapped in a crisp product-marketing site.",
     overview:
-      "Wavelo turns WhatsApp into a reliable customer channel — campaigns, automations and a shared team inbox. We crafted the product-marketing site: a bold narrative, interactive dashboard visuals, and early-access capture throughout.",
+      "SandeshSetu turns WhatsApp into a reliable customer channel — campaigns, automations and a shared team inbox, all running on Meta's official Business Platform. We crafted the product-marketing site: a bold narrative, interactive dashboard visuals, and early-access capture throughout.",
     challenge:
       "A pre-launch SaaS needed to look established and explain a multi-feature platform without overwhelming visitors.",
     solution:
@@ -91,9 +91,9 @@ export const projects = [
     services: ["Product marketing site", "UI/UX design", "Multi-page build"],
     tags: ["SaaS", "Product", "Landing"],
     pages: [
-      { label: "Home", d: "/work/wavelo-p0-d.jpg", m: "/work/wavelo-p0-m.jpg", dW: 1100, dH: 3457, mW: 440, mH: 9007 },
-      { label: "Features", d: "/work/wavelo-p1-d.jpg", m: "/work/wavelo-p1-m.jpg", dW: 1100, dH: 2559, mW: 440, mH: 7607 },
-      { label: "Pricing", d: "/work/wavelo-p2-d.jpg", m: "/work/wavelo-p2-m.jpg", dW: 1100, dH: 2325, mW: 440, mH: 5123 },
+      { label: "Home", d: "/work/sandeshsetu-p0-d.jpg", m: "/work/sandeshsetu-p0-m.jpg", dW: 1100, dH: 3637, mW: 440, mH: 8056 },
+      { label: "Features", d: "/work/sandeshsetu-p1-d.jpg", m: "/work/sandeshsetu-p1-m.jpg", dW: 1100, dH: 2839, mW: 440, mH: 7314 },
+      { label: "Pricing", d: "/work/sandeshsetu-p2-d.jpg", m: "/work/sandeshsetu-p2-m.jpg", dW: 1100, dH: 2577, mW: 440, mH: 4941 },
     ],
   },
   {
@@ -172,7 +172,7 @@ export const projects = [
     services: ["Personal brand site", "UI/UX design", "Responsive build"],
     tags: ["Website", "Legal", "Personal brand"],
     pages: [
-      { label: "Home", d: "/work/umang-p0-d.jpg", m: "/work/umang-p0-m.jpg", dW: 1100, dH: 4793, mW: 440, mH: 9502 },
+      { label: "Home", d: "/work/umang-p0-d.jpg", m: "/work/umang-p0-m.jpg", dW: 1100, dH: 7555, mW: 440, mH: 7840 },
     ],
   },
   {

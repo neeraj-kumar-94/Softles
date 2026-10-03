@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { enter } from "@/app/components/_components/motion-presets";
 
 // Reuse the homepage project data — these three lean on wiring systems together.
-const shown = ["wavelo", "librarysetu", "brunswick-fur-food"]
+const shown = ["sandeshsetu", "librarysetu", "brunswick-fur-food"]
   .map((slug) => projects.find((p) => p.slug === slug))
   .filter(Boolean);
 
