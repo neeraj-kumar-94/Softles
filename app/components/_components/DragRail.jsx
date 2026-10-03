@@ -78,7 +78,11 @@ export default function DragRail({ children, speed = 0.6, className = "" }) {
       el.scrollLeft = norm(startScroll - dx);
     };
 
+    // Bound to the window, not the rail: a press that never travels 4px takes no
+    // pointer capture, so releasing it off the rail would otherwise never reach
+    // this and the rail would stay held — frozen — for good.
     const endDrag = (e) => {
+      if (!held.current) return;
       armed = false;
       if (dragging.current) {
         dragging.current = false;
@@ -111,8 +115,8 @@ export default function DragRail({ children, speed = 0.6, className = "" }) {
     el.addEventListener("scroll", onScroll, { passive: true });
     el.addEventListener("pointerdown", onPointerDown);
     el.addEventListener("pointermove", onPointerMove);
-    el.addEventListener("pointerup", endDrag);
-    el.addEventListener("pointercancel", endDrag);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
     el.addEventListener("click", onClickCapture, true);
     el.addEventListener("mouseenter", onEnter);
     el.addEventListener("mouseleave", onLeave);
@@ -124,8 +128,8 @@ export default function DragRail({ children, speed = 0.6, className = "" }) {
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("pointerdown", onPointerDown);
       el.removeEventListener("pointermove", onPointerMove);
-      el.removeEventListener("pointerup", endDrag);
-      el.removeEventListener("pointercancel", endDrag);
+      window.removeEventListener("pointerup", endDrag);
+      window.removeEventListener("pointercancel", endDrag);
       el.removeEventListener("click", onClickCapture, true);
       el.removeEventListener("mouseenter", onEnter);
       el.removeEventListener("mouseleave", onLeave);
