@@ -63,9 +63,9 @@ export const projects = [
     services: ["Shopify theme development", "Subscriptions", "CRO", "Mobile UX"],
     tags: ["Shopify", "Subscriptions", "CRO"],
     pages: [
-      { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 1100, dH: 4793, mW: 440, mH: 9612 },
-      { label: "Subscription", d: "/work/brunswick-p1-d.jpg", m: "/work/brunswick-p1-m.jpg", dW: 1100, dH: 4326, mW: 440, mH: 9848 },
-      { label: "About", d: "/work/brunswick-p2-d.webp", m: "/work/brunswick-p2-m.webp", dW: 3760, dH: 8644, mW: 750, mH: 10938 },
+      { label: "Home", d: "/work/brunswick-p0-d.jpg", m: "/work/brunswick-p0-m.jpg", dW: 1100, dH: 6692, mW: 440, mH: 8843 },
+      { label: "Subscription", d: "/work/brunswick-p1-d.jpg", m: "/work/brunswick-p1-m.jpg", dW: 1100, dH: 5867, mW: 440, mH: 10828 },
+      { label: "About", d: "/work/brunswick-p2-d.jpg", m: "/work/brunswick-p2-m.jpg", dW: 1100, dH: 3227, mW: 440, mH: 4922 },
     ],
   },
   {
@@ -224,7 +224,7 @@ export const projects = [
     services: ["Marketing site", "UI/UX design", "Multi-page build"],
     tags: ["Website", "Education", "Lead gen"],
     pages: [
-      { label: "Home", d: "/work/tuitionly-p0-d.jpg", m: "/work/tuitionly-p0-m.jpg", dW: 1100, dH: 4497, mW: 440, mH: 10213 },
+      { label: "Home", d: "/work/tuitionly-p0-d.jpg", m: "/work/tuitionly-p0-m.jpg", dW: 1100, dH: 4563, mW: 440, mH: 9010 },
       { label: "IB curriculum", d: "/work/tuitionly-p1-d.jpg", m: "/work/tuitionly-p1-m.jpg", dW: 1100, dH: 3317, mW: 440, mH: 7239 },
     ],
   },

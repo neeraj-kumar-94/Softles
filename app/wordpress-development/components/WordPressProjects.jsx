@@ -22,7 +22,7 @@ const projects = [
     ],
     tags: ["WordPress", "Custom Theme", "Legal", "SEO"],
     pages: [
-      { label: "Home", d: "/work/prideandjustice-p0-d.jpg", m: "/work/prideandjustice-p0-m.jpg", dW: 3760, dH: 16384, mW: 750, mH: 16384 },
+      { label: "Home", d: "/work/prideandjustice-p0-d.jpg", m: "/work/prideandjustice-p0-m.jpg", dW: 1100, dH: 7165, mW: 440, mH: 14267 },
     ],
   },
   {
@@ -58,7 +58,7 @@ const projects = [
     ],
     tags: ["WordPress", "Education", "School", "Admissions"],
     pages: [
-      { label: "Home", d: "/work/vvnassandh-p0-d.jpg", m: "/work/vvnassandh-p0-m.jpg", dW: 1440, dH: 11527, mW: 390, mH: 9437 },
+      { label: "Home", d: "/work/vvnassandh-p0-d.jpg", m: "/work/vvnassandh-p0-m.jpg", dW: 1100, dH: 8805, mW: 440, mH: 10647 },
     ],
   },
 ];
