@@ -1,12 +1,14 @@
 // Verifies the project page captures. Run after adding or re-capturing one:
 //   node scripts/check-captures.mjs
 //
-// Two things go wrong with full-page screenshots and neither is visible in a
+// Three things go wrong with full-page screenshots and none is visible in a
 // thumbnail:
 //   - the declared dW/dH/mW/mH drift from the file after a re-capture, and the
 //     declared height is what sets the device auto-scroll speed;
 //   - Chrome silently tiles a screenshot instead of scrolling it once the
-//     surface passes ~16384px, so the capture repeats the same block.
+//     surface passes ~16384px, so the capture repeats the same block;
+//   - a section occasionally fails to paint, leaving a long flat band of
+//     background where content should be.
 // Data files are read as text rather than imported, for the reason given at the
 // top of make-hero-crops.mjs.
 import { readFile } from "node:fs/promises";
@@ -52,7 +54,31 @@ async function repeatScore(file) {
   for (let y = 0; y + 7 < H; y += 3) { base += rowDiff(data, y, y + 7); bn++; }
   base /= bn;
 
-  return { ratio: best / (base || 1), absolute: best, tilePx: Math.round((bestPeriod / H) * meta.height), meta };
+  // Longest run of rows that are a single flat colour across the full width.
+  // Section padding gives short runs; a section that never painted gives a long
+  // one, so the check wants both an absolute and a proportional threshold.
+  let longest = 0;
+  let run = 0;
+  for (let y = 0; y < H; y++) {
+    let min = 255;
+    let max = 0;
+    for (let i = 0; i < W; i++) {
+      const v = data[y * W + i];
+      if (v < min) min = v;
+      if (v > max) max = v;
+    }
+    if (max - min <= 5) run++;
+    else { if (run > longest) longest = run; run = 0; }
+  }
+  if (run > longest) longest = run;
+
+  return {
+    ratio: best / (base || 1),
+    absolute: best,
+    tilePx: Math.round((bestPeriod / H) * meta.height),
+    blankPx: Math.round((longest / H) * meta.height),
+    meta,
+  };
 }
 
 let problems = 0;
@@ -81,6 +107,10 @@ for (const source of SOURCES) {
       if (r.ratio < 0.45 && r.absolute < 10) {
         problems++;
         console.log(`TILED    ${rel}  repeats every ~${r.tilePx}px — re-capture by scroll-and-stitch`);
+      }
+      if (r.blankPx > 600 && r.blankPx > r.meta.height * 0.1) {
+        problems++;
+        console.log(`BLANK    ${rel}  ${r.blankPx}px of flat background — a section did not paint, re-capture`);
       }
     }
   }
