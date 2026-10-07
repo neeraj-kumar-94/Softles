@@ -26,7 +26,7 @@ export default function ShopifyProjects() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Featured Work</span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">Brunswick Fur Food</WordReveal>
+          <WordReveal as="h2" className="service-section-heading text-ink">Brunswick Fur Food</WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-3xl">
             A compact Shopify case study focused on premium storytelling, easier trial ordering, and stronger mobile conversion. Switch between desktop and mobile, and flip through the pages.
           </motion.p>

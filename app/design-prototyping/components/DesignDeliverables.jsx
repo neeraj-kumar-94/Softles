@@ -94,7 +94,7 @@ export default function DesignDeliverables() {
               <span className="softles-eyebrow-line" />
               <span className="softles-eyebrow-text">What you get</span>
             </motion.div>
-            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-ink mb-4">
               Exactly what lands in your hands
             </WordReveal>
             <motion.p {...enter(2)} className="softles-section-copy max-w-lg">
@@ -118,7 +118,7 @@ export default function DesignDeliverables() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: idx * 0.07, ease: EASE }}
-              className={`group relative overflow-hidden rounded-2xl border border-[#2E3446]/80 bg-gradient-to-b from-[#161C27] to-[#10141D] p-6 transition-colors duration-300 hover:border-[#FF4D57]/40 ${
+              className={`group relative overflow-hidden rounded-2xl border border-line/80 bg-gradient-to-b from-panel to-deep p-6 transition-colors duration-300 hover:border-brand/40 ${
                 b.big ? "sm:col-span-2" : ""
               }`}
             >
@@ -130,13 +130,13 @@ export default function DesignDeliverables() {
               )}
 
               <div className="relative">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#FF4D57]/30 bg-[#FF4D57]/10 text-[#FF4D57] transition-all duration-300 group-hover:border-[#FF4D57]/60">
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-brand/30 bg-brand/10 text-brand transition-all duration-300 group-hover:border-brand/60">
                   {b.icon}
                 </span>
-                <h4 className="mt-4 text-base font-bold text-white leading-snug">{b.title}</h4>
-                <p className="mt-2 text-sm text-[#C7CCD6]/75 leading-relaxed">{b.desc}</p>
+                <h4 className="mt-4 text-base font-bold text-ink leading-snug">{b.title}</h4>
+                <p className="mt-2 text-sm text-mute/75 leading-relaxed">{b.desc}</p>
                 {b.stat && (
-                  <span className="mt-4 inline-block rounded-lg border border-[#FF4D57]/30 bg-[#FF4D57]/[0.08] px-2.5 py-1.5 text-xs font-bold text-[#FF6A3D]">
+                  <span className="mt-4 inline-block rounded-lg border border-brand/30 bg-brand/[0.08] px-2.5 py-1.5 text-xs font-bold text-brand-2">
                     {b.stat}
                   </span>
                 )}

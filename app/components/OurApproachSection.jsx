@@ -16,20 +16,20 @@ export default function OurApproachSection() {
     ];
 
     return (
-        <section id="approach" className="relative overflow-hidden w-full py-12 md:py-32 px-0 flex flex-col justify-center place-content-between bg-[#161C27] border-t border-b border-[#2E3446]">
+        <section id="approach" className="relative overflow-x-clip w-full py-12 md:py-32 px-0 flex flex-col justify-center place-content-between bg-panel border-t border-b border-line">
             {/* Indigo secondary glow — the two-tone system beyond the hero */}
             <div className="absolute -top-24 -left-24 w-[32rem] h-[32rem] bg-[#6D5EF6]/12 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-24 right-0 w-96 h-96 bg-[#6D5EF6]/10 rounded-full blur-3xl pointer-events-none" />
             <div className="service-page-container relative mx-auto w-full flex flex-col">
                 <div className="flex flex-col">
-                    <div className="flex items-center text-base font-normal text-[#FFFFFF]">
+                    <div className="flex items-center text-base font-normal text-ink">
                         <span className="block w-12 h-0.5 bg-[#6D5EF6] mr-[10px]" />
-                        <p className="text-sm uppercase tracking-[0.2em] text-[#C7CCD6]">
+                        <p className="text-sm uppercase tracking-[0.2em] text-mute">
                             Our Approach
                         </p>
                     </div>
-                    <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">From discovery to delivery</WordReveal>
-                    <span className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
+                    <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-ink">From discovery to delivery</WordReveal>
+                    <span className="text-sm sm:text-base text-mute mt-2 max-w-2xl leading-relaxed">
                         A clear process, so you know the scope, price, and timeline before we write any code.
                     </span>
                 </div>

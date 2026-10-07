@@ -17,7 +17,7 @@ function Word({ progress, range, accent, children }) {
   const opacity = useTransform(progress, range, [0.15, 1]);
   return (
     <>
-      <motion.span style={{ opacity }} className={`fill-word ${accent ? "text-[#FF4D57]" : "text-white"}`}>
+      <motion.span style={{ opacity }} className={`fill-word ${accent ? "text-brand" : "text-ink"}`}>
         {children}
       </motion.span>{" "}
     </>
@@ -30,7 +30,7 @@ export default function StatementSection() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.5"] });
 
   return (
-    <section className="w-full py-16 md:py-28 bg-[#0E1219] border-t border-[#2E3446]">
+    <section className="w-full py-16 md:py-28 bg-page border-t border-line">
       <div className="service-page-container">
         <motion.div {...enter(0)} className="softles-eyebrow justify-center mb-6">
           <span className="softles-eyebrow-line" />

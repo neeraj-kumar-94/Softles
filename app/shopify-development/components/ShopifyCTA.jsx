@@ -16,10 +16,10 @@ export default function ShopifyCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-2xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-8 sm:p-12 lg:p-20 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.35)]"
+          className="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-b from-panel to-deep p-8 sm:p-12 lg:p-20 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.35)]"
         >
           {/* Thin accent hairline along the top edge */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF4D57]/60 to-transparent" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/60 to-transparent" />
           {/* Soft light from above — no colour, just depth */}
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(55%_100%_at_50%_0%,rgba(255,255,255,0.05),transparent_70%)]" />
 
@@ -33,13 +33,13 @@ export default function ShopifyCTA() {
             </div>
 
             {/* Heading with explicit tracking & font weights */}
-            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-ink mb-4">
               Ready to Grow Your<br className="hidden sm:block" />{" "}
               Shopify Business?
             </WordReveal>
 
             {/* Paragraph Content */}
-            <p className="text-[#C7CCD6]/80 max-w-xl mx-auto mb-8 lg:mb-10 text-sm sm:text-base leading-relaxed">
+            <p className="text-mute/80 max-w-xl mx-auto mb-8 lg:mb-10 text-sm sm:text-base leading-relaxed">
               Whether you&apos;re launching a new ecommerce brand or scaling an existing Shopify Plus store, SoftLes can help you build a faster, smarter, and more profitable ecommerce experience.
             </p>
 

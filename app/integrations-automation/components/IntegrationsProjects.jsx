@@ -20,7 +20,7 @@ export default function IntegrationsProjects() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Connected Builds</span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Systems that talk to each other
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-3xl">

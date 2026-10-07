@@ -46,7 +46,7 @@ export default function ShopifyProcess() {
               How We Work
             </span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Our Shopify Development Process
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy mx-auto">

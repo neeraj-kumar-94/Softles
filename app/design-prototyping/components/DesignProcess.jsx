@@ -22,7 +22,7 @@ export default function DesignProcess() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">How it runs</span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Five stages, no surprises
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">

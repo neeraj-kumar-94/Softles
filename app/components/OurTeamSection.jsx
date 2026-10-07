@@ -9,13 +9,13 @@ import DragRail from "./_components/DragRail";
 
 // Order: full-time trio spread out between the wider team, not bunched together.
 const team = [
-  { name: "Shakti Singh", role: "Strategy Lead", image: "/shakti_singh.jpg", hoverImage: "/shakti-hover.webp", linkedin: "https://www.linkedin.com/in/gurjarshakti/" },
-  { name: "Tanmay Sharma", role: "SaaS Sales Professional", image: "/tanmay_sharma.jpg", linkedin: "https://www.linkedin.com/in/tanmaybummlers/" },
-  { name: "Neeraj Kumar", role: "Shopify Developer", image: "/neeraj_kumar.jpg", hoverImage: "/neeraj-hover.webp", linkedin: "https://www.linkedin.com/in/neerajkumar94/" },
-  { name: "Divyansh Chaudhary", role: "Product Lead", image: "/divyansh_chaudhary.jpg", linkedin: "https://www.linkedin.com/in/divyansh-chaudhary-887744119/" },
-  { name: "Shahad Hassan", role: "Full-Stack Developer", image: "/shahad_hassan.jpg", hoverImage: "/shahad-hover.webp", linkedin: "https://www.linkedin.com/in/shahad-hassan-82287a220/" },
-  { name: "Manish Rana", role: "UI/UX Designer", image: "/manish_rana.jpg", linkedin: "https://www.linkedin.com/in/mymkrana/" },
-  { name: "Sparsh Yadav", role: "Senior Product Designer", image: "/sparsh_yadav.jpg", linkedin: "https://www.linkedin.com/in/sparsh-yadav-8a794714a/" },
+  { name: "Shakti Singh", role: "Strategy Lead", image: "/shakti_singh-cutout.png", cutout: true, hoverImage: "/shakti-hover.webp", linkedin: "https://www.linkedin.com/in/gurjarshakti/" },
+  { name: "Tanmay Sharma", role: "SaaS Sales Professional", image: "/tanmay_sharma-cutout.png", cutout: true, linkedin: "https://www.linkedin.com/in/tanmaybummlers/" },
+  { name: "Neeraj Kumar", role: "Shopify Developer", image: "/neeraj_kumar-cutout.png", cutout: true, hoverImage: "/neeraj-hover.webp", linkedin: "https://www.linkedin.com/in/neerajkumar94/" },
+  { name: "Divyansh Chaudhary", role: "Product Lead", image: "/divyansh_chaudhary-cutout.png", cutout: true, linkedin: "https://www.linkedin.com/in/divyansh-chaudhary-887744119/" },
+  { name: "Shahad Hassan", role: "Full-Stack Developer", image: "/shahad_hassan-cutout.png", cutout: true, hoverImage: "/shahad-hover.webp", linkedin: "https://www.linkedin.com/in/shahad-hassan-82287a220/" },
+  { name: "Manish Rana", role: "UI/UX Designer", image: "/manish_rana-cutout.png", cutout: true, linkedin: "https://www.linkedin.com/in/mymkrana/" },
+  { name: "Sparsh Yadav", role: "Senior Product Designer", image: "/sparsh_yadav-cutout.png", cutout: true, linkedin: "https://www.linkedin.com/in/sparsh-yadav-8a794714a/" },
 ];
 
 function initials(name) {
@@ -30,12 +30,21 @@ function MemberCard({ member, lit, innerRef }) {
     <article
       ref={innerRef}
       className={`group softles-card overflow-hidden w-[220px] sm:w-[240px] shrink-0 ${
-        lit ? "border-[#FF4D57]/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_44px_rgba(255,77,87,0.18)] -translate-y-0.5" : ""
+        lit ? "border-brand/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_18px_44px_rgba(255,77,87,0.18)] -translate-y-0.5" : ""
       }`}
     >
-      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[#222A3B] to-[#12161F]">
+      <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-raise to-deep">
         {member.image ? (
           <>
+            {/* Single-portrait members have a cut-out photo, so on hover the
+                same brand backdrop rises behind them — the person stays put,
+                only the world behind them changes. */}
+            {member.cutout && !member.hoverImage && (
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,#FF6A3D_0%,#FF4D57_38%,#5A1F2A_78%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+              />
+            )}
             <Image
               src={member.image}
               alt={member.name}
@@ -67,12 +76,12 @@ function MemberCard({ member, lit, innerRef }) {
           </>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#FF4D57]/12 border border-[#FF4D57]/30 text-2xl font-bold text-[#FF4D57]">
+            <span className="flex h-20 w-20 items-center justify-center rounded-full bg-brand/12 border border-brand/30 text-2xl font-bold text-brand">
               {initials(member.name)}
             </span>
           </div>
         )}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-[#12161F]/80 to-transparent transition-colors duration-500 group-hover:from-[#2A1519]/85" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-deep/80 to-transparent transition-colors duration-500 group-hover:from-[#2A1519]/85" />
         {member.linkedin && (
           <a
             href={member.linkedin}
@@ -80,7 +89,7 @@ function MemberCard({ member, lit, innerRef }) {
             rel="noopener noreferrer"
             aria-label={`${member.name} on LinkedIn`}
             draggable={false}
-            className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg bg-[#0E1219]/80 border border-[#2E3446] text-[#C7CCD6] backdrop-blur-md transition-all hover:bg-[#FF4D57] hover:border-[#FF4D57] hover:text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+            className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-lg bg-page/80 border border-line text-mute backdrop-blur-md transition-all hover:bg-brand hover:border-brand hover:text-white opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S.02 4.88.02 3.5C.02 2.12 1.13 1 2.5 1S4.98 2.12 4.98 3.5zM.24 8h4.52v14H.24V8zm7.5 0h4.33v1.9h.06c.6-1.14 2.08-2.34 4.28-2.34 4.58 0 5.43 3.01 5.43 6.93V22h-4.52v-6.6c0-1.57-.03-3.6-2.2-3.6-2.2 0-2.54 1.72-2.54 3.49V22H7.74V8z" />
@@ -90,13 +99,13 @@ function MemberCard({ member, lit, innerRef }) {
       </div>
       {/* The card body warms with it: a red tint, a hairline that lights up on
           the seam, and the role brightens to match. */}
-      <div className={`relative p-4 text-center transition-colors duration-500 group-hover:bg-[#FF4D57]/10 ${lit ? "bg-[#FF4D57]/10" : ""}`}>
+      <div className={`relative p-4 text-center transition-colors duration-500 group-hover:bg-brand/10 ${lit ? "bg-brand/10" : ""}`}>
         <span
           aria-hidden="true"
-          className={`absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-[#FF4D57]/80 to-transparent transition-opacity duration-500 group-hover:opacity-100 ${lit ? "opacity-100" : "opacity-0"}`}
+          className={`absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-brand/80 to-transparent transition-opacity duration-500 group-hover:opacity-100 ${lit ? "opacity-100" : "opacity-0"}`}
         />
-        <h3 className="text-sm sm:text-base font-bold text-white leading-tight">{member.name}</h3>
-        <p className={`text-xs sm:text-sm mt-1 transition-colors duration-500 group-hover:text-[#FF9AA0] ${lit ? "text-[#FF9AA0]" : "text-[#C7CCD6]/80"}`}>{member.role}</p>
+        <h3 className="text-sm sm:text-base font-bold text-ink leading-tight">{member.name}</h3>
+        <p className={`text-xs sm:text-sm mt-1 transition-colors duration-500 group-hover:text-brand-soft ${lit ? "text-brand-soft" : "text-mute/80"}`}>{member.role}</p>
       </div>
     </article>
   );
@@ -143,7 +152,7 @@ export default function OurTeamSection() {
           <span className="softles-eyebrow-line" />
           <span className="softles-eyebrow-text">Our team</span>
         </motion.div>
-        <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">The people behind SoftLes</WordReveal>
+        <WordReveal as="h2" className="service-section-heading text-ink">The people behind SoftLes</WordReveal>
         <motion.p {...enter(2)} className="softles-section-copy">
           A small senior team you work with directly — no account managers, no hand-offs.
         </motion.p>
@@ -151,7 +160,7 @@ export default function OurTeamSection() {
 
       {/* Auto-scrolling team rail (pauses on hover) — constrained to the page container */}
       <div className="service-page-container">
-      <motion.div {...enter(3)} className="mt-10 relative overflow-hidden before:absolute before:left-0 before:top-0 before:bottom-0 before:w-16 sm:before:w-28 before:bg-gradient-to-r before:from-[#0E1219] before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-16 sm:after:w-28 after:bg-gradient-to-l after:from-[#0E1219] after:to-transparent after:z-10">
+      <motion.div {...enter(3)} className="mt-10 relative overflow-hidden before:absolute before:left-0 before:top-0 before:bottom-0 before:w-16 sm:before:w-28 before:bg-gradient-to-r before:from-page before:to-transparent before:z-10 after:absolute after:right-0 after:top-0 after:bottom-0 after:w-16 sm:after:w-28 after:bg-gradient-to-l after:from-page after:to-transparent after:z-10">
         <div ref={railRef}>
           <DragRail className="py-1">
             {[0, 1].map((dup) => (

@@ -26,7 +26,7 @@ export default function ProcessSteps({ steps }) {
     <div
       ref={flow.ref}
       onMouseLeave={() => flow.setHovered(null)}
-      className="grid w-full grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-5"
+      className="flex w-full flex-col gap-3.5 sm:grid sm:grid-cols-2 xl:grid-cols-5"
     >
       {steps.map((step, idx) => {
         const on = flow.activeIdx === idx;
@@ -39,10 +39,11 @@ export default function ProcessSteps({ steps }) {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.55, delay: idx * 0.09, ease: EASE }}
             onMouseEnter={() => flow.setHovered(idx)}
-            className={`relative overflow-hidden rounded-2xl border px-5 pb-6 pt-5 transition-[transform,border-color,background] duration-500 ${
+            style={{ "--stack-top": `${76 + idx * 12}px` }}
+            className={`max-sm:sticky max-sm:top-[var(--stack-top)] relative overflow-hidden rounded-2xl border px-5 pb-6 pt-5 transition-[transform,border-color,background] duration-500 ${
               on
-                ? "-translate-y-2 border-[#FF4D57]/45 bg-gradient-to-b from-[#221A24] to-[#12141D]"
-                : `bg-gradient-to-b from-[#1A2030] to-[#10141D] ${done ? "border-[#FF4D57]/20" : "border-[#2E3446]"}`
+                ? "-translate-y-2 border-brand/45 bg-gradient-to-b from-brand-tint to-deep"
+                : `bg-gradient-to-b from-panel to-deep ${done ? "border-brand/20" : "border-line"}`
             }`}
           >
             {/* Timer along the top edge — its end is the hand-off to the next step */}
@@ -51,7 +52,7 @@ export default function ProcessSteps({ steps }) {
                 key={`timer-${idx}-${flow.played}`}
                 aria-hidden="true"
                 onAnimationEnd={flow.advance}
-                className="step-timer absolute left-0 top-0 h-[2px] bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D]"
+                className="step-timer absolute left-0 top-0 h-[2px] bg-gradient-to-r from-brand to-brand-2"
                 style={{
                   animationDuration: `${flow.stepMs}ms`,
                   animationPlayState: flow.paused ? "paused" : "running",
@@ -62,7 +63,7 @@ export default function ProcessSteps({ steps }) {
             <span
               aria-hidden="true"
               className={`pointer-events-none absolute -bottom-5 right-3 text-[96px] font-bold leading-none tracking-[-0.05em] transition-colors duration-500 ${
-                on ? "text-[#FF4D57]/[0.13]" : "text-white/[0.035]"
+                on ? "text-brand/[0.13]" : "text-ink/[0.035]"
               }`}
               style={{ fontFamily: "var(--font-display), var(--font-body), system-ui, sans-serif" }}
             >
@@ -73,8 +74,8 @@ export default function ProcessSteps({ steps }) {
               <div
                 className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-all duration-500 ${
                   on
-                    ? "scale-105 border-[#FF4D57]/55 bg-[#FF4D57]/16"
-                    : "border-[#FF4D57]/25 bg-[#FF4D57]/[0.08]"
+                    ? "scale-105 border-brand/55 bg-brand/16"
+                    : "border-brand/25 bg-brand/[0.08]"
                 }`}
               >
                 {/* The icons are portrait, not square, so the static import's
@@ -83,13 +84,13 @@ export default function ProcessSteps({ steps }) {
                 <Image
                   src={stepIcons[idx % stepIcons.length]}
                   alt={`Process step icon for ${step.title}`}
-                  className="h-auto w-[26px]"
+                  className="step-icon h-auto w-[26px]"
                 />
               </div>
 
               <span
                 className={`mt-4 block text-[10.5px] font-black uppercase tracking-[0.18em] transition-colors duration-500 ${
-                  on || done ? "text-[#FF4D57]" : "text-[#C7CCD6]/40"
+                  on || done ? "text-brand" : "text-mute/40"
                 }`}
               >
                 Step {step.num ?? String(idx + 1).padStart(2, "0")}
@@ -97,7 +98,7 @@ export default function ProcessSteps({ steps }) {
 
               <h3
                 className={`mt-1.5 text-[16.5px] font-bold leading-snug tracking-tight transition-colors duration-500 ${
-                  on ? "text-white" : "text-[#cfd4dd]"
+                  on ? "text-ink" : "text-soft"
                 }`}
               >
                 {step.title}
@@ -105,7 +106,7 @@ export default function ProcessSteps({ steps }) {
 
               <p
                 className={`mt-2 text-[13px] leading-relaxed transition-colors duration-500 ${
-                  on ? "text-[#C7CCD6]" : "text-[#8f97a8]"
+                  on ? "text-mute" : "text-dim"
                 }`}
               >
                 {step.desc}

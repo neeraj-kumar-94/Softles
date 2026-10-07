@@ -25,7 +25,7 @@ export const metadata = {
 // Design pages sell on craft and visual proof, so work sits high on the page.
 export default function DesignPrototyping() {
   return (
-    <main className="bg-[#0E1219] overflow-x-hidden">
+    <main className="bg-page overflow-x-hidden">
       <DesignHero />
       <DesignProjects />
       <DesignTrust />

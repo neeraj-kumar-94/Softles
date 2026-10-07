@@ -146,16 +146,16 @@ export default function PagePreloader({ eyebrow, title, ready = true, onDone }) 
       ref={rootRef}
       role="status"
       aria-live="polite"
-      className="fixed inset-0 z-[130] flex select-none items-center justify-center bg-[#0E1219] will-change-transform"
+      className="fixed inset-0 z-[130] flex select-none items-center justify-center bg-page will-change-transform"
     >
       <span className="sr-only">Loading {title}</span>
       <div aria-hidden="true" className="w-[min(86vw,760px)]">
-        <div className="min-h-[14px] text-[11px] font-bold uppercase tracking-[0.22em] text-[#FF4D57]">
+        <div className="min-h-[14px] text-[11px] font-bold uppercase tracking-[0.22em] text-brand">
           {typed}
-          {typing && <span className="ml-1 inline-block h-[11px] w-1.5 animate-pulse bg-[#FF4D57] align-[-1px]" />}
+          {typing && <span className="ml-1 inline-block h-[11px] w-1.5 animate-pulse bg-brand align-[-1px]" />}
         </div>
         <div
-          className="mb-6 mt-3.5 text-[clamp(36px,6.4vw,84px)] font-bold leading-[1.02] tracking-[-0.03em] text-white"
+          className="mb-6 mt-3.5 text-[clamp(36px,6.4vw,84px)] font-bold leading-[1.02] tracking-[-0.03em] text-ink"
           style={{ fontFamily: "var(--font-display), var(--font-body), system-ui, sans-serif" }}
         >
           {words.map((w, i) => (
@@ -173,14 +173,14 @@ export default function PagePreloader({ eyebrow, title, ready = true, onDone }) 
             </span>
           ))}
         </div>
-        <div className="relative h-px bg-white/15">
+        <div className="relative h-px bg-ink/15">
           <span
             ref={fillRef}
-            className="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D] shadow-[0_0_12px_rgba(255,77,87,0.6)]"
+            className="absolute left-0 top-0 h-full w-0 bg-gradient-to-r from-brand to-brand-2 shadow-[0_0_12px_rgba(255,77,87,0.6)]"
           />
           <b
             ref={countRef}
-            className="absolute -top-[30px] left-0 whitespace-nowrap text-xs font-semibold text-[#C7CCD6]"
+            className="absolute -top-[30px] left-0 whitespace-nowrap text-xs font-semibold text-mute"
           >
             0%
           </b>

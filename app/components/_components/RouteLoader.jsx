@@ -97,7 +97,7 @@ export default function RouteLoader() {
           <motion.div
             key="route-bar"
             aria-hidden="true"
-            className="fixed inset-x-0 top-0 z-[110] h-[3px] origin-left bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D] shadow-[0_0_14px_rgba(255,77,87,0.55)]"
+            className="fixed inset-x-0 top-0 z-[110] h-[3px] origin-left bg-gradient-to-r from-brand to-brand-2 shadow-[0_0_14px_rgba(255,77,87,0.55)]"
             initial={{ scaleX: 0, opacity: 1 }}
             animate={{ scaleX: 0.92, transition: { duration: 2.6, ease: EASE } }}
             exit={{ scaleX: 1, opacity: 0, transition: { duration: 0.4, ease: "easeOut" } }}

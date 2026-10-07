@@ -102,7 +102,7 @@ export default function ShopifyServices() {
               Capabilities
             </span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Shopify Development Services
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">

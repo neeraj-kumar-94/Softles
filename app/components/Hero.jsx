@@ -17,7 +17,23 @@ const HERO_SHOTS = projects.map((p) => ({
 const SHOT_MS = 5500;
 const DECK_MS = 850; // one shared move for every card when the deck turns
 
-const clientLogos = ["/logo_1.png", "/logo_2.png", "/logo_3.png", "/logo_4.png", "/logo_5.png", "/logo_6.png", "/logo_7.png", "/logo_8.png", "/logo_9.png"];
+// Image logos for long-standing clients, interleaved with text wordmarks for
+// the newer projects that don't have a logo asset yet.
+const railItems = [
+    { src: "/logo_1.png", invert: true },
+    { src: "/logo_2.png", invert: true },
+    { src: "/ssf_global.png", chip: true },
+    { src: "/logo_3.png", invert: true },
+    { src: "/logo_4.png" },
+    { src: "/logo_5.png" },
+    { src: "/logo_6.png" },
+    { name: "Umang Aatray" },
+    { src: "/logo_7.png" },
+    { src: "/ayla_solutions.png", chip: true },
+    { src: "/logo_8.png", invert: true },
+    { name: "Tuitionly" },
+    { src: "/logo_9.png" },
+];
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -143,7 +159,7 @@ export default function Hero() {
             id="hero"
             onMouseMove={track}
             onMouseLeave={rest}
-            className="relative w-full overflow-hidden bg-[#0E1219] min-h-screen lg:min-h-[92vh] flex flex-col justify-center pt-28 pb-10 sm:pt-[calc(7rem+60px)] lg:pt-[calc(6rem+60px)] lg:pb-8"
+            className="relative w-full overflow-hidden bg-page min-h-screen lg:min-h-[92vh] flex flex-col justify-center pt-28 pb-10 sm:pt-[calc(7rem+60px)] lg:pt-[calc(6rem+60px)] lg:pb-8"
         >
             {/* Colour canvas cutting in from the right, with a slow sheen drifting across it.
                 The section starts at the top of the page (the navbar is transparent
@@ -161,7 +177,7 @@ export default function Hero() {
             {/* Veil so the copy keeps its contrast over the canvas */}
             <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-x-0 top-0 h-[460px] bg-[linear-gradient(180deg,rgba(14,18,25,0.2),#0E1219_92%)] [clip-path:polygon(0_0,100%_0,100%_86%,0_100%)] lg:inset-y-0 lg:left-auto lg:right-0 lg:h-full lg:w-[62vw] lg:bg-[linear-gradient(90deg,#0E1219_0%,rgba(14,18,25,0.55)_34%,transparent_62%)] lg:[clip-path:polygon(22%_0,100%_0,100%_78%,0_100%)]"
+                className="pointer-events-none absolute inset-x-0 top-0 h-[460px] bg-[linear-gradient(180deg,rgb(var(--c-page)/0.2),rgb(var(--c-page))_92%)] [clip-path:polygon(0_0,100%_0,100%_86%,0_100%)] lg:inset-y-0 lg:left-auto lg:right-0 lg:h-full lg:w-[62vw] lg:bg-[linear-gradient(90deg,rgb(var(--c-page))_0%,rgb(var(--c-page)/0.55)_34%,transparent_62%)] lg:[clip-path:polygon(22%_0,100%_0,100%_78%,0_100%)]"
             />
 
             <div className="service-page-container relative z-10 w-full">
@@ -172,7 +188,7 @@ export default function Hero() {
                         <motion.h1
                             initial="hidden"
                             animate="show"
-                            className="font-extrabold text-[2.1rem] leading-[1.1] sm:text-5xl sm:leading-[1.08] lg:text-[54px] xl:text-[60px] lg:leading-[1.07] tracking-[-0.03em] text-[#F5F6FA]"
+                            className="font-extrabold text-[2.1rem] leading-[1.1] sm:text-5xl sm:leading-[1.08] lg:text-[54px] xl:text-[60px] lg:leading-[1.07] tracking-[-0.03em] text-ink"
                         >
                             {LINE_ONE.map((w, i) => (
                                 <span key={w}>
@@ -194,7 +210,7 @@ export default function Hero() {
                             initial="hidden"
                             animate="show"
                             custom={0.55}
-                            className="hero-reveal mt-6 text-base lg:text-lg leading-relaxed text-[#C7CCD6]"
+                            className="hero-reveal mt-6 text-base lg:text-lg leading-relaxed text-mute"
                             style={{ maxWidth: "50ch" }}
                         >
                             Custom storefronts, headless builds, apps, and the integrations that keep them running. Fixed pricing agreed upfront, and support that continues after launch.
@@ -241,7 +257,7 @@ export default function Hero() {
                             >
                                 {/* Sizer: an invisible card that gives the stack its height, so the
                                     real cards can all sit absolute and swap places freely. */}
-                                <div aria-hidden="true" className="invisible rounded-2xl border border-white/20 p-2.5">
+                                <div aria-hidden="true" className="invisible rounded-2xl border border-ink/20 p-2.5">
                                     <div className="h-[26px] pb-2" />
                                     <div ref={screenRef} className="aspect-[27/16] rounded-xl" />
                                 </div>
@@ -290,7 +306,7 @@ export default function Hero() {
                                                 dragElastic={0.7}
                                                 onDragEnd={front ? onDragEnd : undefined}
                                                 whileDrag={{ scale: 1.02, cursor: "grabbing" }}
-                                                className={`absolute inset-0 rounded-2xl border border-white/20 bg-[#0b0d12] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,0.55)] ${front ? "cursor-grab" : "pointer-events-none"}`}
+                                                className={`absolute inset-0 rounded-2xl border border-ink/20 bg-[#0b0d12] p-2.5 shadow-[0_40px_90px_rgba(0,0,0,0.55)] ${front ? "cursor-grab" : "pointer-events-none"}`}
                                             >
                                                 {/* Browser chrome doubles as the caption: which build this is, and what it's built on */}
                                                 <div className="flex items-center gap-2 px-1 pb-2">
@@ -299,14 +315,14 @@ export default function Hero() {
                                                         <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
                                                         <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
                                                     </span>
-                                                    <span className="ml-1 flex min-w-0 flex-1 items-center gap-1.5 rounded-md border border-[#2E3446]/70 bg-[#161C27] px-2.5 py-1 text-[10px] font-medium text-[#8f97a8]">
+                                                    <span className="ml-1 flex min-w-0 flex-1 items-center gap-1.5 rounded-md border border-line/70 bg-panel px-2.5 py-1 text-[10px] font-medium text-dim">
                                                         <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                                                             <rect x="3" y="11" width="18" height="11" rx="2" />
                                                             <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                                                         </svg>
-                                                        <span className="truncate text-white/90">{item.name}</span>
+                                                        <span className="truncate text-ink/90">{item.name}</span>
                                                     </span>
-                                                    <span className="shrink-0 rounded-full border border-[#FF4D57]/30 bg-[#FF4D57]/10 px-2 py-[3px] text-[9px] font-bold uppercase tracking-[0.1em] text-[#FF4D57]">
+                                                    <span className="shrink-0 rounded-full border border-brand/30 bg-brand/10 px-2 py-[3px] text-[9px] font-bold uppercase tracking-[0.1em] text-brand">
                                                         {item.category}
                                                         {item.platform && <span className="hidden sm:inline"> · {item.platform}</span>}
                                                     </span>
@@ -384,7 +400,7 @@ export default function Hero() {
                                                     {front && (
                                                         <span
                                                             aria-hidden="true"
-                                                            className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3.5 py-1.5 text-[11px] font-semibold text-white opacity-0 shadow-lg backdrop-blur-sm transition-opacity duration-300 group-hover/stack:opacity-100"
+                                                            className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full bg-black/60 px-3.5 py-1.5 text-[11px] font-semibold text-ink opacity-0 shadow-lg backdrop-blur-sm transition-opacity duration-300 group-hover/stack:opacity-100"
                                                         >
                                                             Swipe →
                                                         </span>
@@ -404,10 +420,10 @@ export default function Hero() {
                     initial="hidden"
                     animate="show"
                     custom={1.15}
-                    className="hero-reveal mt-12 lg:mt-14 border-t border-[#2E3446]/70 pt-7"
+                    className="hero-reveal mt-12 lg:mt-14 border-t border-line/70 pt-7"
                 >
                     <div className="flex items-center gap-6">
-                        <span className="hidden sm:block shrink-0 text-[11px] uppercase tracking-[0.18em] text-[#7c8394]">Trusted by</span>
+                        <span className="hidden sm:block shrink-0 text-[11px] uppercase tracking-[0.18em] text-dim">Trusted by</span>
                         <div
                             className="overflow-hidden w-full"
                             style={{
@@ -419,15 +435,21 @@ export default function Hero() {
                             <div className="flex animate-logo-rail w-max items-center">
                                 {[0, 1].map((listIdx) => (
                                     <div key={listIdx} className="flex items-center shrink-0 gap-12 md:gap-16 pr-12 md:pr-16" aria-hidden={listIdx === 1}>
-                                        {clientLogos.map((logo, idx) => (
+                                        {railItems.map((item, idx) => (
                                             <div key={idx} className="group flex h-12 shrink-0 items-center justify-center">
-                                                <Image
-                                                    src={logo}
-                                                    alt={`Client Logo ${idx + 1}`}
-                                                    width={120}
-                                                    height={40}
-                                                    className="h-7 md:h-8 w-auto opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105"
-                                                />
+                                                {item.src ? (
+                                                    <Image
+                                                        src={item.src}
+                                                        alt={`Client Logo ${idx + 1}`}
+                                                        width={120}
+                                                        height={40}
+                                                        className={`${item.chip ? "h-9 md:h-10" : "h-7 md:h-8"} ${item.invert ? "rail-invert" : ""} w-auto opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105`}
+                                                    />
+                                                ) : (
+                                                    <span className="whitespace-nowrap text-[15px] md:text-base font-bold tracking-wide text-soft opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105">
+                                                        {item.name}
+                                                    </span>
+                                                )}
                                             </div>
                                         ))}
                                     </div>

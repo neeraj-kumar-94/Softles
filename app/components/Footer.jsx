@@ -80,17 +80,17 @@ const socials = [
 
 export default function Footer() {
     return (
-        <footer className="snap-start relative bg-[#0E1219] text-white border-t border-[#2E3446] overflow-hidden">
+        <footer className="snap-start relative bg-page text-ink border-t border-line overflow-hidden">
             {/* Giant watermark — sits behind the footer content */}
             <div aria-hidden="true" className="absolute inset-x-0 bottom-0 z-0 select-none pointer-events-none">
-                <span className="block text-center font-bold tracking-tight leading-[0.78] text-white/[0.03] text-[16vw] whitespace-nowrap">
+                <span className="block text-center font-bold tracking-tight leading-[0.78] text-ink/[0.03] text-[16vw] whitespace-nowrap">
                     SoftLes
                 </span>
             </div>
             {/* CTA band */}
-            <div className="service-page-container py-14 md:py-20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 border-b border-[#2E3446]">
+            <div className="service-page-container py-14 md:py-20 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 border-b border-line">
                 <motion.div {...enter(0)}>
-                    <p className="text-sm uppercase tracking-[0.2em] text-[#C7CCD6] mb-3">Have a project in mind?</p>
+                    <p className="text-sm uppercase tracking-[0.2em] text-mute mb-3">Have a project in mind?</p>
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight">
                         Let&apos;s build something{" "}
                         <span className="softles-gradient-text">worth shipping.</span>
@@ -113,7 +113,12 @@ export default function Footer() {
                     {/* Logo and socials share one row so this column stays as short as the link columns */}
                     <div className="flex items-center justify-between gap-4 flex-wrap">
                     <Link href="/" className="w-fit">
-                        <Image src={"/SoftLes.png"} alt="SoftLes" width={0} height={0} sizes="200px" className="object-contain h-[42px] w-auto" />
+                        <span
+                            className="select-none text-[30px] font-bold leading-none tracking-tight text-ink"
+                            style={{ fontFamily: "var(--font-display), var(--font-body), sans-serif" }}
+                        >
+                            SoftLes<span className="text-brand">.</span>
+                        </span>
                     </Link>
                     <div className="flex gap-3">
                         {socials.map((s) => (
@@ -123,14 +128,14 @@ export default function Footer() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={s.label}
-                                className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2E3446] text-[#C7CCD6] transition-all duration-300 hover:border-[#FF4D57] hover:text-[#FF4D57] hover:-translate-y-0.5"
+                                className="flex h-9 w-9 items-center justify-center rounded-full border border-line text-mute transition-all duration-300 hover:border-brand hover:text-brand hover:-translate-y-0.5"
                             >
                                 {s.icon}
                             </a>
                         ))}
                     </div>
                     </div>
-                    <p className="text-sm text-[#C7CCD6]/80 leading-relaxed max-w-md">
+                    <p className="text-sm text-mute/80 leading-relaxed max-w-md">
                         SoftLes is a small team that builds WordPress and Shopify sites for growing brands. We handle the design, the development, and the automation that ties it together.
                     </p>
                 </motion.div>
@@ -138,9 +143,9 @@ export default function Footer() {
                 {/* Link columns */}
                 {linkColumns.map((col) => (
                     <motion.div key={col.title} variants={fadeUp} className="lg:col-span-2 flex flex-col gap-4">
-                        <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#7c8394]">
+                        <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-dim">
                             {col.titleHref ? (
-                                <Link href={col.titleHref} className="hover:text-white transition-colors">{col.title}</Link>
+                                <Link href={col.titleHref} className="hover:text-ink transition-colors">{col.title}</Link>
                             ) : (
                                 col.title
                             )}
@@ -148,7 +153,7 @@ export default function Footer() {
                         <ul className="flex flex-col gap-2.5 text-sm">
                             {col.links.map((l) => (
                                 <li key={l.label}>
-                                    <Link href={l.href} className="text-[#C7CCD6]/80 hover:text-white transition-colors duration-200">
+                                    <Link href={l.href} className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">
                                         {l.label}
                                     </Link>
                                 </li>
@@ -159,18 +164,18 @@ export default function Footer() {
 
                 {/* Contact */}
                 <motion.div variants={fadeUp} className="lg:col-span-2 flex flex-col gap-4">
-                    <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-[#7c8394]">Contact</h3>
+                    <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-dim">Contact</h3>
                     <div className="flex flex-col items-start gap-2.5 text-sm">
-                        <a href="mailto:info@softles.in?cc=hr@softles.in" className="text-[#C7CCD6]/80 hover:text-white transition-colors duration-200">
+                        <a href="mailto:info@softles.in?cc=hr@softles.in" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">
                             info@softles.in
                         </a>
-                        <a href="mailto:hr@softles.in?cc=info@softles.in" className="text-[#C7CCD6]/80 hover:text-white transition-colors duration-200">
+                        <a href="mailto:hr@softles.in?cc=info@softles.in" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">
                             hr@softles.in
                         </a>
-                        <a href="tel:+918954000202" className="text-[#C7CCD6]/80 hover:text-white transition-colors duration-200">
+                        <a href="tel:+918954000202" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">
                             +91 89540 00202
                         </a>
-                        <a href="tel:+919990548795" className="text-[#C7CCD6]/80 hover:text-white transition-colors duration-200">
+                        <a href="tel:+919990548795" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">
                             +91 99905 48795
                         </a>
                     </div>
@@ -178,14 +183,14 @@ export default function Footer() {
             </motion.div>
 
             {/* Bottom bar */}
-            <div className="relative z-[1] border-t border-[#2E3446]">
-                <div className="service-page-container py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#7c8394]">
+            <div className="relative z-[1] border-t border-line">
+                <div className="service-page-container py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-dim">
                     <p>&copy; {new Date().getFullYear()} SoftLes — Web Design Company. All rights reserved.</p>
                     <p className="italic hidden lg:block">&quot;Do something today that your future self will thank you for.&quot;</p>
                     <div className="flex gap-5">
-                        <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
-                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
-                        <Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+                        <Link href="/blog" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">Blog</Link>
+                        <Link href="/privacy" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">Privacy Policy</Link>
+                        <Link href="/terms" className="text-mute/85 underline underline-offset-[5px] decoration-ink/15 hover:text-ink hover:decoration-brand/70 transition-colors duration-200">Terms of Service</Link>
                     </div>
                 </div>
             </div>

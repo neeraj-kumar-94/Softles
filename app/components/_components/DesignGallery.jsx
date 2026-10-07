@@ -80,7 +80,7 @@ function Capture({ src, alt, seconds, screenClass, compact = false }) {
       />
       <span
         aria-hidden="true"
-        className="pointer-events-none sticky bottom-3.5 left-1/2 z-20 block -mt-8 text-center text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/75"
+        className="pointer-events-none sticky bottom-3.5 left-1/2 z-20 block -mt-8 text-center text-[10.5px] font-semibold uppercase tracking-[0.18em] text-ink/75"
       >
         {/* The phone screen is too narrow for the long line */}
         {engaged ? (compact ? "Scroll" : "Scroll to explore") : hovered ? "Paused" : compact ? "Auto-scrolling" : "Scrolling · hover to take over"}
@@ -141,15 +141,15 @@ export default function DesignGallery({ project }) {
                     aria-current={on ? "true" : undefined}
                     className={`flex w-full items-center gap-3 rounded-lg border px-3 py-2 text-left transition-colors duration-200 ${
                       on
-                        ? "border-[#FF4D57]/30 bg-gradient-to-r from-[#FF4D57]/12 to-transparent"
-                        : "border-transparent hover:bg-[#161C27]/70"
+                        ? "border-brand/30 bg-gradient-to-r from-brand/12 to-transparent"
+                        : "border-transparent hover:bg-panel/70"
                     }`}
                   >
-                    <span className={`text-[10.5px] font-black tracking-[0.1em] ${on ? "text-[#FF4D57]" : "text-[#C7CCD6]/40"}`}>
+                    <span className={`text-[10.5px] font-black tracking-[0.1em] ${on ? "text-brand" : "text-mute/40"}`}>
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <span className={`truncate text-[13.5px] font-bold ${on ? "text-white" : "text-[#C7CCD6]"}`}>{pg.label}</span>
-                    {pg.note && <span className="hidden truncate text-[11.5px] text-[#C7CCD6]/50 xl:block">{pg.note}</span>}
+                    <span className={`truncate text-[13.5px] font-bold ${on ? "text-ink" : "text-mute"}`}>{pg.label}</span>
+                    {pg.note && <span className="hidden truncate text-[11.5px] text-mute/50 xl:block">{pg.note}</span>}
                   </button>
                 </li>
               );
@@ -159,10 +159,10 @@ export default function DesignGallery({ project }) {
 
         {/* The same page on a phone, standing on the same floor as the laptop */}
         <div className="mt-8 lg:mt-10">
-          <div className="relative mx-auto w-[220px] rounded-[2rem] border-[7px] border-[#2f3747] bg-[#2f3747] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_26px_50px_rgba(0,0,0,0.5)] sm:w-[250px] lg:w-[205px]">
+          <div className="relative mx-auto w-[220px] rounded-[2rem] border-[7px] border-raise bg-raise shadow-[inset_0_1px_0_rgba(255,255,255,0.16),0_26px_50px_rgba(0,0,0,0.5)] sm:w-[250px] lg:w-[205px]">
             <span aria-hidden="true" className="absolute -left-[9px] top-16 h-6 w-[3px] rounded-l-sm bg-[#2a2f3a]" />
             <span aria-hidden="true" className="absolute -right-[9px] top-20 h-10 w-[3px] rounded-r-sm bg-[#2a2f3a]" />
-            <span aria-hidden="true" className="absolute left-1/2 top-2 z-20 h-1.5 w-12 -translate-x-1/2 rounded-full bg-[#0b0d12] ring-1 ring-[#2E3446]" />
+            <span aria-hidden="true" className="absolute left-1/2 top-2 z-20 h-1.5 w-12 -translate-x-1/2 rounded-full bg-[#0b0d12] ring-1 ring-line" />
             <Capture
               key={`m-${active}`}
               src={page.m}
@@ -177,7 +177,7 @@ export default function DesignGallery({ project }) {
             <div className="absolute -inset-x-5 top-1 h-3.5 rounded-[50%] bg-black/35 blur-xl" />
           </div>
           <div aria-hidden="true" className="mx-auto mt-1 h-px w-[74%] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.13),transparent)]" />
-          <p className="mt-4 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-[#C7CCD6]/45">
+          <p className="mt-4 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-mute/45">
             {page.label} · Mobile
           </p>
         </div>
@@ -201,14 +201,14 @@ export default function DesignGallery({ project }) {
                   <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]" />
                 </span>
-                <span className="ml-1 flex min-w-0 max-w-[60%] flex-1 items-center gap-1.5 rounded-md border border-[#2E3446]/70 bg-[#161C27] px-2.5 py-1 text-[10px] font-medium text-[#7c8394]">
+                <span className="ml-1 flex min-w-0 max-w-[60%] flex-1 items-center gap-1.5 rounded-md border border-line/70 bg-panel px-2.5 py-1 text-[10px] font-medium text-dim">
                   <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                     <rect x="3" y="11" width="18" height="11" rx="2" />
                     <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                   </svg>
                   <span className="truncate">{host}</span>
                 </span>
-                <span className="ml-auto inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#C7CCD6]/45">
+                <span className="ml-auto inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-mute/45">
                   <i className="h-1.5 w-1.5 rounded-full bg-[#28C840] shadow-[0_0_10px_#28C840]" />
                   Live build
                 </span>
@@ -222,7 +222,7 @@ export default function DesignGallery({ project }) {
               />
             </div>
             {/* Base, contact shadow and floor line — same object language as the hero */}
-            <div className="relative mx-auto -ml-[6%] h-4 w-[112%] rounded-b-xl rounded-t-[3px] border border-[#2E3446] bg-gradient-to-b from-[#3a4150] to-[#1a1e27]">
+            <div className="relative mx-auto -ml-[6%] h-4 w-[112%] rounded-b-xl rounded-t-[3px] border border-line bg-gradient-to-b from-line-2 to-[#1a1e27]">
               <span className="absolute left-1/2 top-0 h-1.5 w-24 -translate-x-1/2 rounded-b-lg bg-[#0b0d12]/70" />
             </div>
             <div aria-hidden="true" className="relative mx-auto mt-2 h-4 w-[74%]">
@@ -230,7 +230,7 @@ export default function DesignGallery({ project }) {
               <div className="absolute -inset-x-6 top-1.5 h-4 rounded-[50%] bg-black/35 blur-xl" />
             </div>
             <div aria-hidden="true" className="mx-auto mt-1 h-px w-[88%] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.13),transparent)]" />
-            <p className="mt-4 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-[#C7CCD6]/45">
+            <p className="mt-4 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-mute/45">
               {page.label} · Desktop
             </p>
           </motion.div>

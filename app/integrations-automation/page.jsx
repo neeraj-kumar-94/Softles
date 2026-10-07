@@ -26,7 +26,7 @@ export const metadata = {
 // pain section and the platform marquee both sit above the service list.
 export default function IntegrationsAutomation() {
   return (
-    <main className="bg-[#0E1219] overflow-x-hidden">
+    <main className="bg-page overflow-x-hidden">
       <IntegrationsHero />
       <IntegrationsPain />
       <IntegrationsTechStack />

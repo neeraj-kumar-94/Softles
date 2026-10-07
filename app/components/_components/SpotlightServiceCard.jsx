@@ -31,7 +31,7 @@ export default function SpotlightServiceCard({ icon, title, desc, bullets = [], 
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0, transition: { duration: 0.55, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] } }}
       viewport={{ once: true, margin: "-50px" }}
-      className="group relative rounded-2xl bg-[#2E3446]/70 p-px"
+      className="group relative rounded-2xl bg-line/70 p-px"
       style={{ "--mx": "-200px", "--my": "-200px" }}
     >
       {/* Border glow that follows the cursor */}
@@ -44,7 +44,7 @@ export default function SpotlightServiceCard({ icon, title, desc, bullets = [], 
       />
 
       {/* Card surface */}
-      <div className="relative h-full rounded-[15px] bg-gradient-to-b from-[#161C27] to-[#10141D] p-6 xl:p-7 overflow-hidden">
+      <div className="relative h-full rounded-[15px] bg-gradient-to-b from-panel to-deep p-6 xl:p-7 overflow-hidden">
         {/* Inner light wash following the cursor */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -56,27 +56,27 @@ export default function SpotlightServiceCard({ icon, title, desc, bullets = [], 
 
         <div className="relative flex flex-col h-full">
           <div className="mb-5 flex items-start justify-between">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#FF4D57]/30 bg-gradient-to-b from-[#FF4D57]/15 to-[#FF4D57]/[0.04] text-[#FF4D57] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-500 group-hover:border-[#FF4D57]/60 group-hover:text-[#FF6A3D]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-brand/30 bg-gradient-to-b from-brand/15 to-brand/[0.04] text-brand shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] transition-all duration-500 group-hover:border-brand/60 group-hover:text-brand-2">
               {icon}
             </div>
             {badge && (
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#FF4D57]/10 border border-[#FF4D57]/30 text-[#FF4D57]">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-brand/10 border border-brand/30 text-brand">
                 {badge}
               </span>
             )}
           </div>
 
-          <h3 className="text-lg xl:text-xl font-bold text-white leading-tight">{title}</h3>
-          <p className="text-sm text-[#C7CCD6]/75 leading-relaxed mt-2.5 mb-6">{desc}</p>
+          <h3 className="text-lg xl:text-xl font-bold text-ink leading-tight">{title}</h3>
+          <p className="text-sm text-mute/75 leading-relaxed mt-2.5 mb-6">{desc}</p>
 
           {bullets.length > 0 && (
           <ul className="mt-auto flex flex-col">
             {bullets.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3 py-3 border-t border-[#252B3A] text-sm text-[#C7CCD6] hover:text-white hover:pl-1.5 transition-all duration-300"
+                className="flex items-center gap-3 py-3 border-t border-line text-sm text-mute hover:text-ink hover:pl-1.5 transition-all duration-300"
               >
-                <span className="text-[#FF4D57] text-xs leading-none">◆</span>
+                <span className="text-brand text-xs leading-none">◆</span>
                 {item}
               </li>
             ))}

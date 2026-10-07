@@ -9,20 +9,20 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <main className="bg-[#0E1219] overflow-x-hidden">
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden border-b border-[#2E3446]">
-        <div className="absolute -top-16 -left-16 w-[26rem] h-[26rem] bg-[#FF4D57]/[0.12] rounded-full blur-3xl" />
+    <main className="bg-page overflow-x-hidden">
+      <section className="relative min-h-[80vh] flex items-center overflow-hidden border-b border-line">
+        <div className="absolute -top-16 -left-16 w-[26rem] h-[26rem] bg-brand/[0.12] rounded-full blur-3xl" />
         <div className="absolute -bottom-20 -right-10 w-[30rem] h-[30rem] bg-[#6D5EF6]/[0.10] rounded-full blur-3xl" />
 
         <div className="service-page-container relative z-10 py-28 text-center flex flex-col items-center">
-          <span aria-hidden="true" className="select-none text-[120px] sm:text-[160px] font-black leading-none text-white/[0.05]">
+          <span aria-hidden="true" className="select-none text-[120px] sm:text-[160px] font-black leading-none text-ink/[0.05]">
             404
           </span>
           <div className="softles-eyebrow justify-center -mt-6 mb-3">
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Page not found</span>
           </div>
-          <WordReveal as="h1" className="service-section-heading text-white max-w-2xl">
+          <WordReveal as="h1" className="service-section-heading text-ink max-w-2xl">
             That page has moved, or never shipped.
           </WordReveal>
           <p className="softles-section-copy mx-auto text-center max-w-md">
@@ -48,7 +48,7 @@ export default function NotFound() {
               ["Shopify", "/shopify-development"],
               ["Integrations & Automation", "/integrations-automation"],
             ].map(([label, href]) => (
-              <Link key={href} href={href} className="text-[#C7CCD6] border-b border-[#2E3446] pb-0.5 transition-colors hover:text-white hover:border-[#FF4D57]">
+              <Link key={href} href={href} className="text-mute border-b border-line pb-0.5 transition-colors hover:text-ink hover:border-brand">
                 {label}
               </Link>
             ))}

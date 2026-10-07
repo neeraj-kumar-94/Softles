@@ -13,9 +13,9 @@ export default function IntegrationsCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-2xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-8 sm:p-12 lg:p-20 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.35)]"
+          className="relative overflow-hidden rounded-2xl border border-line bg-gradient-to-b from-panel to-deep p-8 sm:p-12 lg:p-20 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.35)]"
         >
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF4D57]/60 to-transparent" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/60 to-transparent" />
           <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-[radial-gradient(55%_100%_at_50%_0%,rgba(255,255,255,0.05),transparent_70%)]" />
 
           <div className="relative z-10">
@@ -24,7 +24,7 @@ export default function IntegrationsCTA() {
               <span className="softles-eyebrow-text">Start with the audit</span>
             </div>
 
-            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF] mb-4">
+            <WordReveal as="h2" className="service-section-heading text-ink mb-4">
               Tell us what your team<br className="hidden sm:block" /> still does by hand
             </WordReveal>
 

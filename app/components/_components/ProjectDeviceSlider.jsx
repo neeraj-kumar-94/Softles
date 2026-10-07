@@ -132,8 +132,8 @@ export default function ProjectDeviceSlider({ projects }) {
                 }}
                 className={`relative overflow-hidden shrink-0 lg:flex-1 whitespace-nowrap rounded-full px-4 py-1.5 text-xs font-bold border transition-colors ${
                   index === i
-                    ? "border-[#FF4D57] text-white bg-[#FF4D57]/25"
-                    : "bg-transparent border-[#2E3446] text-[#C7CCD6] hover:border-[#FF4D57]/50 hover:text-white"
+                    ? "border-brand text-ink bg-brand/25"
+                    : "bg-transparent border-line text-mute hover:border-brand/50 hover:text-ink"
                 }`}
               >
                 {/* Autoplay progress fill on the active pill */}
@@ -141,7 +141,7 @@ export default function ProjectDeviceSlider({ projects }) {
                   <span
                     key={`${index}-${cycle}`}
                     aria-hidden="true"
-                    className="absolute inset-0 origin-left bg-[#FF4D57] animate-[pillFill_5s_linear_forwards]"
+                    className="absolute inset-0 origin-left bg-brand animate-[pillFill_5s_linear_forwards]"
                   />
                 )}
                 <span className="relative">{p.name}</span>
@@ -167,7 +167,7 @@ export default function ProjectDeviceSlider({ projects }) {
             const live = inView && index === slideIdx ? "show" : "hidden";
             return (
               <div key={p.slug} className="snap-start shrink-0 w-full">
-                <div className="group/card h-full rounded-3xl border border-[#2E3446] bg-gradient-to-b from-[#161C27] to-[#10141D] p-4 sm:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:border-[#FF4D57]/30 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_56px_rgba(0,0,0,0.4)]">
+                <div className="group/card h-full rounded-3xl border border-line bg-gradient-to-b from-panel to-deep p-4 sm:p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_20px_50px_rgba(0,0,0,0.35)] transition-all duration-500 hover:border-brand/30 hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_24px_56px_rgba(0,0,0,0.4)]">
                   <div className="grid lg:grid-cols-[1.4fr_0.85fr] gap-6 lg:gap-8 items-center">
                     {/* Devices on a two-tone stage glow — brightens further on card hover */}
                     <motion.div variants={cardDevice} initial="hidden" animate={live} className="relative">
@@ -199,7 +199,7 @@ export default function ProjectDeviceSlider({ projects }) {
                       {/* Accent rail — anchors the column and ties it to the brand */}
                       <span
                         aria-hidden="true"
-                        className="pointer-events-none absolute left-0 top-1 bottom-1 w-[2px] rounded-full bg-gradient-to-b from-[#FF4D57] via-[#FF4D57]/40 to-[#FF4D57]/5"
+                        className="pointer-events-none absolute left-0 top-1 bottom-1 w-[2px] rounded-full bg-gradient-to-b from-brand via-brand/40 to-brand/5"
                       />
 
                       {/* Ghost slide numeral — brightens on card hover */}
@@ -207,34 +207,34 @@ export default function ProjectDeviceSlider({ projects }) {
                         <motion.span
                           variants={cardItem}
                           aria-hidden="true"
-                          className="pointer-events-none select-none absolute bottom-0 right-0 text-[88px] lg:text-[104px] font-black leading-none text-white/[0.04] transition-colors duration-500 group-hover/card:text-white/[0.07]"
+                          className="pointer-events-none select-none absolute bottom-0 right-0 text-[88px] lg:text-[104px] font-black leading-none text-ink/[0.04] transition-colors duration-500 group-hover/card:text-ink/[0.07]"
                         >
                           {String(slideIdx + 1).padStart(2, "0")}
                         </motion.span>
                       )}
 
                       <motion.div variants={cardItem} className="flex items-center gap-2 mb-3">
-                        <span className="inline-flex items-center rounded-full bg-[#FF4D57]/10 border border-[#FF4D57]/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#FF4D57]">
+                        <span className="inline-flex items-center rounded-full bg-brand/10 border border-brand/30 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand">
                           {p.category}
                         </span>
                         {p.stack && p.stack.toLowerCase() !== p.category.toLowerCase() && (
-                          <span className="text-[11px] uppercase tracking-wider text-[#C7CCD6]/50 font-semibold">
+                          <span className="text-[11px] uppercase tracking-wider text-mute/50 font-semibold">
                             {p.stack}
                           </span>
                         )}
                       </motion.div>
 
-                      <motion.h3 variants={cardItem} className="text-xl md:text-2xl font-extrabold text-white tracking-tight leading-tight">
+                      <motion.h3 variants={cardItem} className="text-xl md:text-2xl font-extrabold text-ink tracking-tight leading-tight">
                         {p.name}
                       </motion.h3>
-                      <motion.p variants={cardItem} className="text-[#C7CCD6]/85 text-sm leading-relaxed mt-2 max-w-xl">
+                      <motion.p variants={cardItem} className="text-mute/85 text-sm leading-relaxed mt-2 max-w-xl">
                         {p.summary}
                       </motion.p>
 
                       {/* Highlights — plain checkmarked list, no boxed pills, so it reads light */}
                       <motion.ul variants={cardItem} className="mt-4 flex flex-col gap-2">
                         {p.highlights.map((h) => (
-                          <li key={h} className="flex items-center gap-2 text-[13px] text-[#C7CCD6] transition-colors duration-300 group-hover/card:text-white/90">
+                          <li key={h} className="flex items-center gap-2 text-[13px] text-mute transition-colors duration-300 group-hover/card:text-ink/90">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FF4D57" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                               <path d="M20 6L9 17l-5-5" />
                             </svg>
@@ -247,10 +247,10 @@ export default function ProjectDeviceSlider({ projects }) {
                       {p.metrics && (
                         <motion.div variants={cardItem} className="mt-4 hidden lg:grid grid-flow-col auto-cols-fr gap-2.5 max-w-sm">
                           {p.metrics.map((m) => (
-                            <div key={m.label} className="relative overflow-hidden rounded-xl border border-[#2E3446] bg-[#161C27] px-2.5 py-2.5 text-center">
-                              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D]" />
-                              <div className="text-base md:text-lg font-black text-white"><RollingNumber value={m.value} play={live === "show"} /></div>
-                              <div className="text-[10px] uppercase tracking-wider text-[#C7CCD6]/60 mt-0.5">{m.label}</div>
+                            <div key={m.label} className="relative overflow-hidden rounded-xl border border-line bg-panel px-2.5 py-2.5 text-center">
+                              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-brand to-brand-2" />
+                              <div className="text-base md:text-lg font-black text-ink"><RollingNumber value={m.value} play={live === "show"} /></div>
+                              <div className="text-[10px] uppercase tracking-wider text-mute/60 mt-0.5">{m.label}</div>
                             </div>
                           ))}
                         </motion.div>
@@ -297,16 +297,16 @@ export default function ProjectDeviceSlider({ projects }) {
             className="mt-5 flex items-center justify-between gap-6"
           >
             <div className="flex items-center gap-4 min-w-0">
-              <span className="text-sm font-bold text-white tabular-nums">
+              <span className="text-sm font-bold text-ink tabular-nums">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <div className="relative h-0.5 w-32 sm:w-48 overflow-hidden rounded-full bg-[#2E3446]">
+              <div className="relative h-0.5 w-32 sm:w-48 overflow-hidden rounded-full bg-line">
                 <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D] transition-all duration-500 ease-out"
+                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-brand to-brand-2 transition-all duration-500 ease-out"
                   style={{ width: `${((index + 1) / Math.max(projects.length, 1)) * 100}%` }}
                 />
               </div>
-              <span className="text-sm font-semibold text-[#7c8394] tabular-nums">
+              <span className="text-sm font-semibold text-dim tabular-nums">
                 {String(projects.length).padStart(2, "0")}
               </span>
             </div>
@@ -315,7 +315,7 @@ export default function ProjectDeviceSlider({ projects }) {
               <button
                 onClick={() => { setCycle((c) => c + 1); slideTo((index - 1 + projects.length) % projects.length); }}
                 aria-label="Previous project"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2E3446] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition-all duration-300 hover:border-brand hover:bg-brand/10"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M19 12H5M11 18l-6-6 6-6" />
@@ -324,7 +324,7 @@ export default function ProjectDeviceSlider({ projects }) {
               <button
                 onClick={() => { setCycle((c) => c + 1); slideTo((index + 1) % projects.length); }}
                 aria-label="Next project"
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2E3446] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/10"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition-all duration-300 hover:border-brand hover:bg-brand/10"
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M13 6l6 6-6 6" />

@@ -44,12 +44,12 @@ export default function FaqSection({ eyebrow = "Common Questions", title, copy, 
               <span className="softles-eyebrow-line" />
               <span className="softles-eyebrow-text">{eyebrow}</span>
             </div>
-            <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">{title}</WordReveal>
+            <WordReveal as="h2" className="service-section-heading text-ink">{title}</WordReveal>
             <p className="softles-section-copy mt-3 max-w-md">{copy}</p>
 
-            <div className="mt-9 rounded-2xl border border-[#2E3446] bg-gradient-to-b from-white/[0.03] to-white/[0.008] p-6">
-              <p className="text-[15px] font-bold text-white">Still have a question?</p>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-[#8b93a5]">
+            <div className="mt-9 rounded-2xl border border-line bg-gradient-to-b from-ink/[0.03] to-ink/[0.008] p-6">
+              <p className="text-[15px] font-bold text-ink">Still have a question?</p>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-dim">
                 We reply fast — usually within a few hours on WhatsApp, always within a day by email.
               </p>
               <Link href="/#book-call" className="softles-primary-button mt-5 !px-6 !py-3 text-xs">
@@ -72,7 +72,7 @@ export default function FaqSection({ eyebrow = "Common Questions", title, copy, 
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.45, delay: idx * 0.06, ease: EASE }}
-                  className="border-b border-[#232a3a] transition-colors duration-300 hover:bg-white/[0.015]"
+                  className="border-b border-[#232a3a] transition-colors duration-300 hover:bg-ink/[0.015]"
                 >
                   <button
                     onClick={() => setOpenIdx(isOpen ? -1 : idx)}
@@ -81,14 +81,14 @@ export default function FaqSection({ eyebrow = "Common Questions", title, copy, 
                   >
                     <span
                       className={`text-xs font-bold tracking-[0.15em] tabular-nums min-w-[26px] transition-colors duration-300 ${
-                        isOpen ? "text-[#FF4D57]" : "text-[#5b6478]"
+                        isOpen ? "text-brand" : "text-dim"
                       }`}
                     >
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                     <h3
                       className={`flex-1 text-[15px] sm:text-base font-semibold leading-snug transition-colors duration-300 ${
-                        isOpen ? "text-white" : "text-[#e8eaf0] group-hover:text-white"
+                        isOpen ? "text-ink" : "text-soft group-hover:text-ink"
                       }`}
                     >
                       {faq.q}
@@ -96,8 +96,8 @@ export default function FaqSection({ eyebrow = "Common Questions", title, copy, 
                     <span
                       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-base font-light transition-all duration-300 ${
                         isOpen
-                          ? "rotate-45 border-transparent bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D] text-white"
-                          : "border-[#2E3446] text-[#C7CCD6] group-hover:border-[#FF4D57]/50"
+                          ? "rotate-45 border-transparent bg-gradient-to-r from-brand to-brand-2 text-ink"
+                          : "border-line text-mute group-hover:border-brand/50"
                       }`}
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
@@ -112,7 +112,7 @@ export default function FaqSection({ eyebrow = "Common Questions", title, copy, 
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="mx-1 mb-6 ml-[46px] sm:ml-[50px] max-w-2xl border-l-2 border-[#FF4D57] pl-4 sm:pl-5 text-sm leading-relaxed text-[#aab0be]">
+                      <p className="mx-1 mb-6 ml-[46px] sm:ml-[50px] max-w-2xl border-l-2 border-brand pl-4 sm:pl-5 text-sm leading-relaxed text-mute">
                         {faq.a}
                       </p>
                     </div>

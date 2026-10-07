@@ -70,7 +70,7 @@ export default function IntegrationsPain() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Sound familiar?</span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             The work nobody budgeted for
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-xl">
@@ -88,12 +88,12 @@ export default function IntegrationsPain() {
               transition={{ duration: 0.5, delay: idx * 0.08, ease: EASE }}
               className="group flex items-start gap-4"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#FF4D57]/30 bg-[#FF4D57]/10 text-[#FF4D57] transition-all duration-300 group-hover:border-[#FF4D57]/60 group-hover:bg-[#FF4D57]/15">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand/30 bg-brand/10 text-brand transition-all duration-300 group-hover:border-brand/60 group-hover:bg-brand/15">
                 {item.icon}
               </span>
               <div>
-                <h3 className="text-base font-bold text-white leading-snug mb-2">{item.title}</h3>
-                <p className="text-[#C7CCD6]/75 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-base font-bold text-ink leading-snug mb-2">{item.title}</h3>
+                <p className="text-mute/75 text-sm leading-relaxed">{item.desc}</p>
               </div>
             </motion.div>
           ))}

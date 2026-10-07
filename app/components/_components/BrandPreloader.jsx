@@ -184,7 +184,7 @@ export default function BrandPreloader({ ready = true, onDone }) {
       ref={rootRef}
       role="status"
       aria-live="polite"
-      className="fixed inset-0 z-[130] flex select-none items-center justify-center bg-[#0E1219] text-center text-white"
+      className="fixed inset-0 z-[130] flex select-none items-center justify-center bg-page text-center text-ink"
     >
       <span className="sr-only">Loading SoftLes</span>
       <div className="relative w-full max-w-[80%] md:max-w-[70%] lg:max-w-[740px] xl:max-w-[900px]">

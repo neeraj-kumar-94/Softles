@@ -137,8 +137,8 @@ function SpotlightCard({ service, idx }) {
       whileTap={{ scale: 0.98 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.25, ease: "easeOut" }}
-      className="group relative block rounded-2xl bg-[#2E3446]/70 p-px cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#FF4D57] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0E1219] active:bg-[#FF4D57]/40 transition-colors"
-      style={{ "--mx": "-200px", "--my": "-200px", "--rx": "8deg", "--ry": "-8deg" }}
+      className="group relative block rounded-2xl bg-line/70 p-px cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-page active:bg-brand/40 transition-colors max-md:sticky max-md:top-[var(--stack-top)]"
+      style={{ "--mx": "-200px", "--my": "-200px", "--rx": "8deg", "--ry": "-8deg", "--stack-top": `${76 + idx * 12}px` }}
     >
       {/* Border glow that follows the cursor */}
       <div
@@ -150,7 +150,7 @@ function SpotlightCard({ service, idx }) {
       />
 
       {/* Card surface */}
-      <div className="relative h-full rounded-[15px] bg-gradient-to-b from-[#161C27] to-[#10141D] p-6 xl:p-7 overflow-hidden">
+      <div className="relative h-full rounded-[15px] bg-gradient-to-b from-panel to-deep p-6 xl:p-7 overflow-hidden">
         {/* Inner light wash following the cursor */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
@@ -174,16 +174,16 @@ function SpotlightCard({ service, idx }) {
                 aria-hidden="true"
                 className="absolute left-1/2 -bottom-2.5 h-2 w-10 -translate-x-1/2 rounded-full bg-black/50 blur-[6px] transition-all duration-500 group-hover:w-12 group-hover:bg-black/60"
               />
-              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-[#FF4D57]/30 bg-gradient-to-b from-[#FF4D57]/15 to-[#FF4D57]/[0.04] text-[#FF4D57] shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_22px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-[#FF4D57]/60 group-hover:text-[#FF6A3D] group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_16px_30px_rgba(0,0,0,0.6)]">
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-brand/30 bg-gradient-to-b from-brand/15 to-brand/[0.04] text-brand shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_22px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-brand/60 group-hover:text-brand-2 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_16px_30px_rgba(0,0,0,0.6)]">
                 {service.icon}
               </div>
             </div>
           </div>
 
-          <h3 className="text-lg xl:text-xl font-bold text-white leading-tight">
+          <h3 className="text-lg xl:text-xl font-bold text-ink leading-tight">
             {service.title}
           </h3>
-          <p className="text-sm text-[#C7CCD6]/75 leading-relaxed mt-2.5 mb-6">
+          <p className="text-sm text-mute/75 leading-relaxed mt-2.5 mb-6">
             {service.description}
           </p>
 
@@ -191,16 +191,16 @@ function SpotlightCard({ service, idx }) {
             {service.items.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-3 py-3 border-t border-[#252B3A] text-sm text-[#C7CCD6] hover:text-white hover:pl-1.5 transition-all duration-300"
+                className="flex items-center gap-3 py-3 border-t border-line text-sm text-mute hover:text-ink hover:pl-1.5 transition-all duration-300"
               >
-                <span className="text-[#FF4D57] text-xs leading-none">◆</span>
+                <span className="text-brand text-xs leading-none">◆</span>
                 {item}
               </li>
             ))}
           </ul>
 
           {/* Link affordance — revealed on hover */}
-          <div className="flex items-center gap-2 pt-4 border-t border-[#252B3A] text-sm font-bold text-[#FF4D57] opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <div className="flex items-center gap-2 pt-4 border-t border-line text-sm font-bold text-brand opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
             {service.linkLabel}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-0.5">
               <path d="M5 12h14M13 6l6 6-6 6" />
@@ -214,22 +214,22 @@ function SpotlightCard({ service, idx }) {
 
 export default function OurServicesSection() {
   return (
-    <section id="services" className="w-full py-12 md:pt-20 md:pb-24 overflow-hidden border-t border-[#2E3446] bg-[#0E1219]">
+    <section id="services" className="w-full py-12 md:pt-20 md:pb-24 overflow-x-clip border-t border-line bg-page">
       <div className="service-page-container mx-auto w-full flex flex-col">
         <div className="flex flex-col">
           <motion.div {...enter(0)} className="softles-eyebrow mb-2">
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Our services</span>
           </motion.div>
-          <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-[#FFFFFF]">
+          <WordReveal as="span" className="mt-2 mb-2 lg:mb-0 service-section-heading text-ink">
             What we do
           </WordReveal>
-          <motion.span {...enter(2)} className="text-sm sm:text-base text-[#C7CCD6] mt-2 max-w-2xl leading-relaxed">
+          <motion.span {...enter(2)} className="text-sm sm:text-base text-mute mt-2 max-w-2xl leading-relaxed">
             Design, development, and the automation that connects it all. Here&apos;s where we spend our time.
           </motion.span>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
+        <div className="mt-12 flex flex-col gap-5 md:grid md:grid-cols-2 lg:grid-cols-4 md:items-stretch">
           {services.map((service, idx) => (
             <SpotlightCard key={service.number} service={service} idx={idx} />
           ))}

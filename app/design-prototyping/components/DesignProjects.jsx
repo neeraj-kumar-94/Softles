@@ -20,7 +20,7 @@ export default function DesignProjects() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Design Work</span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Designs that made it to production
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy max-w-3xl">

@@ -34,7 +34,7 @@ export default function EditorialHero({
   const Art = HERO_ART[variant] || WordPressArt;
 
   return (
-    <section className="eh relative w-full overflow-hidden bg-[#0A0D13] flex items-center min-h-screen lg:min-h-[92vh] pt-28 pb-16 lg:pt-20 lg:pb-0">
+    <section className="eh relative w-full overflow-hidden bg-page flex items-center min-h-screen lg:min-h-[92vh] pt-28 pb-16 lg:pt-20 lg:pb-0">
       {/* swinging spotlight cone + indigo corner glow + film grain */}
       <div aria-hidden="true" className="eh-spot" />
       <div aria-hidden="true" className="eh-spot2" />
@@ -51,13 +51,13 @@ export default function EditorialHero({
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-6">
           {/* Left: copy */}
           <div className="flex-1 max-w-2xl text-center lg:text-left flex flex-col items-center lg:items-start">
-            <div className="eh-r eh-r1 flex items-center gap-3 text-[#8b93a5] text-xs tracking-[0.28em] uppercase">
-              <span aria-hidden="true" className="w-11 h-px bg-[#FF4D57]" />
+            <div className="eh-r eh-r1 flex items-center gap-3 text-dim text-xs tracking-[0.28em] uppercase">
+              <span aria-hidden="true" className="w-11 h-px bg-brand" />
               {eyebrow}
             </div>
 
-            <h1 className="eh-r eh-r2 mt-6 font-bold text-4xl sm:text-6xl lg:text-[44px] xl:text-[52px] leading-[1.08] tracking-[-0.035em] text-white">
-              <span className="font-light text-[#aab0be]">{thin}</span>
+            <h1 className="eh-r eh-r2 mt-6 font-bold text-4xl sm:text-6xl lg:text-[44px] xl:text-[52px] leading-[1.08] tracking-[-0.035em] text-ink">
+              <span className="font-light text-mute">{thin}</span>
               {breakAfterThin ? <br /> : " "}
               <span className="whitespace-nowrap">{name}</span>
               <br />
@@ -68,7 +68,7 @@ export default function EditorialHero({
               </span>
             </h1>
 
-            <p className="eh-r eh-r3 mt-6 text-[#8f97a8] text-base leading-[1.75] max-w-md">
+            <p className="eh-r eh-r3 mt-6 text-dim text-base leading-[1.75] max-w-md">
               {sub}
             </p>
 
@@ -79,7 +79,7 @@ export default function EditorialHero({
               </Link>
               <a
                 href="#projects"
-                className="text-[#C7CCD6] text-sm font-semibold border-b border-[#2E3446] pb-1 transition-colors duration-300 hover:text-white hover:border-[#FF4D57]"
+                className="text-mute text-sm font-semibold border-b border-line pb-1 transition-colors duration-300 hover:text-ink hover:border-brand"
               >
                 {projectsLabel}
               </a>

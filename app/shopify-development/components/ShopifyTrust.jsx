@@ -68,7 +68,7 @@ export default function ShopifyTrust() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">Platform Advantages</span>
           </div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Why Leading Brands Choose Shopify
           </WordReveal>
           <p className="softles-section-copy max-w-xl">
@@ -78,8 +78,8 @@ export default function ShopifyTrust() {
           {/* Partner framing — we build with Shopify, as partners, not resellers */}
           <div className="mt-6 inline-flex items-center gap-2.5 rounded-full border border-[#36F4A4]/30 bg-[#36F4A4]/[0.07] px-5 py-2.5">
             <FaShopify className="w-5 h-5 text-[#36F4A4] shrink-0" />
-            <span className="text-sm text-[#C7CCD6]">
-              <span className="font-bold text-white">SoftLes × Shopify</span> — we work as a Shopify partner agency, building on the platform every day.
+            <span className="text-sm text-mute">
+              <span className="font-bold text-ink">SoftLes × Shopify</span> — we work as a Shopify partner agency, building on the platform every day.
             </span>
           </div>
         </div>
@@ -95,14 +95,14 @@ export default function ShopifyTrust() {
               transition={{ duration: 0.5, delay: idx * 0.08, ease: EASE }}
               className="group flex items-start gap-4"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#FF4D57]/30 bg-[#FF4D57]/10 text-[#FF4D57] transition-all duration-300 group-hover:border-[#FF4D57]/60 group-hover:bg-[#FF4D57]/15">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-brand/30 bg-brand/10 text-brand transition-all duration-300 group-hover:border-brand/60 group-hover:bg-brand/15">
                 {item.icon}
               </span>
               <div>
-                <h3 className="text-base font-bold text-white leading-snug mb-2">
+                <h3 className="text-base font-bold text-ink leading-snug mb-2">
                   {item.title}
                 </h3>
-                <p className="text-[#C7CCD6]/75 text-sm leading-relaxed">
+                <p className="text-mute/75 text-sm leading-relaxed">
                   {item.desc}
                 </p>
               </div>

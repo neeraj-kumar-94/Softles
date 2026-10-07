@@ -5,7 +5,7 @@ export default function StepConnector({ lit }) {
   return (
     <span
       aria-hidden="true"
-      className="hidden xl:grid absolute top-1/2 -right-5 translate-x-1/2 -translate-y-1/2 h-7 w-7 place-items-center rounded-full border bg-[#0E1219] transition-all duration-500"
+      className="hidden xl:grid absolute top-1/2 -right-5 translate-x-1/2 -translate-y-1/2 h-7 w-7 place-items-center rounded-full border bg-page transition-all duration-500"
       style={{
         zIndex: 60,
         borderColor: lit ? "rgba(255,77,87,0.55)" : "#2E3446",

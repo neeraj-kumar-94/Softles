@@ -92,7 +92,7 @@ export default function IntegrationsServices() {
             <span className="softles-eyebrow-line" />
             <span className="softles-eyebrow-text">What we build</span>
           </motion.div>
-          <WordReveal as="h2" className="service-section-heading text-[#FFFFFF]">
+          <WordReveal as="h2" className="service-section-heading text-ink">
             Four kinds of plumbing
           </WordReveal>
           <motion.p {...enter(2)} className="softles-section-copy">

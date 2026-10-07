@@ -3,7 +3,7 @@
 // It mirrors the real layout so nothing jumps when the content lands.
 export default function PageSkeleton({ label }) {
   return (
-    <div className="min-h-screen w-full bg-[#0E1219] pt-28 pb-16" role="status" aria-label={label ? `Loading ${label}` : "Loading"}>
+    <div className="min-h-screen w-full bg-page pt-28 pb-16" role="status" aria-label={label ? `Loading ${label}` : "Loading"}>
       <div className="service-page-container">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="max-w-2xl">
@@ -30,7 +30,7 @@ export default function PageSkeleton({ label }) {
 
         <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {[0, 1, 2, 3].map((i) => (
-            <div key={i} className="rounded-2xl border border-[#2E3446] bg-[#12161f] p-5">
+            <div key={i} className="rounded-2xl border border-line bg-deep p-5">
               <div className="sk h-10 w-10 rounded-xl" />
               <div className="sk mt-4 h-4 w-3/4 rounded" />
               <div className="sk mt-2.5 h-3 w-full rounded" />

@@ -13,7 +13,18 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
   const [hovered, setHovered] = useState(false);
   // Latches the first time the device is on screen, so the wake-up plays once.
   const [woken, setWoken] = useState(false);
+  // Phones only get the phone mockup — the desktop frame is too small to read
+  // there, so the toggle is hidden and the device is forced to mobile.
+  const [smallScreen, setSmallScreen] = useState(false);
   const ref = useRef(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const apply = () => setSmallScreen(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -30,14 +41,15 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
   }, []);
 
   const p = pages[page];
-  const isDesktop = device === "desktop";
+  const effDevice = smallScreen ? "mobile" : device;
+  const isDesktop = effDevice === "desktop";
   const img = isDesktop ? p.d : p.m;
   const ratio = isDesktop ? p.dH / p.dW : p.mH / p.mW;
   // Consistent pace: scroll time scales with page height, but stays snappy.
   const dur = Math.min(26, Math.max(8, Math.round(ratio * 4)));
   // Remount the image whenever the view/page/device changes so the
   // scroll animation always restarts cleanly from the top.
-  const imgKey = `${device}-${page}-${inView}`;
+  const imgKey = `${effDevice}-${page}-${inView}`;
 
   return (
     <div ref={ref} className="w-full">
@@ -150,19 +162,19 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
           row expanded always (otherwise there'd be no way to reach it on mobile). */}
       <div className="grid transition-[grid-template-rows] duration-300 ease-out grid-rows-[1fr] lg:grid-rows-[0fr] lg:group-hover/card:grid-rows-[1fr]">
         <div className="overflow-hidden">
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#2E3446] opacity-100 lg:opacity-0 lg:group-hover/card:opacity-100 transition-opacity duration-200">
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-line opacity-100 lg:opacity-0 lg:group-hover/card:opacity-100 transition-opacity duration-200">
         {/* Desktop/Mobile toggle — sliding highlight tracks the active option exactly,
             since both buttons occupy equal grid columns. */}
-        <div className="relative inline-grid grid-cols-2 rounded-full border border-[#2E3446] bg-[#161C27] p-1">
+        <div className="relative hidden md:inline-grid grid-cols-2 rounded-full border border-line bg-panel p-1">
           <span
             aria-hidden="true"
-            className="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-gradient-to-r from-[#FF4D57] to-[#FF6A3D] shadow-[0_2px_12px_rgba(255,77,87,0.45)] transition-transform duration-300 ease-out"
+            className="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-gradient-to-r from-brand to-brand-2 shadow-[0_2px_12px_rgba(255,77,87,0.45)] transition-transform duration-300 ease-out"
             style={{ transform: device === "mobile" ? "translateX(100%)" : "translateX(0%)" }}
           />
           <button
             onClick={() => setDevice("desktop")}
             className={`relative z-10 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold transition-colors duration-300 ${
-              device === "desktop" ? "text-white" : "text-[#C7CCD6] hover:text-white"
+              device === "desktop" ? "text-ink" : "text-mute hover:text-ink"
             }`}
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="2" y="4" width="20" height="13" rx="2" /><path d="M8 21h8M12 17v4" /></svg>
@@ -171,7 +183,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
           <button
             onClick={() => setDevice("mobile")}
             className={`relative z-10 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold transition-colors duration-300 ${
-              device === "mobile" ? "text-white" : "text-[#C7CCD6] hover:text-white"
+              device === "mobile" ? "text-ink" : "text-mute hover:text-ink"
             }`}
           >
             <svg width="10" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><rect x="6" y="2" width="12" height="20" rx="2" /><path d="M11 18h2" /></svg>
@@ -182,8 +194,8 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
         {pages.length > 1 && (
           <div className="flex items-center gap-2">
             {/* Page label with clickable dots — jump straight to any page */}
-            <div className="flex items-center gap-2.5 rounded-full border border-[#2E3446] bg-[#161C27] pl-3 pr-2.5 py-1.5">
-              <span className="text-[11px] font-semibold text-[#C7CCD6] whitespace-nowrap">{p.label}</span>
+            <div className="flex items-center gap-2.5 rounded-full border border-line bg-panel pl-3 pr-2.5 py-1.5">
+              <span className="text-[11px] font-semibold text-mute whitespace-nowrap">{p.label}</span>
               <div className="flex items-center gap-1">
                 {pages.map((pg, i) => (
                   <button
@@ -195,7 +207,7 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
                   >
                     <span
                       className={`block h-1.5 rounded-full transition-all duration-300 ${
-                        i === page ? "w-4 bg-[#FF4D57]" : "w-1.5 bg-[#3a4150] hover:bg-[#5a6479]"
+                        i === page ? "w-4 bg-brand" : "w-1.5 bg-line-2 hover:bg-[#5a6479]"
                       }`}
                     />
                   </button>
@@ -205,14 +217,14 @@ export default function DeviceFrame({ project, defaultDevice = "desktop", tall =
             <button
               onClick={() => setPage((page - 1 + pages.length) % pages.length)}
               aria-label="Previous page"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#2E3446] bg-[#161C27] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/15 hover:scale-105"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-panel text-ink transition-all duration-300 hover:border-brand hover:bg-brand/15 hover:scale-105"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
             </button>
             <button
               onClick={() => setPage((page + 1) % pages.length)}
               aria-label="Next page"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#2E3446] bg-[#161C27] text-white transition-all duration-300 hover:border-[#FF4D57] hover:bg-[#FF4D57]/15 hover:scale-105"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-panel text-ink transition-all duration-300 hover:border-brand hover:bg-brand/15 hover:scale-105"
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6" /></svg>
             </button>
