@@ -42,7 +42,7 @@ function MemberCard({ member, lit, innerRef }) {
             {member.cutout && !member.hoverImage && (
               <div
                 aria-hidden="true"
-                className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,#FF6A3D_0%,#FF4D57_38%,#5A1F2A_78%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+                className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,#FF6A3D_0%,#FF4D57_38%,#5A1F2A_78%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)] [transform:translateZ(0)] will-change-[clip-path]"
               />
             )}
             <Image
@@ -51,7 +51,7 @@ function MemberCard({ member, lit, innerRef }) {
               fill
               sizes="240px"
               draggable={false}
-              className="object-cover object-top"
+              className="object-cover object-top [transform:translateZ(0)]"
             />
             {member.hoverImage && (
               <>
@@ -60,7 +60,7 @@ function MemberCard({ member, lit, innerRef }) {
                     wipe, covering the studio-dark base photo underneath. */}
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,#FF6A3D_0%,#FF4D57_38%,#5A1F2A_78%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+                  className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_100%,#FF6A3D_0%,#FF4D57_38%,#5A1F2A_78%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)] [transform:translateZ(0)] will-change-[clip-path]"
                 />
                 <Image
                   src={member.hoverImage}
@@ -69,7 +69,7 @@ function MemberCard({ member, lit, innerRef }) {
                   sizes="240px"
                   loading="eager"
                   draggable={false}
-                  className="object-cover object-top [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+                  className="object-cover object-top [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)] [transform:translateZ(0)] will-change-[clip-path]"
                 />
               </>
             )}

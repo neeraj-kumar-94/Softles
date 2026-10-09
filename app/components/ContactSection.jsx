@@ -62,19 +62,19 @@ export default function ContactSection() {
 
                 <div className="mt-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-stretch">
                     {/* Photo panel */}
-                    <motion.div variants={fadeIn("left")} initial="hidden" whileInView="show" viewport={viewportOnce} className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[#2E3446] bg-gradient-to-br from-[#222A3B] to-[#12161F] min-h-[320px] sm:min-h-[400px] lg:min-h-0">
+                    <motion.div variants={fadeIn("left")} initial="hidden" whileInView="show" viewport={viewportOnce} className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-line bg-gradient-to-br from-raise to-deep min-h-[320px] sm:min-h-[400px] lg:min-h-0">
                         <Image
                             src="/shakti-hover.webp"
                             alt="Shakti Singh, Strategy Lead at SoftLes"
                             fill
                             sizes="(max-width: 1024px) 100vw, 40vw"
-                            className="object-cover object-top"
+                            className="object-cover object-top [transform:translateZ(0)]"
                         />
                         {/* Sits between the two portraits: opaque, so as it wipes up it covers the
                             resting pose while the second one arrives on top of it. */}
                         <div
                             aria-hidden="true"
-                            className="absolute inset-0 bg-[radial-gradient(125%_85%_at_50%_72%,#FF6A3D_0%,#FF4D57_34%,#7A2530_70%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+                            className="absolute inset-0 bg-[radial-gradient(125%_85%_at_50%_72%,#FF6A3D_0%,#FF4D57_34%,#7A2530_70%,#2A1519_100%)] [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)] [transform:translateZ(0)] will-change-[clip-path]"
                         />
                         {/* The second portrait is a cut-out too, so it arrives on the red
                             rather than bringing its own studio backdrop with it. */}
@@ -85,13 +85,13 @@ export default function ContactSection() {
                             fill
                             sizes="(max-width: 1024px) 100vw, 40vw"
                             loading="eager"
-                            className="object-cover object-top [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)]"
+                            className="object-cover object-top [clip-path:inset(100%_0_0_0)] group-hover:[clip-path:inset(0_0_0_0)] [transition:clip-path_600ms_cubic-bezier(0.65,0,0.35,1)] [transform:translateZ(0)] will-change-[clip-path]"
                         />
-                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[#0B0F16] via-[#0B0F16]/60 to-transparent transition-colors duration-500 group-hover:from-[#2A1014] group-hover:via-[#2A1014]/55" />
+                        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-deep via-deep/60 to-transparent transition-colors duration-500 group-hover:from-[#2A1014] group-hover:via-[#2A1014]/55" />
                         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                            <p className="text-white font-bold text-lg leading-tight">Shakti Singh</p>
-                            <p className="text-[#C7CCD6] text-sm mt-0.5">Strategy Lead</p>
-                            <p className="text-[#C7CCD6]/80 text-xs sm:text-sm mt-2 leading-relaxed">
+                            <p className="text-ink transition-colors duration-500 group-hover:text-white font-bold text-lg leading-tight">Shakti Singh</p>
+                            <p className="text-mute transition-colors duration-500 group-hover:text-[#C7CCD6] text-sm mt-0.5">Strategy Lead</p>
+                            <p className="text-mute/80 transition-colors duration-500 group-hover:text-[#C7CCD6]/80 text-xs sm:text-sm mt-2 leading-relaxed">
                                 Your message lands directly with me — no sales reps, no hand-offs.
                             </p>
                         </div>
@@ -113,16 +113,16 @@ export default function ContactSection() {
                                 <h3 className="text-xl font-bold text-ink">Send us a message</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <input type="text" placeholder="Your name *" value={name} onChange={(e) => setName(e.target.value)} required
-                                        className="bg-deep border border-line focus:border-brand focus:outline-none text-ink placeholder-dim rounded-lg px-4 py-3 text-sm" />
+                                        className="bg-page border border-line hover:border-line-2 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 transition-colors duration-200 text-ink placeholder-dim rounded-lg px-4 py-3 text-sm" />
                                     <input type="email" placeholder="Email *" value={email} onChange={(e) => setEmail(e.target.value)} required
-                                        className="bg-deep border border-line focus:border-brand focus:outline-none text-ink placeholder-dim rounded-lg px-4 py-3 text-sm" />
+                                        className="bg-page border border-line hover:border-line-2 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 transition-colors duration-200 text-ink placeholder-dim rounded-lg px-4 py-3 text-sm" />
                                 </div>
                                 <input type="tel" placeholder="Phone / WhatsApp (optional)" value={phone} onChange={(e) => setPhone(e.target.value)}
-                                    className="bg-deep border border-line focus:border-brand focus:outline-none text-ink placeholder-dim rounded-lg px-4 py-3 text-sm" />
+                                    className="bg-page border border-line hover:border-line-2 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 transition-colors duration-200 text-ink placeholder-dim rounded-lg px-4 py-3 text-sm" />
                                 <textarea placeholder="Tell us about your project…" rows={4} value={message} onChange={(e) => setMessage(e.target.value)}
-                                    className="bg-deep border border-line focus:border-brand focus:outline-none text-ink placeholder-dim rounded-lg px-4 py-3 text-sm resize-none" />
+                                    className="bg-page border border-line hover:border-line-2 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15 transition-colors duration-200 text-ink placeholder-dim rounded-lg px-4 py-3 text-sm resize-none" />
                                 <button type="submit" disabled={!valid || status === "sending"}
-                                    className="softles-primary-button w-full justify-center mt-1 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0">
+                                    className="softles-primary-button w-full justify-center mt-1 disabled:opacity-80 disabled:saturate-[0.7] disabled:shadow-none disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:brightness-100">
                                     {status === "sending" ? "Sending…" : "Send message"}
                                 </button>
                                 {status === "error" && (

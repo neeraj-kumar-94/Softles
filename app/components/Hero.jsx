@@ -21,11 +21,11 @@ const DECK_MS = 850; // one shared move for every card when the deck turns
 // the newer projects that don't have a logo asset yet.
 const railItems = [
     { src: "/logo_1.png", invert: true },
-    { src: "/logo_2.png", invert: true },
+    { src: "/logo_2.png", lightSrc: "/logo_2_light.png" },
     { src: "/ssf_global.png", chip: true },
-    { src: "/logo_3.png", invert: true },
+    { src: "/logo_3.png", lightSrc: "/logo_3_light.png" },
     { src: "/logo_4.png" },
-    { src: "/logo_5.png" },
+    { src: "/logo_5.png", lightSrc: "/logo_5_light.png" },
     { src: "/logo_6.png" },
     { name: "Umang Aatray" },
     { src: "/logo_7.png" },
@@ -438,13 +438,25 @@ export default function Hero() {
                                         {railItems.map((item, idx) => (
                                             <div key={idx} className="group flex h-12 shrink-0 items-center justify-center">
                                                 {item.src ? (
-                                                    <Image
-                                                        src={item.src}
-                                                        alt={`Client Logo ${idx + 1}`}
-                                                        width={120}
-                                                        height={40}
-                                                        className={`${item.chip ? "h-9 md:h-10" : "h-7 md:h-8"} ${item.invert ? "rail-invert" : ""} w-auto opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105`}
-                                                    />
+                                                    <>
+                                                        <Image
+                                                            src={item.src}
+                                                            alt={`Client Logo ${idx + 1}`}
+                                                            width={120}
+                                                            height={40}
+                                                            className={`${item.chip ? "h-9 md:h-10" : "h-7 md:h-8"} ${item.invert ? "rail-invert" : ""} ${item.lightSrc ? "theme-dark-only" : ""} w-auto opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105`}
+                                                        />
+                                                        {item.lightSrc && (
+                                                            <Image
+                                                                src={item.lightSrc}
+                                                                alt=""
+                                                                aria-hidden="true"
+                                                                width={120}
+                                                                height={40}
+                                                                className="theme-light-only h-7 md:h-8 w-auto opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105"
+                                                            />
+                                                        )}
+                                                    </>
                                                 ) : (
                                                     <span className="whitespace-nowrap text-[15px] md:text-base font-bold tracking-wide text-soft opacity-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-105">
                                                         {item.name}

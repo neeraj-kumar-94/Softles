@@ -94,7 +94,8 @@ export default function WorkShowcase() {
       if (!track) return;
       const next = (indexRef.current + 1) % projects.length;
       const slide = track.children[next];
-      if (slide) track.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
+      const padLeft = parseFloat(getComputedStyle(track).paddingLeft) || 0;
+      if (slide) track.scrollTo({ left: slide.offsetLeft - padLeft, behavior: "smooth" });
     }, AUTOPLAY_MS);
     return () => clearTimeout(id);
   }, [index, cycle, paused]);
@@ -163,7 +164,7 @@ export default function WorkShowcase() {
             setPaused(false);
             setCycle((c) => c + 1);
           }}
-          className="flex gap-8 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-8 overflow-x-auto overflow-y-hidden snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 -mx-6 scroll-pl-6 pt-4 -mt-4 pb-16 -mb-14"
         >
           {shown.map((p, slideIdx) => {
             const live = inView && index === slideIdx ? "show" : "hidden";

@@ -172,9 +172,9 @@ function SpotlightCard({ service, idx }) {
               {/* Ground shadow that deepens on hover */}
               <div
                 aria-hidden="true"
-                className="absolute left-1/2 -bottom-2.5 h-2 w-10 -translate-x-1/2 rounded-full bg-black/50 blur-[6px] transition-all duration-500 group-hover:w-12 group-hover:bg-black/60"
+                className="absolute left-1/2 -bottom-2.5 h-2 w-10 -translate-x-1/2 rounded-full bg-[var(--svc-ground)] blur-[6px] transition-all duration-500 group-hover:w-12"
               />
-              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-brand/30 bg-gradient-to-b from-brand/15 to-brand/[0.04] text-brand shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_10px_22px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:border-brand/60 group-hover:text-brand-2 group-hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_16px_30px_rgba(0,0,0,0.6)]">
+              <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-brand/30 bg-gradient-to-b from-brand/15 to-brand/[0.04] text-brand shadow-[var(--svc-icon-shadow)] transition-all duration-500 group-hover:border-brand/60 group-hover:text-brand-2 group-hover:shadow-[var(--svc-icon-shadow-hover)]">
                 {service.icon}
               </div>
             </div>

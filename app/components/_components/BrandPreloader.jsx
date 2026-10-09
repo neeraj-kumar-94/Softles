@@ -14,11 +14,11 @@ const FILL_MS = 3000; // .to(progress, { duration: 3, ease: "none" })
 const OUT_COUNTER_MS = 250; // .to(loadingProgress, { duration: .25 })
 const OUT_SOLID_AT = 250; // then the plate fills solid
 const OUT_SOLID_MS = 500; // gsap default duration
-const OUT_BLOW_AT = 700; // "<90%" of that 0.5s tween
-const OUT_BLOW_MS = 1000; // .to(logo, { duration: 1, opacity: 0, scale })
-const OUT_FADE_AT = 1700;
-const OUT_FADE_MS = 500;
-const OUT_TOTAL = 2200;
+const OUT_BLOW_AT = 550; // starts inside the solid tween, so it reads as one beat
+const OUT_BLOW_MS = 550; // quick, eased blow-up — the long linear zoom felt sluggish
+const OUT_FADE_AT = 850;
+const OUT_FADE_MS = 400;
+const OUT_TOTAL = 1250;
 // Longest we will wait at 100% for the route to commit. If a click is
 // intercepted somewhere downstream the navigation never lands, and without this
 // cap the overlay would sit on a scroll-locked page forever.
@@ -139,9 +139,10 @@ export default function BrandPreloader({ ready = true, onDone }) {
         }
         if (boxRef.current) {
           const k = clamp01((e - OUT_BLOW_AT) / OUT_BLOW_MS);
+          const ke = k * k * (3 - 2 * k); // smoothstep: settles fast without the linear drag
           const target = (window.innerWidth / (widthPx || 1)) * (isDesktop ? 2 : 1.5);
-          boxRef.current.style.transform = `scale(${1 + (target - 1) * k})`;
-          boxRef.current.style.opacity = String(1 - k);
+          boxRef.current.style.transform = `scale(${1 + (target - 1) * ke})`;
+          boxRef.current.style.opacity = String(1 - ke);
         }
         if (rootRef.current) {
           rootRef.current.style.opacity = String(1 - clamp01((e - OUT_FADE_AT) / OUT_FADE_MS));

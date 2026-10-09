@@ -44,7 +44,7 @@ export default function WorkDetail({ params }) {
     <>
       <main className="bg-page overflow-x-clip sm:pt-[60px]">
         {/* Hero: everything centred on one axis, the build on a lit stage below */}
-        <section className="softles-section-primary relative overflow-hidden">
+        <section className="softles-section-primary relative overflow-hidden pt-5 md:pt-8">
           {/* Beam behind the headline, so the eye starts at the top of the column */}
           <div
             aria-hidden="true"
@@ -52,7 +52,7 @@ export default function WorkDetail({ params }) {
           />
           <div className="service-page-container relative">
             {/* Breadcrumb sits where a breadcrumb belongs: top-left, right under the header */}
-            <Reveal index={0} className="mt-5 mb-8 sm:-mt-6 sm:mb-10 md:-mt-12 md:mb-12">
+            <Reveal index={0} className="mb-6 md:mb-8">
               <Link href="/work" className="inline-flex items-center gap-2 text-sm text-mute hover:text-brand transition-colors">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
                 All work
